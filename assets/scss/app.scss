@@ -1,0 +1,21 @@
+.only-desktop {
+  display: none;
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1090px;
+  }
+
+  .only-mobile {
+    display: none !important;
+    border: solid;
+  }
+
+  .only-desktop {
+    display: block;
+  }
+}
+
+body {
+  background: #ccc;
+}
