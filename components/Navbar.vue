@@ -2,12 +2,11 @@
   <b-navbar toggleable="custom" type="light" variant="">
     <div class="container">
       <b-navbar-brand href="#top">
-        <span class="d-block" style="margin-top: -20px;">LINGO</span>
-        <!-- <img src="https://placekitten.com/g/30/30" alt="Kitten"> -->
+        <img src="/assets/img/logo@1X.png" alt="Kitten" />
       </b-navbar-brand>
 
       <div class="only-mobile switch-lang-mobile">
-        Idioma
+        <SwitchLanguageButton />
       </div>
 
       <b-navbar-toggle target="nav-collapse">
@@ -26,18 +25,27 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <div class="mr-3 only-desktop">Idioma</div>
-          <div class="whatsapp-component">
-            <div class="circle">
-              <font-awesome-icon :icon="['fab', 'whatsapp']" />
-            </div>
-            <div class="rectangle"></div>
+          <div class="mr-3 only-desktop">
+            <SwitchLanguageButton />
           </div>
+          <WhatsappButton />
         </b-navbar-nav>
       </b-collapse>
     </div>
   </b-navbar>
 </template>
+
+<script>
+import WhatsappButton from '~/components/WhatsappButton'
+import SwitchLanguageButton from '~/components/SwitchLanguageButton'
+
+export default {
+  components: {
+    WhatsappButton,
+    SwitchLanguageButton
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .navbar {
@@ -53,10 +61,10 @@
 
     .navbar-brand {
       margin-right: 79px;
-      width: 146px;
-      height: 51px;
-      font-size: 47px;
-      border: solid;
+      width: 180px;
+      height: 55px;
+      background: url('~assets/img/logo@1X.png') no-repeat center;
+      background-size: contain;
     }
 
     .switch-lang-mobile {
@@ -65,35 +73,6 @@
       justify-content: flex-end;
       padding-right: 20px;
     }
-
-    // .whatsapp-component {
-    //   display: flex;
-    //   .circle {
-    //     width: 54px;
-    //     height: 54px;
-    //     background: #3da773;
-    //     border-radius: 50%;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: center;
-    //     color: #fff;
-    //     font-size: 30px;
-    //     -webkit-box-shadow: -9px 11px 28px -12px rgba(0, 0, 0, 0.65);
-    //     -moz-box-shadow: -9px 11px 28px -12px rgba(0, 0, 0, 0.65);
-    //     box-shadow: -9px 11px 28px -12px rgba(0, 0, 0, 0.65);
-
-    //     svg {
-    //       margin-right: -3px;
-    //     }
-    //   }
-
-    //   .rectangle {
-    //     width: 54px;
-    //     height: 54px;
-    //     background: #3da773;
-    //     border-radius: 50%;
-    //   }
-    // }
 
     .navbar-toggler {
       border: none;
@@ -113,6 +92,10 @@
 
     .navbar-nav {
       align-items: flex-end;
+
+      a.nav-link {
+        color: #fff;
+      }
 
       @media (min-width: 1200px) {
         align-items: center;
