@@ -2,7 +2,7 @@
   <b-navbar toggleable="custom" type="light" variant="">
     <div class="container">
       <b-navbar-brand href="#top">
-        <img src="/assets/img/logo@1X.png" alt="Kitten" />
+        <img src="/assets/img/logo@2X.png" alt="Kitten" />
       </b-navbar-brand>
 
       <div class="only-mobile switch-lang-mobile">
@@ -28,15 +28,16 @@
           <div class="mr-3 only-desktop">
             <SwitchLanguageButton />
           </div>
-          <WhatsappButton />
+          <WhatsappButton class="only-desktop" />
         </b-navbar-nav>
       </b-collapse>
     </div>
+    <WhatsappButton class="only-mobile" />
   </b-navbar>
 </template>
 
 <script>
-import WhatsappButton from '~/components/WhatsappButton'
+import WhatsappButton from './WhatsappButton'
 import SwitchLanguageButton from '~/components/SwitchLanguageButton'
 
 export default {
@@ -49,6 +50,8 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
+  max-width: 1090px;
+  margin: 0 auto;
   z-index: 2;
 
   .container {
@@ -84,7 +87,6 @@ export default {
         position: absolute;
         top: 100px;
         width: 300px;
-        border: solid;
         background: #fff;
         right: 72px;
       }
@@ -105,9 +107,9 @@ export default {
 
   @media (min-width: 1200px) {
     &.navbar-expand-custom {
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: flex-start;
+      // flex-direction: row;
+      // flex-wrap: nowrap;
+      // justify-content: flex-start;
     }
     &.navbar-expand-custom .navbar-nav {
       flex-direction: row;

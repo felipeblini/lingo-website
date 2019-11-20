@@ -11,11 +11,15 @@
     </div>
 
     <div class="hero-background">
-      <figure class="hero-svg-mask">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 564 350.33">
+      <figure>
+        <svg
+          class="svg-ballon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 2066.02 1378.36"
+        >
           <defs>
             <linearGradient
-              id="myGradient"
+              id="ballonGradient"
               x1="147.2"
               y1="240.01"
               x2="473.88"
@@ -28,30 +32,185 @@
               <stop offset="0.83" stop-color="#dda135" />
               <stop offset="0.99" stop-color="#e1a831" />
             </linearGradient>
+            <style>
+              .cls-1 {
+                fill: #e1a831;
+                opacity: 0.8;
+              }
+            </style>
             <mask id="shape-mask">
               <path
-                fill="url(#myGradient)"
-                d="M0,0S34.73,209.15,172.64,208.5c0,0,33.33-2,83-13.73,0,0,114.38-22.87,136.6,35.3,0,0,19.61,61.43-50.33,120.26,0,0,201-85.62,222.08-138.57V0Z"
+                class="cls-1"
+                d="M154.8,0H2066V848.79c-171,256-763.38,476.29-763.38,476.29,240.4-202.2,173-413.39,173-413.39-76.38-200-469.55-121.32-469.55-121.32-170.75,40.44-285.33,47.18-285.33,47.18-474,2.25-593.44-716.69-593.44-716.69L109.56,0Z"
               />
             </mask>
           </defs>
 
           <path
-            fill="url(#myGradient)"
-            d="M0,0S34.73,209.15,172.64,208.5c0,0,33.33-2,83-13.73,0,0,114.38-22.87,136.6,35.3,0,0,19.61,61.43-50.33,120.26,0,0,201-85.62,222.08-138.57V0Z"
+            fill="url(#ballonGradient)"
+            d="M154.8,0H2066V848.79c-171,256-763.38,476.29-763.38,476.29,240.4-202.2,173-413.39,173-413.39-76.38-200-469.55-121.32-469.55-121.32-170.75,40.44-285.33,47.18-285.33,47.18-474,2.25-593.44-716.69-593.44-716.69L109.56,0Z"
           />
 
           <image
             width="100%"
             height="100%"
-            preserveAspectRatio="xMidYMid slice"
             xlink:href="~assets/img/img_principal-m.jpg"
             mask="url(#shape-mask)"
             style="opacity: 0.3"
           ></image>
         </svg>
+
+        <svg class="svg-border" viewBox="0 0 2066.02 1378.36">
+          <defs>
+            <style>
+              .ballon-border {
+                fill: none;
+                stroke: #a54761;
+                stroke-miterlimit: 10;
+                stroke-width: 5px;
+              }
+            </style>
+          </defs>
+          <title>contorno</title>
+          <path
+            class="ballon-border"
+            d="M2079.76,868.18c-147.28,268.26-843.8,495.9-843.8,495.9,277.48-277.32,222.45-439.66,222.45-439.66C1413,736.47,964.22,800.53,964.22,800.53c-179.7,41.3-300.29,48.18-300.29,48.18C165,851,39.36,116.86,39.36,116.86L16.56-15.56"
+          />
+        </svg>
       </figure>
     </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
   </div>
 </template>
 
@@ -61,17 +220,15 @@ export default {}
 
 <style lang="scss">
 .hero-text {
-  border: solid;
   color: white;
   z-index: 1;
   position: relative;
-  top: 200px;
+  top: 215px;
 
   display: flex;
   justify-content: center;
 
   @media (min-width: 1200px) {
-    top: 300px;
     justify-content: flex-end;
   }
 
@@ -88,15 +245,34 @@ export default {}
   }
 
   h2 {
-    font-size: 60px;
+    font-size: 104px;
     font-weight: 800;
   }
 }
 
 .hero-background {
-  border: solid;
   position: absolute;
   top: 0px;
   width: 100%;
+  overflow: hidden;
+
+  svg.svg-ballon {
+    // width: calc(100vw + 50px);
+    // left: -50px;
+    // position: relative;
+
+    margin-left: -10%;
+    margin-top: -3%;
+  }
+
+  svg.svg-border {
+    margin-top: -3%;
+    width: calc(100% + 10%);
+    left: 0;
+    position: absolute;
+    top: 0;
+    margin-left: -10%;
+    z-index: -1;
+  }
 }
 </style>

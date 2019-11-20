@@ -1,5 +1,5 @@
 .only-desktop {
-  display: none;
+  visibility: hidden !important;
 }
 @media (min-width: 1200px) {
   .container {
@@ -7,15 +7,15 @@
   }
 
   .only-mobile {
-    display: none !important;
+    visibility: hidden !important;
     border: solid;
   }
 
   .only-desktop {
-    display: block;
+    visibility: visible !important;
   }
 }
 
 body {
-  background: #EFEAE4;
+  background: #EFEAE4 url('~assets/img/bg-linhas@1X.jpg') 0 -40px no-repeat;
 }
