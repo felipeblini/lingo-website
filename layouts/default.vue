@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import NavBar from '~/components/Navbar'
+import NavBar from '~/components/NavBar'
 
 export default {
   components: {
@@ -16,7 +16,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-@import '~/assets/scss/app.scss';
-</style>

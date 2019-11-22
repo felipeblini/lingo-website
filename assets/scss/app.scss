@@ -1,5 +1,26 @@
+@font-face {
+  font-family: IdealistSans;
+  src: url('~assets/fonts/Idealist Sans.otf');
+}
+@font-face {
+  font-family: IdealistSansLight;
+  src: url('~assets/fonts/IdealistSansLight.otf');
+}
+@font-face {
+  font-family: UniSansHeavy;
+  src: url('~assets/fonts/Uni Sans Heavy.otf');
+}
+
+body {
+  background: #efeae4 url('~assets/img/bg-linhas@1X.jpg') 0 -40px no-repeat;
+  // background: #EFEAE4 url('~assets/img/bglingo.svg') 0 -40px no-repeat;
+
+  font-family: 'IdealistSansLight', Arial, Helvetica, sans-serif;
+}
+
 .only-desktop {
   visibility: hidden !important;
+  position: absolute;
 }
 @media (min-width: 1200px) {
   .container {
@@ -8,14 +29,37 @@
 
   .only-mobile {
     visibility: hidden !important;
-    border: solid;
+    position: absolute;
   }
 
   .only-desktop {
     visibility: visible !important;
+    position: initial;
   }
 }
 
-body {
-  background: #EFEAE4 url('~assets/img/bg-linhas@1X.jpg') 0 -40px no-repeat;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'UniSansHeavy', Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+
+  &.white {
+    color: $white;
+  }
+
+  &.yellow {
+    color: $yellow;
+  }
+
+  &.gray {
+    color: $gray;
+  }
+
+  &.pink {
+    color: $pink;
+  }
 }

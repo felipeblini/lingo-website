@@ -1,9 +1,10 @@
 <template>
   <b-navbar toggleable="custom" type="light" variant="">
     <div class="container">
-      <b-navbar-brand href="#top">
-        <img src="/assets/img/logo@2X.png" alt="Kitten" />
-      </b-navbar-brand>
+      <b-navbar-brand href="#top"
+        >Lingo Interpretação, tradução simultânea, transcrição, revisão e media
+        trainning</b-navbar-brand
+      >
 
       <div class="only-mobile switch-lang-mobile">
         <SwitchLanguageButton />
@@ -37,8 +38,8 @@
 </template>
 
 <script>
-import WhatsappButton from './WhatsappButton'
-import SwitchLanguageButton from '~/components/SwitchLanguageButton'
+import SwitchLanguageButton from './SwitchLanguageButton'
+import WhatsappButton from '~/components/WhatsappButton'
 
 export default {
   components: {
@@ -55,19 +56,35 @@ export default {
   z-index: 2;
 
   .container {
-    padding-top: 34px;
+    padding-top: 3px;
+
+    @media (min-width: 600px) {
+      padding-top: 20px;
+    }
 
     @media (min-width: 1200px) {
+      padding-top: 34px;
       align-items: flex-end;
       flex-wrap: nowrap;
     }
 
     .navbar-brand {
-      margin-right: 79px;
-      width: 180px;
+      margin-right: 20px;
+      width: 77px;
+      text-indent: -9999px;
+      overflow: hidden;
+
+      @media (min-width: 600px) {
+        width: 127px;
+      }
+
+      @media (min-width: 1200px) {
+        width: 180px;
+      }
+
       height: 55px;
-      background: url('~assets/img/logo@1X.png') no-repeat center;
-      background-size: contain;
+
+      @include lingo-logo($white);
     }
 
     .switch-lang-mobile {
@@ -97,6 +114,10 @@ export default {
 
       a.nav-link {
         color: #fff;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
 
       @media (min-width: 1200px) {

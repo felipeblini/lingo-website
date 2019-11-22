@@ -1,0 +1,8 @@
+@mixin lingo-logo($color) {
+  -webkit-mask: url('~assets/img/logo.svg') no-repeat 50% 50%;
+  mask: url('~assets/img/logo.svg') no-repeat 50% 50%;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+  background-color: #{$color};
+}
