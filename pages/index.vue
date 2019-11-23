@@ -1,27 +1,35 @@
 <template>
   <div>
-    <LingoHero />
-    <div class="know-lingo">
-      <h3 class="gray">Conheça a</h3>
-      <div class="lingo-brand"></div>
-    </div>
+    <LingoHero @onHeightCalculated="onHeroHeightCalculated" />
+    <LingoMiniBio :marginTop="miniBioMarginTop" />
   </div>
 </template>
 
 <script>
 import LingoHero from '~/components/Hero'
+import LingoMiniBio from '~/components/Minibio'
 
 export default {
   components: {
-    LingoHero
+    LingoHero,
+    LingoMiniBio
+  },
+  data() {
+    return {
+      heroHeight: 0
+    }
+  },
+  computed: {
+    miniBioMarginTop() {
+      return ((this.heroHeight * 44) / 100) * -1
+    }
+  },
+  methods: {
+    onHeroHeightCalculated(height) {
+      this.heroHeight = height
+    }
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.lingo-brand {
-  @include lingo-logo($gray);
-  width: 200px;
-  height: 80px;
-}
-</style>
+<style lang="scss" scoped></style>

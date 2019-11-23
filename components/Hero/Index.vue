@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="hero-container">
     <div class="hero-text container">
       <div>
         <h1>LOREM IPSUM</h1>
@@ -11,7 +11,7 @@
     </div>
 
     <div class="hero-background">
-      <figure>
+      <figure ref="hero-ballon-figure">
         <svg
           class="svg-ballon"
           xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,6 @@
               gradientUnits="userSpaceOnUse"
             >
               <stop offset="0" stop-color="#ef4865" />
-              <stop offset="0.18" stop-color="#f0545c" />
               <stop offset="0.5" stop-color="#f47544" />
               <stop offset="0.92" stop-color="#fba91e" />
               <stop offset="1" stop-color="#fcb316" />
@@ -83,7 +82,27 @@
 </template>
 
 <script>
-export default {}
+export default {
+  mounted() {
+    const emitHeroHeight = () => {
+      const container = this.$refs['hero-container']
+      const ballon = this.$refs['hero-ballon-figure']
+
+      const navBarHeight = 91
+
+      container.style.height = `${ballon.clientHeight - navBarHeight}px`
+      this.$emit('onHeightCalculated', ballon.clientHeight - navBarHeight)
+    }
+
+    emitHeroHeight()
+
+    window.onresize = () => {
+      setTimeout(() => {
+        emitHeroHeight()
+      }, 200)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -95,27 +114,68 @@ export default {}
 
   display: flex;
   justify-content: center;
-  top: 65px;
+
+  @media (min-width: 730px) {
+    top: 35px;
+  }
+
+  @media (min-width: 992px) {
+    top: 65px;
+  }
 
   > div {
     width: 100%;
     text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+
+    @media (min-width: 992px) {
+      align-items: flex-end;
+    }
 
     h1 {
-      font-size: 87px;
+      font-size: 29px;
+
+      @media (min-width: 540px) {
+        font-size: 49px;
+      }
+
+      @media (min-width: 880px) {
+        font-size: 75px;
+      }
+
+      @media (min-width: 992px) {
+        font-size: 87px;
+      }
+
       font-weight: 800;
     }
 
     p {
-      margin-top: -20px;
-      font-size: 26px;
+      font-size: 10px;
+      display: block;
+      width: 250px;
+      margin: 0 auto;
+      margin-top: -10px;
+
+      @media (min-width: 540px) {
+        font-size: 14px;
+      }
+
+      @media (min-width: 880px) {
+        font-size: 20px;
+        width: 500px;
+      }
+
+      @media (min-width: 992px) {
+        font-size: 26px;
+        width: auto;
+        margin: unset;
+      }
     }
   }
 
-  @media (min-width: 991px) {
+  @media (min-width: 992px) {
     > div {
       h1 {
         font-size: 102px;
