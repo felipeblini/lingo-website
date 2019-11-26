@@ -1,7 +1,7 @@
 <template>
   <div ref="lingo-minibio" class="container lingo-minibio">
     <div>
-      <h3 class="gray">Conheça a</h3>
+      <h3 class="gray minibio-title">Conheça a</h3>
       <div class="minibio-brand"></div>
     </div>
     <div class="minibio-text">
@@ -37,24 +37,6 @@ export default {
   flex-direction: column;
   align-items: flex-start;
 
-  h3 {
-    font-size: 25px;
-    margin: 0px 0 -12px;
-  }
-
-  .minibio-brand {
-    @include lingo-logo($gray);
-    width: 201px;
-    height: 72px;
-    margin-left: -14px;
-  }
-
-  .minibio-text {
-    padding-left: 0px;
-    font-size: 0.8rem;
-    padding-right: 50%;
-  }
-
   @media (min-width: 411px) {
     padding-top: 38px;
   }
@@ -68,50 +50,92 @@ export default {
     align-items: center;
     padding-top: 30px;
     padding-left: 30px;
+  }
 
-    h3 {
-      font-size: 38px;
-      margin: 0px 0 -23px;
+  @media (min-width: 1200px) {
+    padding-top: 0;
+  }
+
+  h3.minibio-title {
+    font-size: 8vw;
+
+    @media (min-width: 430px) {
+      font-size: 7vw;
     }
 
-    .minibio-brand {
+    @media (min-width: 530px) {
+      font-size: 38px;
+    }
+
+    margin: 0px 0 -12px;
+
+    @media (min-width: 560px) {
+      margin: 0px 0 -18px;
+    }
+
+    @media (min-width: 1200px) {
+      font-size: 53px;
+      margin: 0px 0 -21px;
+    }
+  }
+
+  .minibio-brand {
+    @include lingo-logo($gray);
+    width: 269px;
+    height: 97px;
+    margin-left: -18px;
+
+    @media (min-width: 411px) {
+      width: 196px;
+      height: 72px;
+      margin-left: -14px;
+    }
+
+    @media (min-width: 477px) {
+      width: 239px;
+      height: 90px;
+      margin-left: -14px;
+    }
+
+    @media (min-width: 560px) {
+      width: 305px;
+      height: 106px;
+      margin-left: -23px;
+    }
+
+    @media (min-width: 992px) {
       @include lingo-logo($gray);
       width: 327px;
       height: 136px;
       margin-left: -26px;
     }
 
-    .minibio-text {
-      padding-right: 35%;
-      padding-left: 15px;
-      font-size: 0.9rem;
-    }
-  }
-
-  @media (min-width: 1200px) {
-    padding-top: 0;
-
-    h3 {
-      font-size: 53px;
-      margin: 0px 0 -21px;
-    }
-
-    .minibio-brand {
+    @media (min-width: 1200px) {
       @include lingo-logo($gray);
       width: 370px;
       height: 147px;
       margin-left: -29px;
     }
+  }
 
-    .minibio-text {
+  .minibio-text {
+    padding-left: 0px;
+    font-size: 0.8rem;
+    padding-right: 50%;
+
+    @media (min-width: 992px) {
+      padding-right: 35%;
+      padding-left: 15px;
+      font-size: 0.9rem;
+    }
+
+    @media (min-width: 1200px) {
       padding-right: 35%;
       padding-left: 20px;
       font-size: 1rem;
     }
-  }
 
-  @media (min-width: 1800px) {
-    .minibio-text {
+    @media (min-width: 1800px) {
       padding-right: 30%;
       padding-left: 30px;
     }

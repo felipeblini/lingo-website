@@ -90,6 +90,8 @@ export default {
 
       const navBarHeight = 91
 
+      console.log({ ballon })
+
       container.style.height = `${ballon.clientHeight - navBarHeight}px`
       this.$emit('onHeightCalculated', ballon.clientHeight - navBarHeight)
     }

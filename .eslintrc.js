@@ -19,6 +19,8 @@ module.exports = {
   rules: {
     'vue/max-attributes-per-line': 'off',
     'no-console': 'off',
-    'no-tabs': 'off'
+    'no-tabs': 'off',
+    'space-before-function-paren': 'off',
+    'arrow-parens': 'off'
   }
 }

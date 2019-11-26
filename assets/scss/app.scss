@@ -14,8 +14,13 @@
 body {
   background: #efeae4;
   @media(min-width: 600px) {
-    background: #efeae4 url('~assets/img/bg-linhas@1X.jpg') 0 -40px no-repeat;
-    // background: #EFEAE4 url('~assets/img/bglingo.svg') 0 -40px no-repeat;
+    background: #efeae4 url('~assets/img/bg-linhas-sm@1X.jpg') no-repeat;
+  }
+  @media (min-width: 900px) {
+    background: #efeae4 url('~assets/img/bg-linhas-md@1X.jpg') no-repeat;
+  }
+  @media (min-width: 1200px) {
+    background: #efeae4 url('~assets/img/bg-linhas-lg@1X.jpg') no-repeat;
   }
 
   font-family: 'IdealistSansLight', Arial, Helvetica, sans-serif;
