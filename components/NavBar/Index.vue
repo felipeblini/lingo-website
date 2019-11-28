@@ -1,10 +1,10 @@
 <template>
   <b-navbar toggleable="custom" type="light" variant="">
     <div class="container">
-      <b-navbar-brand href="#top"
-        >Lingo Interpretação, tradução simultânea, transcrição, revisão e media
-        trainning</b-navbar-brand
-      >
+      <b-navbar-brand href="#top">
+        Lingo Interpretação, tradução simultânea, transcrição, revisão e media
+        trainning
+      </b-navbar-brand>
 
       <div class="only-mobile switch-lang-mobile">
         <SwitchLanguageButton />
@@ -33,6 +33,7 @@
         </b-navbar-nav>
       </b-collapse>
     </div>
+
     <WhatsappButton class="only-mobile" />
   </b-navbar>
 </template>

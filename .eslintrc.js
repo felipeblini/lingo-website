@@ -21,6 +21,8 @@ module.exports = {
     'no-console': 'off',
     'no-tabs': 'off',
     'space-before-function-paren': 'off',
-    'arrow-parens': 'off'
+    'arrow-parens': 'off',
+    'vue/singleline-html-element-content-newline': 'off',
+    'vue/html-indent': 16
   }
 }

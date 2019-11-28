@@ -37,7 +37,7 @@
                 opacity: 0.8;
               }
             </style>
-            <mask id="shape-mask">
+            <mask id="shape-mask-hero">
               <path
                 class="cls-1"
                 d="M154.8,0H2066V848.79c-171,256-763.38,476.29-763.38,476.29,240.4-202.2,173-413.39,173-413.39-76.38-200-469.55-121.32-469.55-121.32-170.75,40.44-285.33,47.18-285.33,47.18-474,2.25-593.44-716.69-593.44-716.69L109.56,0Z"
@@ -51,10 +51,20 @@
           />
 
           <image
+            v-if="isMobile"
             width="100%"
             height="100%"
-            xlink:href="~assets/img/img_principal-m.jpg"
-            mask="url(#shape-mask)"
+            xlink:href="./img_principal-mobile.jpg"
+            mask="url(#shape-mask-hero)"
+            style="opacity: 0.3"
+          ></image>
+
+          <image
+            v-else
+            width="100%"
+            height="100%"
+            xlink:href="./img_principal-desktop.jpg"
+            mask="url(#shape-mask-hero)"
             style="opacity: 0.3"
           ></image>
         </svg>
@@ -83,25 +93,34 @@
 
 <script>
 export default {
+  data() {
+    return {
+      isMobile: false
+    }
+  },
   mounted() {
+    const container = this.$refs['hero-container']
+
     const emitHeroHeight = () => {
-      const container = this.$refs['hero-container']
       const ballon = this.$refs['hero-ballon-figure']
 
       const navBarHeight = 91
+      const heroHeight = ballon.clientHeight - navBarHeight
 
-      console.log({ ballon })
-
-      container.style.height = `${ballon.clientHeight - navBarHeight}px`
-      this.$emit('onHeightCalculated', ballon.clientHeight - navBarHeight)
+      container.style.height = `${heroHeight}px`
+      this.$emit('onHeightCalculated', heroHeight)
     }
 
     emitHeroHeight()
 
-    window.onresize = () => {
+    window.addEventListener('resize', () => {
       setTimeout(() => {
         emitHeroHeight()
       }, 200)
+    })
+
+    if (window.innerWidth <= 600) {
+      this.isMobile = true
     }
   }
 }

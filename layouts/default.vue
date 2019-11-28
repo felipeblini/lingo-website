@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a href="#" id="top" />
+    <a id="top" href="#" />
     <lingo-navbar />
 
     <nuxt />

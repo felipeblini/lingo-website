@@ -15,10 +15,15 @@
 <script>
 export default {
   props: {
-    marginTop: Number
+    heroHeight: Number
+  },
+  computed: {
+    miniBioMarginTop() {
+      return ((this.heroHeight * 44) / 100) * -1
+    }
   },
   watch: {
-    marginTop(value) {
+    miniBioMarginTop(value) {
       this.$refs['lingo-minibio'].style.marginTop = `${value}px`
       this.$refs['lingo-minibio'].style.visibility = 'visible'
     }
@@ -53,7 +58,7 @@ export default {
   }
 
   @media (min-width: 1200px) {
-    padding-top: 0;
+    padding-top: 36px;
   }
 
   h3.minibio-title {
@@ -77,10 +82,16 @@ export default {
       font-size: 53px;
       margin: 0px 0 -21px;
     }
+
+    @media (min-width: 1800px) {
+      font-size: 59px;
+      margin: 0px 0 -28px;
+    }
   }
 
   .minibio-brand {
     @include lingo-logo($gray);
+
     width: 269px;
     height: 97px;
     margin-left: -18px;
@@ -104,40 +115,49 @@ export default {
     }
 
     @media (min-width: 992px) {
-      @include lingo-logo($gray);
       width: 327px;
       height: 136px;
       margin-left: -26px;
     }
 
     @media (min-width: 1200px) {
-      @include lingo-logo($gray);
       width: 370px;
       height: 147px;
       margin-left: -29px;
+    }
+
+    @media (min-width: 1800px) {
+      width: 438px;
+      height: 173px;
+      margin-left: -33px;
     }
   }
 
   .minibio-text {
     padding-left: 0px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     padding-right: 50%;
+    position: relative;
 
     @media (min-width: 992px) {
       padding-right: 35%;
-      padding-left: 15px;
-      font-size: 0.9rem;
     }
 
     @media (min-width: 1200px) {
-      padding-right: 35%;
-      padding-left: 20px;
+      padding-right: 38%;
+      padding-left: 0;
+    }
+
+    @media (min-width: 1300px) {
+      padding-right: 38%;
+      padding-left: 15px;
       font-size: 1rem;
     }
 
     @media (min-width: 1800px) {
-      padding-right: 30%;
-      padding-left: 30px;
+      padding-right: 26%;
+      padding-left: 11px;
+      font-size: 1.1rem;
     }
   }
 }
