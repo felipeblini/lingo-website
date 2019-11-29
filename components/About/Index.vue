@@ -23,7 +23,7 @@
           </mask>
         </defs>
 
-        <image xlink:href="./equipe_xl.jpg" mask="url(#shape-mask-about)" />
+        <image xlink:href="./img/equipe_xl.jpg" mask="url(#shape-mask-about)" />
 
         />
       </svg>
@@ -32,7 +32,7 @@
     <img
       v-if="isMobile"
       class="about-prancheta-mobile"
-      src="./prancheta.svg"
+      src="./img/prancheta.svg"
       alt="Traduzindo simultaneamente"
     />
 
@@ -40,7 +40,7 @@
       <img
         v-if="!isMobile"
         class="about-prancheta-desktop"
-        src="./prancheta-unido.svg"
+        src="./img/prancheta-unido.svg"
         alt="Traduzindo simultaneamente"
       />
 
@@ -49,12 +49,19 @@
           <h2 class="about-title pink">Quem Somos</h2>
         </div>
       </div>
+
+      <LingoTeam />
     </div>
   </div>
 </template>
 
 <script>
+import LingoTeam from './Team'
+
 export default {
+  components: {
+    LingoTeam
+  },
   data() {
     return {
       isMobile: false
@@ -69,13 +76,13 @@ export default {
     }
   },
   mounted() {
-    const mobileBreakpoint = 570
+    const mobileBreakpoint = 571
 
-    this.isMobile = document.documentElement.clientWidth <= mobileBreakpoint
+    this.isMobile = document.documentElement.clientWidth < mobileBreakpoint
 
     window.addEventListener('resize', () => {
       setTimeout(() => {
-        this.isMobile = document.documentElement.clientWidth <= mobileBreakpoint
+        this.isMobile = document.documentElement.clientWidth < mobileBreakpoint
       }, 200)
     })
   }
@@ -173,7 +180,7 @@ export default {
 
     display: none;
 
-    @media (min-width: 570px) {
+    @media (min-width: 571px) {
       display: block;
     }
 

@@ -51,21 +51,52 @@
           />
 
           <image
-            v-if="isMobile"
+            v-if="isImageLoading"
             width="100%"
             height="100%"
-            xlink:href="./img_principal-mobile.jpg"
+            xlink:href="./img_principal-blur.jpg"
             mask="url(#shape-mask-hero)"
             style="opacity: 0.3"
           ></image>
 
           <image
-            v-else
+            v-if="viewportWidth <= 768"
+            width="100%"
+            height="100%"
+            xlink:href="./img_principal-phone.jpg"
+            mask="url(#shape-mask-hero)"
+            style="opacity: 0.3"
+            @load="isImageLoading = false"
+          ></image>
+
+          <image
+            v-if="viewportWidth > 768 && viewportWidth <= 992"
+            width="100%"
+            height="100%"
+            xlink:href="./img_principal-tablet.jpg"
+            mask="url(#shape-mask-hero)"
+            style="opacity: 0.3"
+            @load="isImageLoading = false"
+          ></image>
+
+          <image
+            v-if="viewportWidth > 992 && viewportWidth <= 2200"
             width="100%"
             height="100%"
             xlink:href="./img_principal-desktop.jpg"
             mask="url(#shape-mask-hero)"
             style="opacity: 0.3"
+            @load="isImageLoading = false"
+          ></image>
+
+          <image
+            v-if="viewportWidth > 2200"
+            width="100%"
+            height="100%"
+            xlink:href="./img_principal-desktop-xl.jpg"
+            mask="url(#shape-mask-hero)"
+            style="opacity: 0.3"
+            @load="isImageLoading = false"
           ></image>
         </svg>
 
@@ -95,10 +126,12 @@
 export default {
   data() {
     return {
-      isMobile: false
+      isImageLoading: true,
+      viewportWidth: 0
     }
   },
   mounted() {
+    console.log(this.viewportWidth > 992 && this.viewportWidth <= 2300)
     const container = this.$refs['hero-container']
 
     const emitHeroHeight = () => {
@@ -111,6 +144,10 @@ export default {
       this.$emit('onHeightCalculated', heroHeight)
     }
 
+    this.viewportWidth = window.innerWidth
+
+    console.log({ viewport: this.viewportWidth })
+
     emitHeroHeight()
 
     window.addEventListener('resize', () => {
@@ -118,10 +155,6 @@ export default {
         emitHeroHeight()
       }, 200)
     })
-
-    if (window.innerWidth <= 600) {
-      this.isMobile = true
-    }
   }
 }
 </script>
@@ -256,7 +289,7 @@ export default {
 
 .hero-background {
   position: absolute;
-  top: 0px;
+  top: -5px;
   width: 100%;
   overflow: hidden;
 
