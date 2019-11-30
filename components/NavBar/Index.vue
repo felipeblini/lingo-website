@@ -147,5 +147,25 @@ export default {
       display: none;
     }
   }
+
+  .only-desktop {
+    visibility: hidden !important;
+    position: absolute;
+  }
+  @media (min-width: 1200px) {
+    .container {
+      max-width: 1090px;
+    }
+
+    .only-mobile {
+      visibility: hidden !important;
+      position: absolute;
+    }
+
+    .only-desktop {
+      visibility: visible !important;
+      position: initial;
+    }
+  }
 }
 </style>

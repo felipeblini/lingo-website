@@ -8,7 +8,7 @@
         <defs>
           <mask id="shape-mask-about">
             <path
-              fill="#aeaeae"
+              fill="#EFEAE4"
               d="M0.1,812.7L1.4,0h1918.9v561.2c-12.4,4.4-24.9,9.4-37.8,13.2c-35.3,10.5-70.6,21.5-106.3,30.5
 	c-31.1,7.8-62.7,13.5-94.2,19.6c-19.9,3.8-39.9,7-59.9,9.9c-15.5,2.2-31.1,3.5-46.7,5.2c-15.9,1.7-31.8,3.3-47.7,4.9
 	c-4.9,0.5-9.9,0.8-14.8,1c-16.1,0.7-32.1,1.4-48.2,2c-11.6,0.4-23.2,0.8-34.8,1c-27.8,0.4-55.6,0.8-83.3,1c-12.3,0-24.6-0.5-36.8-1
@@ -52,6 +52,8 @@
 
       <LingoTeam />
     </div>
+
+    <img class="only-mobile" src="./img/quebra-cabeca.svg" alt="" />
   </div>
 </template>
 
@@ -101,6 +103,12 @@ export default {
 
   @media (min-width: 2500px) {
     padding-top: 160px;
+  }
+
+  .only-mobile {
+    @media (min-width: 571px) {
+      display: none;
+    }
   }
 
   .about-title-wrapper {

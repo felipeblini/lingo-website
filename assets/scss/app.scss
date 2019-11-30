@@ -12,39 +12,8 @@
 }
 
 body {
-  background: #efeae4;
-  @media(min-width: 600px) {
-    background: #efeae4 url('~assets/img/bg-linhas-sm@1X.jpg') no-repeat;
-  }
-  @media (min-width: 900px) {
-    background: #efeae4 url('~assets/img/bg-linhas-md@1X.jpg') no-repeat;
-  }
-  @media (min-width: 1200px) {
-    background: #efeae4 url('~assets/img/bg-linhas-lg@1X.jpg') no-repeat;
-  }
-
   font-family: 'IdealistSansLight', Arial, Helvetica, sans-serif;
   color: #606060;
-}
-
-.only-desktop {
-  visibility: hidden !important;
-  position: absolute;
-}
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1090px;
-  }
-
-  .only-mobile {
-    visibility: hidden !important;
-    position: absolute;
-  }
-
-  .only-desktop {
-    visibility: visible !important;
-    position: initial;
-  }
 }
 
 h1,

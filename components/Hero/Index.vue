@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div class="hero-background">
+    <div class="hero-ballon">
       <figure ref="hero-ballon-figure">
         <svg
           class="svg-ballon"
@@ -160,7 +160,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// hero-text
+// ballon -->
+.hero-ballon {
+  position: absolute;
+  top: -5px;
+  width: 100%;
+  overflow: hidden;
+
+  svg.svg-ballon {
+    margin-left: -10%;
+    margin-top: -3%;
+  }
+
+  svg.svg-border {
+    margin-top: -3%;
+    width: calc(100% + 10%);
+    left: 0;
+    position: absolute;
+    top: 0;
+    margin-left: -10%;
+    z-index: -1;
+  }
+} // <-- ballon
+
+// hero-text -->
 .hero-text {
   color: white;
   z-index: 1;
@@ -285,27 +308,5 @@ export default {
   @media (min-width: 2000px) {
     top: 177px;
   }
-} // hero-text
-
-.hero-background {
-  position: absolute;
-  top: -5px;
-  width: 100%;
-  overflow: hidden;
-
-  svg.svg-ballon {
-    margin-left: -10%;
-    margin-top: -3%;
-  }
-
-  svg.svg-border {
-    margin-top: -3%;
-    width: calc(100% + 10%);
-    left: 0;
-    position: absolute;
-    top: 0;
-    margin-left: -10%;
-    z-index: -1;
-  }
-} // backgroung
+} // <-- hero-text
 </style>

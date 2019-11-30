@@ -1,6 +1,6 @@
 <template>
   <div class="lingo-team row mt-3">
-    <div class="col offset-lg-1 member">
+    <div class="col member">
       <div class="d-flex align-items-center member-header">
         <img class="member-flag" src="./img/flag-eng.png" alt="" />
         <h4 class="member-name black">Jan Onoszco</h4>
@@ -40,29 +40,55 @@ export default {}
 <style lang="scss" scoped>
 .lingo-team {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-between;
+
+  @media (min-width: 442px) {
+    flex-direction: row;
+  }
+
+  @media (min-width: 470px) {
+    width: 100%;
+    margin: 0;
+  }
+
+  @media (min-width: 571px) {
+    padding-top: 68%;
+  }
+
+  @media (min-width: 576px) {
+    padding-top: 38%;
+  }
+
+  @media (min-width: 1200px) {
+    padding-top: 49%;
+    padding-right: 77px;
+    padding-left: 77px;
+  }
+
+  @media (min-width: 1500px) {
+    padding-top: 54%;
+  }
 
   .member {
-    max-width: 220px;
-    border: solid;
-    margin-bottom: 10px;
+    margin-bottom: 19px;
+    max-width: 255px;
 
-    @media (min-width: 768px) {
-      margin-right: 10px;
+    @media (min-width: 442px) and (max-width: 554px) {
+      max-width: 224px;
     }
 
     @media (min-width: 992px) {
-      max-width: initial;
+      max-width: 315px;
     }
 
     .member-header {
       .member-flag {
-        width: 50px;
-        margin-right: 5px;
+        width: 81px;
 
-        @media (min-width: 992px) {
-          width: 81px;
-          margin-right: 10px;
+        @media (min-width: 571px) and (max-width: 767px) {
+          width: 47px;
         }
       }
 
@@ -74,12 +100,28 @@ export default {}
         font-size: 23px;
         line-height: 21px;
 
+        @media (min-width: 571px) {
+          height: 39px;
+          font-size: 18px;
+          line-height: 16px;
+        }
+
+        @media (min-width: 768px) {
+          height: 73px;
+          font-size: 26px;
+          line-height: 24px;
+        }
+
         @media (min-width: 992px) {
           height: 81px;
           font-size: 36px;
           line-height: 30px;
         }
       }
+    }
+
+    .member-minibio {
+      font-size: 14px;
     }
   }
 }

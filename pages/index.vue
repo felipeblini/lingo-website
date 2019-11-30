@@ -1,8 +1,10 @@
 <template>
   <div>
-    <LingoHero @onHeightCalculated="onHeroHeightCalculated" />
-    <LingoMiniBio :hero-height="heroHeight" />
-    <LingoAbout :hero-height="heroHeight" />
+    <div class="about-group-wrapper">
+      <LingoHero @onHeightCalculated="onHeroHeightCalculated" />
+      <LingoMiniBio :hero-height="heroHeight" />
+      <LingoAbout :hero-height="heroHeight" />
+    </div>
   </div>
 </template>
 
@@ -30,4 +32,22 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.about-group-wrapper {
+  background: #efeae4;
+  background-repeat: no-repeat;
+
+  @media (min-width: 571px) {
+    background-image: url('~assets/img/bg-linhas-sm@1X.jpg'),
+      linear-gradient(to bottom, #efeae4 0%, #efeae4 68%, #fff 80%, #fff 100%);
+  }
+  @media (min-width: 900px) {
+    background-image: url('~assets/img/bg-linhas-md@1X.jpg'),
+      linear-gradient(to bottom, #efeae4 0%, #efeae4 68%, #fff 80%, #fff 100%);
+  }
+  @media (min-width: 1200px) {
+    background-image: url('~assets/img/bg-linhas-lg@1X.jpg'),
+      linear-gradient(to bottom, #efeae4 0%, #efeae4 68%, #fff 80%, #fff 100%);
+  }
+}
+</style>
