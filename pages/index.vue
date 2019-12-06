@@ -70,7 +70,7 @@
                         alt=""
                       />
                     </div>
-                    <h4 class="service-title">Traduções</h4>
+                    <h4 class="service-title big">Traduções</h4>
                   </div>
                 </div>
               </div>
@@ -255,14 +255,12 @@ $service-box-big-width: 300px;
           background: rgba($color: #fff, $alpha: 0.8);
 
           .service-icon {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            text-align: center;
+            padding: 10px;
 
             img.icon {
               &.big {
-                width: 200px;
+                width: 130px;
               }
 
               &.small {
@@ -272,14 +270,14 @@ $service-box-big-width: 300px;
           }
 
           h4.service-title {
-            color: black;
-            padding: 0px 12px;
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
             text-align: center;
-            justify-content: center;
+            color: black;
             font-size: 20px;
+            padding: 5px;
+
+            &.big {
+              font-size: 40px;
+            }
           }
         }
 
@@ -287,6 +285,7 @@ $service-box-big-width: 300px;
           .service-info {
             display: flex;
             flex-direction: column;
+            justify-content: center;
           }
         }
       }
