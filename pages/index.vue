@@ -112,6 +112,13 @@
                 </div>
               </div>
             </div>
+
+            <div class="line only-desktop-flex quote">
+              <p>
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit
+                exercitationem distinctio earum eaque ab nisi vitae"
+              </p>
+            </div>
           </div>
 
           <!--right or top collumn-->
@@ -185,14 +192,14 @@ export default {
 
 <style lang="scss" scoped>
 $service-box-width: 100px;
-$service-box-big-width: 300px;
+$service-box-big-width: 150px;
 
 $services-box-padding: 8px;
 
 @mixin only-desktop($display) {
   display: none !important;
 
-  @media (min-width: 571px) {
+  @media (min-width: 1080px) {
     display: #{$display} !important;
   }
 }
@@ -200,8 +207,16 @@ $services-box-padding: 8px;
 @mixin only-mobile($display) {
   display: #{$display} !important;
 
-  @media (min-width: 571px) {
+  @media (min-width: 1080px) {
     display: none !important;
+  }
+}
+
+@mixin only-md-screen($display) {
+  display: none !important;
+
+  @media (min-width: 768px) {
+    display: #{$display} !important;
   }
 }
 
@@ -214,6 +229,7 @@ $services-box-padding: 8px;
 }
 
 .lingo-services-component {
+  border: solid 3px red;
   position: relative;
 
   &::before {
@@ -224,77 +240,91 @@ $services-box-padding: 8px;
     top: 10%;
     background: url('~assets/designs/curva.svg') no-repeat;
 
-    @include only-desktop(block);
+    @include only-md-screen(block);
 
-    left: -300px;
+    left: -240px;
 
-    @media (min-width: 1200px) {
+    @media (min-width: 930px) {
       left: -200px;
     }
 
-    @media (min-width: 1560px) {
+    @media (min-width: 1080px) {
+      left: -300px;
+    }
+
+    @media (min-width: 1250px) {
+      left: -200px;
+    }
+
+    @media (min-width: 1600px) {
       left: 0;
     }
   }
 
   &::after {
     content: '';
-    width: 471px;
-    height: 1415px;
-    position: absolute;
-    right: 0;
+
+    width: 284px;
+    height: 816px;
     top: 63%;
+
+    @media (min-width: 1200px) {
+      width: 471px;
+      height: 1415px;
+      top: 63%;
+    }
+
+    position: absolute;
     background: url('~assets/designs/curva02.svg') no-repeat;
 
-    @include only-desktop(block);
+    @include only-md-screen(block);
+
+    // right: -100px;
+
+    right: 0;
   }
 
   .services-container {
-    border: solid 3px goldenrod;
     position: relative;
     z-index: 2;
     display: flex;
     justify-content: center;
     margin-top: 50px;
 
-    @media (min-width: 571px) {
+    @media (min-width: 1400px) {
       padding-top: 290px;
     }
 
     .boxes-collumns-wrapper {
-      border: solid 3px red;
       display: flex;
       flex-direction: column-reverse;
 
-      @media (min-width: 571px) {
+      @media (min-width: 1080px) {
         flex-direction: row;
-        width: calc(#{$service-box-width * 2} * 4);
+        width: calc(
+          #{$service-box-width * 2} * 4 + #{$services-box-padding * 4}
+        );
       }
 
       .line {
-        border: solid 3px steelblue;
         display: flex;
         flex-wrap: wrap;
 
         margin-top: 1px;
 
-        width: calc(
-          (#{$service-box-width * 1.5} * 2) + #{$services-box-padding}
-        );
+        width: calc((#{$service-box-width * 1.5} * 2));
 
         @media (min-width: 430px) {
-          width: calc(
-            (#{$service-box-width * 1.8} * 2) + #{$services-box-padding}
-          );
+          width: calc((#{$service-box-width * 1.8} * 2));
         }
 
         @media (min-width: 500px) {
-          width: calc(
-            (#{$service-box-width * 2} * 2) + #{$services-box-padding}
-          );
+          width: calc((#{$service-box-width * 2} * 2));
         }
 
-        @media (min-width: 571px) {
+        @media (min-width: 1080px) {
+          width: calc((#{$service-box-width * 2} * 2));
+
           flex-wrap: nowrap;
           align-items: flex-end;
         }
@@ -303,30 +333,32 @@ $services-box-padding: 8px;
       .first-boxes-collumn {
         position: relative;
 
-        @media (min-width: 571px) {
+        @media (min-width: 1080px) {
           top: -156px;
         }
 
         .logo-box {
-          width: $service-box-width;
-          height: calc(#{$service-box-width} * 2);
+          width: calc(#{$service-box-width * 2});
+          height: calc(#{$service-box-width * 2} * 2 + 70px);
 
           .logo {
-            height: $service-box-width;
-            width: calc(#{$service-box-width} * 2);
+            width: calc(#{$service-box-width * 2} * 2 + 166px);
+            height: calc(#{$service-box-width * 2} + 91px);
 
             @include lingo-logo(#eeeae5);
 
             transform: rotate(-90deg);
             transform-origin: bottom;
-            margin-left: 14px;
             text-indent: -9999px;
             overflow: hidden;
+            top: -90px;
+            position: relative;
+            z-index: -1;
           }
         }
 
         .ponto-virgula {
-          height: $service-box-big-width;
+          // height: $service-box-big-width;
 
           flex-grow: 1;
           align-items: flex-end;
@@ -341,170 +373,189 @@ $services-box-padding: 8px;
             margin-bottom: -30px;
           }
         }
+
+        .quote {
+          width: calc(#{$service-box-width * 2} * 2 + 200px);
+          position: absolute;
+          margin-left: -100px;
+          margin-top: 50px;
+          font-weight: bold;
+          color: #000;
+          font-style: italic;
+        }
       }
 
       .second-boxes-collumn {
-        width: calc(#{$service-box-width} * 2);
-
         .alfabet-box {
-          width: calc(#{$service-box-width} * 2);
+          width: calc(#{$service-box-width * 2} * 2);
 
           img {
-            width: $service-box-width + 15px;
+            width: calc(#{$service-box-width * 2} + 15px);
           }
         }
 
         .box-gradient {
-          width: calc(#{$service-box-width} * 2);
-          height: calc(#{$service-box-width} * 2);
+          width: calc(#{$service-box-width * 2} * 2);
+          height: calc(#{$service-box-width * 2} * 2);
+
           background: url('~assets/designs/box-gradient.svg');
           background-size: cover;
+
           padding-left: 45px;
           color: #fff;
 
+          -webkit-box-shadow: 10px 10px 52px -1px rgba(0, 0, 0, 0.48);
+          -moz-box-shadow: 10px 10px 52px -1px rgba(0, 0, 0, 0.48);
+          box-shadow: 10px 10px 52px -1px rgba(0, 0, 0, 0.48);
+
+          z-index: 1;
+
           h1.section-title {
             margin-top: 41px;
-            font-size: 55px;
-            line-height: 53px;
+            font-size: 39px;
+            line-height: 41px;
+
+            @media (min-width: 469px) {
+              font-size: 55px;
+              line-height: 53px;
+            }
           }
 
           p.section-description {
-            font-size: 19px;
+            font-size: 15px;
+
+            @media (min-width: 500px) {
+              font-size: 19px;
+            }
           }
         }
 
         .paragrafo-icon {
-          width: #{$service-box-width};
-          height: #{$service-box-width};
-
-          align-items: flex-end;
-          justify-content: flex-end;
+          width: #{$service-box-width * 2};
+          height: #{$service-box-width * 2};
 
           &::after {
             content: '';
             display: block;
-            width: 126px;
-            height: 223px;
+            height: #{$service-box-width * 2};
             background: url('~assets/designs/paragrafo.svg') no-repeat;
             background-size: contain;
             position: relative;
-            top: 58%;
-            right: -40%;
-          }
-
-          img {
-            border: solid;
-            position: relative;
-            width: 156px;
-            height: 282px;
+            top: 23%;
+            left: 70%;
           }
         }
       }
-    }
 
-    .service-box {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-items: center;
+      .service-box {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-items: center;
 
-      padding: $services-box-padding;
-      margin-right: 1px;
+        padding: $services-box-padding;
+        margin-right: 1px;
 
-      min-width: #{$service-box-width * 1.5};
-      min-height: #{$service-box-width * 1.5};
+        min-width: calc(#{$service-box-width * 1.5} - 1px);
+        min-height: calc(#{$service-box-width * 1.5} - 1px);
 
-      @media (min-width: 430px) {
-        min-width: calc(#{$service-box-width * 1.8});
-        min-height: calc(#{$service-box-width * 1.8});
-      }
+        @media (min-width: 430px) {
+          min-width: calc(#{$service-box-width * 1.8} - 1px);
+          min-height: calc(#{$service-box-width * 1.8} - 1px);
+        }
 
-      @media (min-width: 500px) {
-        min-width: calc(#{$service-box-width * 2});
-        min-height: calc(#{$service-box-width * 2});
-      }
+        @media (min-width: 500px) {
+          min-width: calc(#{$service-box-width * 2} - 1px);
+          min-height: calc(#{$service-box-width * 2} - 1px);
+        }
 
-      &.big {
-        width: #{$service-box-big-width};
-        height: #{$service-box-big-width};
-      }
+        // @media (min-width: 1080px) {
+        //   min-width: calc(#{$service-box-width * 1.5});
+        //   min-height: calc(#{$service-box-width * 1.5});
+        // }
 
-      background-size: contain;
+        &.big {
+          width: #{$service-box-big-width * 2};
+          height: #{$service-box-big-width * 2};
+        }
 
-      &.revisao {
-        background-image: url('~assets/box-images/revisao.jpg');
-        background-repeat: no-repeat;
-      }
+        background-size: contain;
 
-      &.media {
-        background-image: url('~assets/box-images/media.jpg');
-        background-repeat: no-repeat;
-      }
+        &.revisao {
+          background-image: url('~assets/box-images/revisao.jpg');
+          background-repeat: no-repeat;
+        }
 
-      &.interpretacao {
-        background-image: url('~assets/box-images/interpretacao.jpg');
-        background-repeat: no-repeat;
-      }
+        &.media {
+          background-image: url('~assets/box-images/media.jpg');
+          background-repeat: no-repeat;
+        }
 
-      &.traducoes {
-        background-image: url('~assets/box-images/traducoes.jpg');
-        background-repeat: no-repeat;
-      }
+        &.interpretacao {
+          background-image: url('~assets/box-images/interpretacao.jpg');
+          background-repeat: no-repeat;
+        }
 
-      &.transcricao {
-        background-image: url('~assets/box-images/transcricao.jpg');
-        background-repeat: no-repeat;
-      }
+        &.traducoes {
+          background-image: url('~assets/box-images/traducoes.jpg');
+          background-repeat: no-repeat;
+        }
 
-      .service-info {
-        display: none;
-        width: 100%;
-        height: 100%;
-        background: rgba($color: #fff, $alpha: 0.8);
+        &.transcricao {
+          background-image: url('~assets/box-images/transcricao.jpg');
+          background-repeat: no-repeat;
+        }
 
-        .service-icon {
-          text-align: center;
+        .service-info {
+          display: none;
+          width: 100%;
+          height: 100%;
+          background: rgba($color: #fff, $alpha: 0.8);
 
-          @media (min-width: 571px) {
-            padding: 20px;
+          .service-icon {
+            text-align: center;
+
+            @media (min-width: 1080px) {
+              padding: 20px;
+            }
+
+            img.icon {
+              width: 76px;
+
+              @media (min-width: 430px) {
+                width: 102px;
+              }
+
+              &.big {
+                width: 130px;
+              }
+            }
           }
 
-          img.icon {
-            width: 76px;
+          h4.service-title {
+            text-align: center;
+            color: black;
+
+            font-size: 16px;
 
             @media (min-width: 430px) {
-              width: 102px;
+              font-size: 20px;
+              padding: 5px;
             }
 
             &.big {
-              width: 130px;
+              font-size: 40px;
             }
           }
         }
 
-        h4.service-title {
-          text-align: center;
-          color: black;
-
-          font-size: 16px;
-
-          @media (min-width: 430px) {
-            font-size: 20px;
-            padding: 5px;
+        &:hover {
+          .service-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            justify-content: space-evenly;
           }
-
-          &.big {
-            font-size: 40px;
-          }
-        }
-      }
-
-      &:hover {
-        .service-info {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          justify-content: space-evenly;
         }
       }
     }

@@ -53,7 +53,7 @@
       <LingoTeam />
     </div>
 
-    <img class="only-mobile" src="./img/quebra-cabeca.svg" alt="" />
+    <img v-if="isMobile" src="./img/quebra-cabeca.svg" alt="" />
   </div>
 </template>
 
@@ -78,7 +78,7 @@ export default {
     }
   },
   mounted() {
-    const mobileBreakpoint = 571
+    const mobileBreakpoint = 1080
 
     this.isMobile = document.documentElement.clientWidth < mobileBreakpoint
 
@@ -105,11 +105,11 @@ export default {
     padding-top: 160px;
   }
 
-  .only-mobile {
-    @media (min-width: 571px) {
-      display: none;
-    }
-  }
+  // .only-mobile {
+  //   @media (min-width: 1080px) {
+  //     display: none;
+  //   }
+  // }
 
   .about-title-wrapper {
     @media (min-width: 571px) {
@@ -136,8 +136,18 @@ export default {
     margin-left: -7%;
     margin-bottom: -120px;
 
-    @media (min-width: 462px) {
-      margin-bottom: -140px;
+    @media (min-width: 571px) {
+      width: 75%;
+      position: absolute;
+      margin-top: -8%;
+    }
+
+    @media (min-width: 768px) {
+      margin-top: -12%;
+    }
+
+    @media (min-width: 1000px) {
+      margin-top: -14%;
     }
   }
 
