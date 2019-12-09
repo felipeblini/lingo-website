@@ -97,19 +97,9 @@ export default {
     padding-top: 20px;
   }
 
-  @media (min-width: 1500px) {
-    padding-top: 127px;
-  }
-
   @media (min-width: 2500px) {
-    padding-top: 160px;
+    padding-top: 80px;
   }
-
-  // .only-mobile {
-  //   @media (min-width: 1080px) {
-  //     display: none;
-  //   }
-  // }
 
   .about-title-wrapper {
     @media (min-width: 571px) {
@@ -172,12 +162,12 @@ export default {
     }
 
     @media (min-width: 992px) {
-      max-width: 805px;
-      margin-top: -135px;
-      margin-left: 56px;
+      max-width: 933px;
+      margin-top: -183px;
+      margin-left: 6px;
     }
 
-    @media (min-width: 1215px) {
+    @media (min-width: 1200px) {
       max-width: 1059px;
       margin-top: -218px;
       margin-left: -46px;
