@@ -1,5 +1,11 @@
 <template>
   <div class="lingo-services-component">
+    <img
+      class="only-mobile-block"
+      src="./img/designs/curva-division-mobile.svg"
+      alt=""
+    />
+
     <div class="container services-container">
       <div class="boxes-collumns-wrapper">
         <!--left or bottom collumn-->
@@ -184,6 +190,10 @@ $services-box-padding: 8px;
   @include only-mobile(flex);
 }
 
+.only-mobile-block {
+  @include only-mobile(block);
+}
+
 .lingo-services-component {
   position: relative;
 
@@ -195,7 +205,7 @@ $services-box-padding: 8px;
     top: 10%;
     background: url('./img/designs/curva.svg') no-repeat;
 
-    @include only-md-screen(block);
+    @include only-desktop(block);
 
     left: -240px;
 
@@ -219,14 +229,18 @@ $services-box-padding: 8px;
   &::after {
     content: '';
 
-    width: 284px;
-    height: 816px;
+    width: 204px;
+    height: 608px;
     top: 63%;
+
+    @media (min-width: 992px) {
+      width: 242px;
+      height: 731px;
+    }
 
     @media (min-width: 1200px) {
       width: 471px;
       height: 1415px;
-      top: 63%;
     }
 
     position: absolute;
@@ -242,9 +256,22 @@ $services-box-padding: 8px;
     z-index: 2;
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: -67px;
 
-    @media (min-width: 1098px) {
+    @media (min-width: 725px) {
+      margin-top: -117px;
+    }
+
+    @media (min-width: 725px) {
+      margin-top: -174px;
+    }
+
+    @media (min-width: 900px) {
+      margin-top: -252px;
+    }
+
+    @media (min-width: 1080px) {
+      margin-top: 50px;
       padding-top: 290px;
     }
 
@@ -273,6 +300,10 @@ $services-box-padding: 8px;
 
         @media (min-width: 500px) {
           width: calc((#{$service-box-width * 2} * 2));
+        }
+
+        @media (min-width: 760px) and (max-width: 1079px) {
+          width: calc((#{$service-box-width * 2} * 3));
         }
 
         @media (min-width: 1080px) {
@@ -352,6 +383,11 @@ $services-box-padding: 8px;
           padding-left: 24px;
           margin: 0 auto;
 
+          @media (min-width: 760px) and (max-width: 1079px) {
+            width: calc(#{$service-box-width * 5});
+            height: calc(#{$service-box-width * 3});
+          }
+
           @media (min-width: 1080px) {
             width: calc(#{$service-box-width * 2} * 2);
             height: calc(#{$service-box-width * 2} * 2);
@@ -375,8 +411,8 @@ $services-box-padding: 8px;
             font-size: 41px;
             line-height: 37px;
 
-            @media (min-width: 1080px) {
-              font-size: 55px;
+            @media (min-width: 760px) {
+              font-size: 58px;
               line-height: 53px;
             }
           }
@@ -384,7 +420,7 @@ $services-box-padding: 8px;
           p.section-description {
             font-size: 12px;
 
-            @media (min-width: 1080px) {
+            @media (min-width: 760px) {
               font-size: 19px;
             }
           }
