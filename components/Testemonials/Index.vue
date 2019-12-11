@@ -1,7 +1,7 @@
 <template>
   <div class="lingo-testemonials-component">
     <div class="quotations-image-wrapper">
-      <img src="@/assets/img/testemonials/aspas.svg" alt="" />
+      <img src="./img/aspas.svg" alt="" />
     </div>
     <div class="container">
       <div class="row">
@@ -93,22 +93,26 @@ export default {
     const handleScroll = () => {
       setTimeout(() => {
         if (
-          this.$refs.itemsWrapper.getBoundingClientRect().top <=
-          window.innerHeight
+          document
+            .querySelectorAll('.testemonial > .text')[0]
+            .getBoundingClientRect().top <=
+          window.innerHeight - 100
         ) {
           this.stepNext(0)
 
           window.removeEventListener('scroll', handleScroll)
           this.active = 0
+
+          if (!this.interval) {
+            this.interval = setInterval(() => {
+              this.stepNext()
+            }, 6000)
+          }
         }
-      }, 1000)
+      }, 100)
     }
 
     window.addEventListener('scroll', handleScroll)
-
-    this.interval = setInterval(() => {
-      // // this.stepNext()
-    }, 6000)
   },
   methods: {
     stepNext(active = ++this.active) {
@@ -162,7 +166,7 @@ export default {
         clearInterval(this.interval)
 
         this.interval = setInterval(() => {
-          // this.stepNext()
+          this.stepNext()
         }, 6000)
       } else {
         let clone = this.list[this.cloneRightIndex]
@@ -252,7 +256,7 @@ export default {
         clearInterval(this.interval)
 
         this.interval = setInterval(() => {
-          // this.stepNext()
+          this.stepNext()
         }, 6000)
       }
     },
@@ -260,7 +264,7 @@ export default {
     restartInterval() {
       clearInterval(this.interval)
       this.interval = setInterval(() => {
-        // this.stepNext()
+        this.stepNext()
       }, 6000)
     }
   }
@@ -407,11 +411,11 @@ $testemonial-width: 100px;
             border: none;
 
             &.left {
-              background-image: url('~assets/img/testemonials/left-arrow.svg');
+              background-image: url('./img/left-arrow.svg');
             }
 
             &.right {
-              background-image: url('~assets/img/testemonials/right-arrow.svg');
+              background-image: url('./img/right-arrow.svg');
             }
           }
         }
