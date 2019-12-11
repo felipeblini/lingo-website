@@ -27,8 +27,8 @@
                   class="testemonial"
                   v-for="(testemonial, index) in list"
                   :key="index"
-                  ref="testemonial"
-                  :id="index + 1"
+                  :ref="`testemonial-${index}`"
+                  :id="index"
                 >
                   <div class="text" ref="text">"{{ testemonial.text }}"</div>
                   <div class="client" ref="client">
@@ -60,7 +60,7 @@ export default {
       list: [],
       active: 0,
       initialListLenght: 0,
-      isClone: false
+      cloneIndex: 0
     }
   },
   mounted() {
@@ -87,8 +87,6 @@ export default {
 
     this.initialListLenght = this.list.length
 
-    this.list = this.list.concat(this.list)
-
     const handleScroll = () => {
       setTimeout(() => {
         if (
@@ -98,7 +96,7 @@ export default {
           this.stepNext(0)
 
           window.removeEventListener('scroll', handleScroll)
-          this.active = 1
+          this.active = 0
           console.log({ active: this.active })
         }
       }, 1000)
@@ -111,20 +109,23 @@ export default {
     // }, 6000)
   },
   methods: {
-    stepNext(active = this.active) {
-      console.log({ active, lenth: this.list.length })
+    stepNext(active = ++this.active) {
+      console.log({ active, listLength: this.list.length })
+
       if (active < this.list.length) {
         const width = this.$refs.list.clientWidth
+        const wrapper = this.$refs.itemsWrapper
 
-        this.$refs.itemsWrapper.style.transitionDelay = '0s'
-        this.$refs.itemsWrapper.style.transitionProperty = 'margin-left'
-        this.$refs.itemsWrapper.style.marginLeft = `${active * width * -1}px`
+        wrapper.style.transitionDelay = '0s'
+        wrapper.style.transitionProperty = 'margin-left'
+        wrapper.style.marginLeft = `${active * width * -1}px`
 
-        this.$refs.testemonial.forEach((el) => {
+        document.querySelectorAll('.testemonial').forEach((el) => {
           el.classList.remove('active')
         })
 
-        const activeItem = this.$refs.testemonial[active]
+        const activeItem = this.$refs[`testemonial-${active}`][0]
+        let prevItem = this.$refs[`testemonial-${active - 1}`]
 
         activeItem.classList.add('active')
 
@@ -134,63 +135,86 @@ export default {
         activeItem.children[1].style.transitionProperty = 'margin-left'
         activeItem.children[1].style.marginLeft = 0
 
-        const prevItem = this.$refs.testemonial[active - 1]
+        if (prevItem && prevItem[0]) {
+          prevItem = prevItem[0]
 
-        if (prevItem) {
           prevItem.children[0].style.transitionProperty = 'margin-left'
           prevItem.children[0].style.marginLeft = `${width * -1}px`
 
           prevItem.children[1].style.transitionProperty = 'margin-left'
           prevItem.children[1].style.marginLeft = `${width * -1}px`
+
+          setTimeout(() => {
+            prevItem.children[0].style.transitionProperty = 'none'
+            prevItem.children[1].style.transitionProperty = 'none'
+          }, 1000)
         }
 
         setTimeout(() => {
-          this.$refs.itemsWrapper.style.transitionProperty = 'none'
+          wrapper.style.transitionProperty = 'none'
           activeItem.children[0].style.transitionProperty = 'none'
           activeItem.children[1].style.transitionProperty = 'none'
-
-          try {
-            prevItem.children[0].style.transitionProperty = 'none'
-            prevItem.children[1].style.transitionProperty = 'none'
-          } catch (e) {}
         }, 1000)
-
-        this.active++
 
         console.log({ active: this.active })
       } else {
-        console.log('clonning')
-        this.list = this.list.concat(this.list)
-        this.$nextTick(() => this.stepNext())
+        console.log('clonning', this.cloneIndex)
+        console.log('first item ' + this.list[this.cloneIndex])
+
+        let clone = this.list[this.cloneIndex]
+
+        if (!clone) {
+          clone = this.list[(this.cloneIndex = 0)]
+        }
+
+        this.list.push(clone)
+        this.cloneIndex++
+        this.$nextTick(() => this.stepNext(this.active))
       }
     },
 
-    stepPrev() {
-      console.log({ active: this.active })
-      const width = this.$refs.list.clientWidth
+    stepPrev(active = this.active) {
+      console.log({ active })
 
-      this.$refs.text[this.active].style.transitionProperty = 'margin-left'
-      this.$refs.client[this.active].style.transitionProperty = 'margin-left'
-      this.$refs.itemsWrapper.style.transitionProperty = 'margin-left'
+      if (active >= 0) {
+        const width = this.$refs.list.clientWidth
+        const wrapper = this.$refs.itemsWrapper
+        const activeItem = this.$refs[`testemonial-${active}`][0]
 
-      const marginLeft = (el) =>
-        (el.style.marginLeft = `${Number(
-          el.style.marginLeft.replace('px', '')
-        ) + width}px`)
+        let prevItem = this.$refs[`testemonial-${active - 1}`]
 
-      marginLeft(this.$refs.itemsWrapper)
-      marginLeft(this.$refs.text[this.active])
-      marginLeft(this.$refs.client[this.active])
+        activeItem.classList.remove('active')
 
-      setTimeout(() => {
-        this.$refs.itemsWrapper.style.transitionProperty = 'none'
-        this.$refs.text[this.active].style.transitionProperty = 'none'
-        this.$refs.client[this.active].style.transitionProperty = 'none'
-        this.$refs.text[this.active - 1].style.transitionProperty = 'none'
-        this.$refs.client[this.active - 1].style.transitionProperty = 'none'
-      }, 1000)
+        if (prevItem && prevItem[0]) {
+          prevItem = prevItem[0]
+          prevItem.classList.add('active')
 
-      console.log({ active: this.active })
+          wrapper.style.transitionProperty = 'margin-left'
+          prevItem.children[0].style.transitionProperty = 'margin-left'
+          prevItem.children[1].style.transitionProperty = 'margin-left'
+
+          const marginLeft = (el) =>
+            (el.style.marginLeft = `${Number(
+              el.style.marginLeft.replace('px', '')
+            ) + width}px`)
+
+          marginLeft(wrapper)
+          marginLeft(activeItem.children[0])
+          marginLeft(activeItem.children[1])
+        }
+
+        // setTimeout(() => {
+        //   this.$refs.itemsWrapper.style.transitionProperty = 'none'
+        //   this.$refs.text[this.active].style.transitionProperty = 'none'
+        //   this.$refs.client[this.active].style.transitionProperty = 'none'
+        //   this.$refs.text[this.active - 1].style.transitionProperty = 'none'
+        //   this.$refs.client[this.active - 1].style.transitionProperty = 'none'
+        // }, 1000)
+
+        // console.log({ active: this.active })
+
+        this.active--
+      }
     }
   }
 }
