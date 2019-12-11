@@ -29,6 +29,7 @@
                   class="testemonial"
                   v-for="(testemonial, index) in list"
                   :key="index"
+                  :id="`t-${index}`"
                   :ref="`testemonial-${index}`"
                 >
                   <div class="text">"{{ testemonial.text }}"</div>
@@ -61,7 +62,8 @@ export default {
       list: [],
       active: 0,
       initialListLenght: 0,
-      cloneIndex: 0,
+      cloneRightIndex: 0,
+      cloneLeftIndex: 1,
       interval: 0
     }
   },
@@ -107,13 +109,12 @@ export default {
     window.addEventListener('scroll', handleScroll)
 
     this.interval = setInterval(() => {
-      this.stepNext()
+      // // this.stepNext()
     }, 6000)
   },
   methods: {
     stepNext(active = ++this.active) {
       console.log({ active, listLength: this.list.length })
-      clearInterval(this.interval)
 
       if (active < this.list.length) {
         const width = this.$refs.list.clientWidth
@@ -161,40 +162,39 @@ export default {
 
         console.log({ active: this.active })
 
+        clearInterval(this.interval)
+
         this.interval = setInterval(() => {
-          this.stepNext()
+          // this.stepNext()
         }, 6000)
       } else {
-        console.log('clonning', this.cloneIndex)
-        console.log('first item ' + this.list[this.cloneIndex])
+        console.log('clonning', this.cloneRightIndex)
+        console.log('first item ' + this.list[this.cloneRightIndex])
 
-        let clone = this.list[this.cloneIndex]
+        let clone = this.list[this.cloneRightIndex]
 
         if (!clone) {
-          clone = this.list[(this.cloneIndex = 0)]
+          clone = this.list[(this.cloneRightIndex = 0)]
         }
 
         this.list.push(clone)
-        this.cloneIndex++
+        this.cloneRightIndex++
         this.$nextTick(() => this.stepNext(this.active))
       }
     },
 
     stepPrev(active = this.active) {
       console.log({ active })
-      clearInterval(this.interval)
 
       if (active >= 0) {
         const width = this.$refs.list.clientWidth
         const wrapper = this.$refs.itemsWrapper
         const wrapperMgLeft = Number(wrapper.style.marginLeft.replace('px', ''))
-        const activeItem = this.$refs[`testemonial-${active}`][0]
+        const activeItem = document.querySelector(`#t-${active}`)
 
-        let prevItem = this.$refs[`testemonial-${active - 1}`]
+        const prevItem = document.querySelector(`#t-${active - 1}`)
 
-        if (prevItem && prevItem[0]) {
-          prevItem = prevItem[0]
-
+        if (prevItem) {
           activeItem.classList.remove('active')
           prevItem.classList.add('active')
 
@@ -208,19 +208,37 @@ export default {
 
           activeItem.children[0].style.marginLeft = `${width}px`
           activeItem.children[1].style.marginLeft = `${width}px`
+
+          if (active > 0) this.active--
+
+          setTimeout(() => {
+            wrapper.style.transitionProperty = 'none'
+            prevItem.children[0].style.transitionProperty = 'none'
+            prevItem.children[0].style.transitionProperty = 'none'
+          }, 1000)
+        } else {
+          console.log('clonning left', this.cloneLeftIndex)
+          console.log('last item ' + this.list[this.cloneLeftIndex])
+
+          const clone = this.list[this.list.length - this.cloneLeftIndex]
+          this.list.unshift(clone)
+          this.cloneLeftIndex++
+
+          console.log('nre sctiv must be ' + `t-${this.list.length - 1}`)
+
+          setTimeout(() => {
+            const activeItem = document.querySelector(
+              `#t-${this.list.length - 1}`
+            )
+            console.log({ activeItem })
+          }, 1000)
         }
 
-        setTimeout(() => {
-          wrapper.style.transitionProperty = 'none'
-          prevItem.children[0].style.transitionProperty = 'none'
-          prevItem.children[0].style.transitionProperty = 'none'
-        }, 1000)
+        clearInterval(this.interval)
 
         this.interval = setInterval(() => {
-          this.stepNext()
+          // this.stepNext()
         }, 6000)
-
-        if (active > 0) this.active--
       }
     },
 
@@ -228,7 +246,7 @@ export default {
       console.log('clear', this.interval)
       clearInterval(this.interval)
       this.interval = setInterval(() => {
-        this.stepNext()
+        // this.stepNext()
       }, 6000)
     }
   }
@@ -296,7 +314,7 @@ $testemonial-width: 100px;
           list-style-type: none;
           margin: 0;
           padding: 0;
-          overflow: hidden;
+          // overflow: hidden;
 
           .items-wrapper {
             height: 205px;
@@ -307,6 +325,7 @@ $testemonial-width: 100px;
             margin-left: $testemonial-width * 5;
 
             li.testemonial {
+              border: solid 2px red;
               min-width: $testemonial-width * 5;
               min-height: 205px;
 
