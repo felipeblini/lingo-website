@@ -173,9 +173,19 @@ export default {
     }
 
     @media (min-width: 1200px) {
-      max-width: 1092px;
+      max-width: 1044px;
       margin-top: -218px;
-      margin-left: -46px;
+      margin-left: 42px;
+    }
+
+    @media (min-width: 1300px) {
+      max-width: 1063px;
+      margin-top: -217px;
+      margin-left: -1px;
+    }
+
+    @media (min-width: 1500px) {
+      max-width: 1080px;
     }
   }
 

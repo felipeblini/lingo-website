@@ -11,12 +11,10 @@
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 200 40"
           >
-            <text>Depoimentosoi</text>
+            <text>Depoimentos</text>
           </svg>
         </div>
       </div>
-
-      lista: {{ list }}
 
       <div class="row">
         <div
@@ -88,7 +86,7 @@ export default {
 
     this.initialListLenght = this.list.length
 
-    //this.list = this.list.concat(this.list)
+    this.list = this.list.concat(this.list)
 
     const handleScroll = () => {
       setTimeout(() => {
@@ -156,7 +154,6 @@ export default {
 
     stepPrev() {
       console.log({ active: this.active })
-
       console.log('go back without clone')
       const active = --this.active
 
