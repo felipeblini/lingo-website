@@ -28,6 +28,7 @@
                   v-for="(testemonial, index) in list"
                   :key="index"
                   ref="testemonial"
+                  :id="index + 1"
                 >
                   <div class="text" ref="text">"{{ testemonial.text }}"</div>
                   <div class="client" ref="client">
@@ -119,26 +120,38 @@ export default {
         this.$refs.itemsWrapper.style.transitionProperty = 'margin-left'
         this.$refs.itemsWrapper.style.marginLeft = `${active * width * -1}px`
 
-        this.$refs.text[active].style.transitionProperty = 'margin-left'
-        this.$refs.client[active].style.transitionProperty = 'margin-left'
-        this.$refs.text[active].style.marginLeft = 0
-        this.$refs.client[active].style.marginLeft = 0
+        this.$refs.testemonial.forEach((el) => {
+          el.classList.remove('active')
+        })
 
-        try {
-          this.$refs.text[active - 1].style.transitionProperty = 'margin-left'
-          this.$refs.client[active - 1].style.transitionProperty = 'margin-left'
-          this.$refs.text[active - 1].style.marginLeft = `${width * -1}px`
-          this.$refs.client[active - 1].style.marginLeft = `${width * -1}px`
-        } catch (e) {}
+        const activeItem = this.$refs.testemonial[active]
+
+        activeItem.classList.add('active')
+
+        activeItem.children[0].style.transitionProperty = 'margin-left'
+        activeItem.children[0].style.marginLeft = 0
+
+        activeItem.children[1].style.transitionProperty = 'margin-left'
+        activeItem.children[1].style.marginLeft = 0
+
+        const prevItem = this.$refs.testemonial[active - 1]
+
+        if (prevItem) {
+          prevItem.children[0].style.transitionProperty = 'margin-left'
+          prevItem.children[0].style.marginLeft = `${width * -1}px`
+
+          prevItem.children[1].style.transitionProperty = 'margin-left'
+          prevItem.children[1].style.marginLeft = `${width * -1}px`
+        }
 
         setTimeout(() => {
           this.$refs.itemsWrapper.style.transitionProperty = 'none'
-          this.$refs.text[active].style.transitionProperty = 'none'
-          this.$refs.client[active].style.transitionProperty = 'none'
+          activeItem.children[0].style.transitionProperty = 'none'
+          activeItem.children[1].style.transitionProperty = 'none'
 
           try {
-            this.$refs.text[active - 1].style.transitionProperty = 'none'
-            this.$refs.client[active - 1].style.transitionProperty = 'none'
+            prevItem.children[0].style.transitionProperty = 'none'
+            prevItem.children[1].style.transitionProperty = 'none'
           } catch (e) {}
         }, 1000)
 
@@ -154,11 +167,10 @@ export default {
 
     stepPrev() {
       console.log({ active: this.active })
-      console.log('go back without clone')
-      const active = --this.active
+      const width = this.$refs.list.clientWidth
 
-      this.$refs.text[active].style.transitionProperty = 'margin-left'
-      this.$refs.client[active].style.transitionProperty = 'margin-left'
+      this.$refs.text[this.active].style.transitionProperty = 'margin-left'
+      this.$refs.client[this.active].style.transitionProperty = 'margin-left'
       this.$refs.itemsWrapper.style.transitionProperty = 'margin-left'
 
       const marginLeft = (el) =>
@@ -167,15 +179,15 @@ export default {
         ) + width}px`)
 
       marginLeft(this.$refs.itemsWrapper)
-      marginLeft(this.$refs.text[active])
-      marginLeft(this.$refs.client[active])
+      marginLeft(this.$refs.text[this.active])
+      marginLeft(this.$refs.client[this.active])
 
       setTimeout(() => {
         this.$refs.itemsWrapper.style.transitionProperty = 'none'
-        this.$refs.text[active].style.transitionProperty = 'none'
-        this.$refs.client[active].style.transitionProperty = 'none'
-        this.$refs.text[active - 1].style.transitionProperty = 'none'
-        this.$refs.client[active - 1].style.transitionProperty = 'none'
+        this.$refs.text[this.active].style.transitionProperty = 'none'
+        this.$refs.client[this.active].style.transitionProperty = 'none'
+        this.$refs.text[this.active - 1].style.transitionProperty = 'none'
+        this.$refs.client[this.active - 1].style.transitionProperty = 'none'
       }, 1000)
 
       console.log({ active: this.active })
