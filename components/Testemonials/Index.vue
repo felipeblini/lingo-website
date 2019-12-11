@@ -30,7 +30,6 @@
                   v-for="(testemonial, index) in list"
                   :key="index"
                   :id="`t-${index}`"
-                  :ref="`testemonial-${index}`"
                 >
                   <div class="text">"{{ testemonial.text }}"</div>
                   <div class="client">
@@ -101,7 +100,6 @@ export default {
 
           window.removeEventListener('scroll', handleScroll)
           this.active = 0
-          console.log({ active: this.active })
         }
       }, 1000)
     }
@@ -128,8 +126,8 @@ export default {
           el.classList.remove('active')
         })
 
-        const activeItem = this.$refs[`testemonial-${active}`][0]
-        let prevItem = this.$refs[`testemonial-${active - 1}`]
+        const activeItem = document.querySelector(`#t-${active}`)
+        const prevItem = document.querySelector(`#t-${active - 1}`)
 
         activeItem.classList.add('active')
 
@@ -139,9 +137,10 @@ export default {
         activeItem.children[1].style.transitionProperty = 'margin-left'
         activeItem.children[1].style.marginLeft = 0
 
-        if (prevItem && prevItem[0]) {
-          prevItem = prevItem[0]
+        activeItem.children[0].style.visibility = 'visible'
+        activeItem.children[1].style.visibility = 'visible'
 
+        if (prevItem) {
           prevItem.children[0].style.transitionProperty = 'margin-left'
           prevItem.children[0].style.marginLeft = `${width * -1}px`
 
@@ -160,17 +159,12 @@ export default {
           activeItem.children[1].style.transitionProperty = 'none'
         }, 1000)
 
-        console.log({ active: this.active })
-
         clearInterval(this.interval)
 
         this.interval = setInterval(() => {
           // this.stepNext()
         }, 6000)
       } else {
-        console.log('clonning', this.cloneRightIndex)
-        console.log('first item ' + this.list[this.cloneRightIndex])
-
         let clone = this.list[this.cloneRightIndex]
 
         if (!clone) {
@@ -221,17 +215,38 @@ export default {
           console.log('last item ' + this.list[this.cloneLeftIndex])
 
           const clone = this.list[this.list.length - this.cloneLeftIndex]
-          this.list.unshift(clone)
-          this.cloneLeftIndex++
-
-          console.log('nre sctiv must be ' + `t-${this.list.length - 1}`)
+          setTimeout(() => {
+            this.list.unshift(clone)
+            this.cloneLeftIndex++
+          }, 0)
 
           setTimeout(() => {
-            const activeItem = document.querySelector(
-              `#t-${this.list.length - 1}`
-            )
+            const activeItem = document.querySelector(`#t-0`)
             console.log({ activeItem })
-          }, 1000)
+
+            document.querySelectorAll('.testemonial').forEach((el) => {
+              el.classList.remove('active')
+            })
+
+            activeItem.classList.add('active')
+
+            activeItem.children[0].style.marginLeft = '-500px'
+            activeItem.children[1].style.marginLeft = '-500px'
+            activeItem.children[0].style.visibility = 'visible'
+            activeItem.children[1].style.visibility = 'visible'
+
+            setTimeout(() => {
+              activeItem.children[0].style.transitionProperty = 'margin-left'
+              activeItem.children[1].style.transitionProperty = 'margin-left'
+              activeItem.children[0].style.marginLeft = 0
+              activeItem.children[1].style.marginLeft = 0
+            }, 200)
+
+            setTimeout(() => {
+              activeItem.children[0].style.transitionProperty = 'none'
+              activeItem.children[1].style.transitionProperty = 'none'
+            }, 900)
+          }, 0)
         }
 
         clearInterval(this.interval)
@@ -243,7 +258,6 @@ export default {
     },
 
     restartInterval() {
-      console.log('clear', this.interval)
       clearInterval(this.interval)
       this.interval = setInterval(() => {
         // this.stepNext()
@@ -314,7 +328,7 @@ $testemonial-width: 100px;
           list-style-type: none;
           margin: 0;
           padding: 0;
-          // overflow: hidden;
+          overflow: hidden;
 
           .items-wrapper {
             height: 205px;
@@ -325,7 +339,6 @@ $testemonial-width: 100px;
             margin-left: $testemonial-width * 5;
 
             li.testemonial {
-              border: solid 2px red;
               min-width: $testemonial-width * 5;
               min-height: 205px;
 
@@ -337,6 +350,8 @@ $testemonial-width: 100px;
                 transition-property: none;
                 transition-duration: 0.25s;
                 transition-timing-function: ease-in-out;
+
+                visibility: hidden;
               }
 
               .client {
@@ -351,6 +366,8 @@ $testemonial-width: 100px;
                 transition-duration: 0.25s;
                 transition-timing-function: ease-in-out;
                 transition-delay: 0.3s;
+
+                visibility: hidden;
 
                 .name {
                   text-transform: uppercase;
