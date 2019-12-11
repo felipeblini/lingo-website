@@ -24,14 +24,15 @@
             <ul class="list" ref="list">
               <div class="items-wrapper" ref="itemsWrapper">
                 <li
+                  @click="restartInterval"
+                  @mouseover="restartInterval"
                   class="testemonial"
                   v-for="(testemonial, index) in list"
                   :key="index"
                   :ref="`testemonial-${index}`"
-                  :id="index"
                 >
-                  <div class="text" ref="text">"{{ testemonial.text }}"</div>
-                  <div class="client" ref="client">
+                  <div class="text">"{{ testemonial.text }}"</div>
+                  <div class="client">
                     <div class="name">{{ testemonial.client.name }}</div>
                     <div class="role">{{ testemonial.client.role }}</div>
                   </div>
@@ -60,7 +61,8 @@ export default {
       list: [],
       active: 0,
       initialListLenght: 0,
-      cloneIndex: 0
+      cloneIndex: 0,
+      interval: 0
     }
   },
   mounted() {
@@ -104,13 +106,14 @@ export default {
 
     window.addEventListener('scroll', handleScroll)
 
-    // setInterval(() => {
-    //   this.stepNext()
-    // }, 6000)
+    this.interval = setInterval(() => {
+      this.stepNext()
+    }, 6000)
   },
   methods: {
     stepNext(active = ++this.active) {
       console.log({ active, listLength: this.list.length })
+      clearInterval(this.interval)
 
       if (active < this.list.length) {
         const width = this.$refs.list.clientWidth
@@ -157,6 +160,10 @@ export default {
         }, 1000)
 
         console.log({ active: this.active })
+
+        this.interval = setInterval(() => {
+          this.stepNext()
+        }, 6000)
       } else {
         console.log('clonning', this.cloneIndex)
         console.log('first item ' + this.list[this.cloneIndex])
@@ -175,46 +182,54 @@ export default {
 
     stepPrev(active = this.active) {
       console.log({ active })
+      clearInterval(this.interval)
 
       if (active >= 0) {
         const width = this.$refs.list.clientWidth
         const wrapper = this.$refs.itemsWrapper
+        const wrapperMgLeft = Number(wrapper.style.marginLeft.replace('px', ''))
         const activeItem = this.$refs[`testemonial-${active}`][0]
 
         let prevItem = this.$refs[`testemonial-${active - 1}`]
 
-        activeItem.classList.remove('active')
-
         if (prevItem && prevItem[0]) {
           prevItem = prevItem[0]
+
+          activeItem.classList.remove('active')
           prevItem.classList.add('active')
 
           wrapper.style.transitionProperty = 'margin-left'
           prevItem.children[0].style.transitionProperty = 'margin-left'
           prevItem.children[1].style.transitionProperty = 'margin-left'
 
-          const marginLeft = (el) =>
-            (el.style.marginLeft = `${Number(
-              el.style.marginLeft.replace('px', '')
-            ) + width}px`)
+          wrapper.style.marginLeft = `${wrapperMgLeft + width}px`
+          prevItem.children[0].style.marginLeft = 0
+          prevItem.children[1].style.marginLeft = 0
 
-          marginLeft(wrapper)
-          marginLeft(activeItem.children[0])
-          marginLeft(activeItem.children[1])
+          activeItem.children[0].style.marginLeft = `${width}px`
+          activeItem.children[1].style.marginLeft = `${width}px`
         }
 
-        // setTimeout(() => {
-        //   this.$refs.itemsWrapper.style.transitionProperty = 'none'
-        //   this.$refs.text[this.active].style.transitionProperty = 'none'
-        //   this.$refs.client[this.active].style.transitionProperty = 'none'
-        //   this.$refs.text[this.active - 1].style.transitionProperty = 'none'
-        //   this.$refs.client[this.active - 1].style.transitionProperty = 'none'
-        // }, 1000)
+        setTimeout(() => {
+          wrapper.style.transitionProperty = 'none'
+          prevItem.children[0].style.transitionProperty = 'none'
+          prevItem.children[0].style.transitionProperty = 'none'
+        }, 1000)
 
-        // console.log({ active: this.active })
+        this.interval = setInterval(() => {
+          this.stepNext()
+        }, 6000)
 
-        this.active--
+        if (active > 0) this.active--
       }
+    },
+
+    restartInterval() {
+      console.log('clear', this.interval)
+      clearInterval(this.interval)
+      this.interval = setInterval(() => {
+        this.stepNext()
+      }, 6000)
     }
   }
 }
@@ -281,7 +296,7 @@ $testemonial-width: 100px;
           list-style-type: none;
           margin: 0;
           padding: 0;
-          //overflow: hidden;
+          overflow: hidden;
 
           .items-wrapper {
             height: 205px;
@@ -294,18 +309,10 @@ $testemonial-width: 100px;
             li.testemonial {
               min-width: $testemonial-width * 5;
               min-height: 205px;
-              border: solid 2px red;
-
-              &:nth-child(2) {
-                border: solid 2px green;
-              }
 
               .text {
-                border: solid 2px black;
                 min-width: $testemonial-width * 5;
                 max-width: $testemonial-width * 5;
-                min-height: 130px;
-
                 margin-left: $testemonial-width * 5;
 
                 transition-property: none;
@@ -314,13 +321,12 @@ $testemonial-width: 100px;
               }
 
               .client {
-                border: solid 2px blue;
                 min-width: $testemonial-width * 5;
                 max-width: $testemonial-width * 5;
+                margin-left: $testemonial-width * 5;
+
                 height: 75px;
                 padding-top: 15px;
-
-                margin-left: $testemonial-width * 5;
 
                 transition-property: none;
                 transition-duration: 0.25s;
