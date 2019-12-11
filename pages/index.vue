@@ -7,15 +7,7 @@
     </div>
 
     <LingoServices />
-
-    <div class="lingo-testemonials-component">
-      <div class="quotations-image-wrapper">
-        <img src="@/assets/img/testemonials/aspas.svg" alt="" />
-      </div>
-      <div class="container">
-        <h1 class="yellow">Depoimentos</h1>
-      </div>
-    </div>
+    <LingoTestemonials />
   </div>
 </template>
 
@@ -24,13 +16,15 @@ import LingoHero from '~/components/Hero'
 import LingoMiniBio from '~/components/Minibio'
 import LingoAbout from '~/components/About'
 import LingoServices from '~/components/OurServices'
+import LingoTestemonials from '~/components/OurServices'
 
 export default {
   components: {
     LingoHero,
     LingoMiniBio,
     LingoAbout,
-    LingoServices
+    LingoServices,
+    LingoTestemonials
   },
   data() {
     return {
