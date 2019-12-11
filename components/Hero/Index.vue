@@ -131,7 +131,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.viewportWidth > 992 && this.viewportWidth <= 2300)
     const container = this.$refs['hero-container']
 
     const emitHeroHeight = () => {
@@ -145,8 +144,6 @@ export default {
     }
 
     this.viewportWidth = window.innerWidth
-
-    console.log({ viewport: this.viewportWidth })
 
     emitHeroHeight()
 
