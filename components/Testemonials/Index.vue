@@ -22,14 +22,15 @@
         >
           <div
             class="testimonials-wrapper"
-            ref="wrapper"
-            :style="{ maxWidth: `${maxWidth}px` }"
+            ref="listWrapper"
+            :style="{ width: `${responsiveWidth}px` }"
+            v-touch:swipe="touchHandler"
           >
-            <ul class="list" :style="{ width: `${wrapperClientWidth}px` }">
+            <ul class="list">
               <div
                 class="items-wrapper"
                 ref="itemsWrapper"
-                :style="{ marginLeft: `${wrapperClientWidth}px` }"
+                :style="{ marginLeft: `${responsiveWidth}px` }"
               >
                 <li
                   @click="restartInterval"
@@ -38,24 +39,24 @@
                   v-for="(testimonial, index) in list"
                   :key="index"
                   :id="`t-${index}`"
-                  :style="{ minWidth: `${wrapperClientWidth}px` }"
+                  :style="{ minWidth: `${responsiveWidth}px` }"
                 >
                   <div
                     class="text"
                     :style="{
-                      minWidth: `${wrapperClientWidth}px`,
-                      maxWidth: `${wrapperClientWidth}px`,
-                      marginLeft: `${wrapperClientWidth}px`
+                      minWidth: `${responsiveWidth}px`,
+                      maxWidth: `${responsiveWidth}px`,
+                      marginLeft: `${responsiveWidth}px`
                     }"
                   >
-                    {{ `"${testimonial.text}"` }}
+                    "{{ testimonial.text }}"
                   </div>
                   <div
                     class="client"
                     :style="{
-                      minWidth: `${wrapperClientWidth}px`,
-                      maxWidth: `${wrapperClientWidth}px`,
-                      marginLeft: `${wrapperClientWidth}px`
+                      minWidth: `${responsiveWidth}px`,
+                      maxWidth: `${responsiveWidth}px`,
+                      marginLeft: `${responsiveWidth}px`
                     }"
                   >
                     <div class="name">{{ testimonial.client.name }}</div>
@@ -76,31 +77,6 @@
         </div>
       </div>
     </div>
-    <p class="mt-5">
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id hic a placeat
-      eum commodi earum. Ratione iste explicabo laudantium ipsa deleniti totam,
-      corporis consequuntur dolore veritatis, ullam expedita maiores molestias?
-    </p>
-    <p>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id hic a placeat
-      eum commodi earum. Ratione iste explicabo laudantium ipsa deleniti totam,
-      corporis consequuntur dolore veritatis, ullam expedita maiores molestias?
-    </p>
-    <p>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id hic a placeat
-      eum commodi earum. Ratione iste explicabo laudantium ipsa deleniti totam,
-      corporis consequuntur dolore veritatis, ullam expedita maiores molestias?
-    </p>
-    <p>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id hic a placeat
-      eum commodi earum. Ratione iste explicabo laudantium ipsa deleniti totam,
-      corporis consequuntur dolore veritatis, ullam expedita maiores molestias?
-    </p>
-    <p>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id hic a placeat
-      eum commodi earum. Ratione iste explicabo laudantium ipsa deleniti totam,
-      corporis consequuntur dolore veritatis, ullam expedita maiores molestias?
-    </p>
   </div>
 </template>
 
@@ -119,21 +95,33 @@ export default {
       cloneRightIndex: 0,
       cloneLeftIndex: 1,
       interval: 0,
-      wrapperClientWidth: 0
+      wrapperWidth: 0,
+      responsiveWidth: 0
     }
   },
-  computed: {
-    // maxWidthCmptd  () {
-    //   return this.$refs.wrapper.clientWidth
-    // }
-  },
   mounted() {
-    this.wrapperClientWidth = this.$refs.wrapper.clientWidth
+    this.responsiveWidth = this.maxWidth
+
+    if (window.innerWidth < this.maxWidth) {
+      this.responsiveWidth = window.innerWidth - 50
+    }
+
+    this.wrapperWidth = this.$refs.listWrapper.clientWidth
 
     window.addEventListener('resize', () => {
       setTimeout(() => {
-        this.wrapperClientWidth = this.$refs.wrapper.clientWidth
-        console.log(this.wrapperClientWidth)
+        if (window.innerWidth < this.maxWidth) {
+          this.responsiveWidth = window.innerWidth - 50
+          this.stepNext()
+        }
+
+        this.wrapperWidth = this.$refs.listWrapper.clientWidth
+
+        console.log({
+          windowWidth: window.innerWidth,
+          wrapperWidth: this.wrapperWidth,
+          responsiveWidth: this.responsiveWidth
+        })
       }, 100)
     })
 
@@ -183,11 +171,15 @@ export default {
     window.addEventListener('scroll', handleScroll)
   },
   methods: {
-    stepNext(active = ++this.active) {
-      console.log({ active, listLength: this.list.length })
+    touchHandler(direction) {
+      if (window.innerWidth < 1080) {
+        direction === 'left' ? this.stepNext() : this.stepPrev()
+      }
+    },
 
+    stepNext(active = ++this.active) {
       if (active < this.list.length) {
-        const width = this.wrapperClientWidth
+        const width = this.$refs.listWrapper.clientWidth
         const wrapper = this.$refs.itemsWrapper
 
         wrapper.style.transitionDelay = '0s'
@@ -250,12 +242,10 @@ export default {
     },
 
     stepPrev(active = this.active) {
-      console.log({ active })
-
       if (active >= 0) {
-        const width = this.wrapperClientWidth
+        const width = this.$refs.listWrapper.clientWidth
         const wrapper = this.$refs.itemsWrapper
-        const wrapperML = Number(wrapper.style.marginLeft.replace('px', ''))
+        const wrapperMgLeft = Number(wrapper.style.marginLeft.replace('px', ''))
         const activeItem = document.querySelector(`#t-${active}`)
 
         const prevItem = document.querySelector(`#t-${active - 1}`)
@@ -268,7 +258,7 @@ export default {
           prevItem.children[0].style.transitionProperty = 'margin-left'
           prevItem.children[1].style.transitionProperty = 'margin-left'
 
-          wrapper.style.marginLeft = `${wrapperML + width}px`
+          wrapper.style.marginLeft = `${wrapperMgLeft + width}px`
           prevItem.children[0].style.marginLeft = 0
           prevItem.children[1].style.marginLeft = 0
 
@@ -340,7 +330,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$wrapper-max-width: 500px;
+// $testimonial-width: 100px;
 
 .lingo-testimonials-component {
   z-index: 1;
@@ -381,18 +371,14 @@ $wrapper-max-width: 500px;
       display: flex;
       justify-content: center;
 
-      border: solid 3px red;
-
       @media (min-width: 1080px) {
         justify-content: flex-end;
       }
 
       .testimonials-wrapper {
-        border: solid;
+        // width: $testimonial-width * 5;
 
         height: 240px;
-        width: 100%;
-        // max-width: $wrapper-max-width;
 
         @media (min-width: 1080px) {
           margin-top: -65px;
@@ -403,31 +389,32 @@ $wrapper-max-width: 500px;
         }
 
         ul.list {
-          // width: $wrapper-max-width;
-          height: 205px;
+          // width: $testimonial-width * 5;
+          width: 100%;
+          min-height: 205px;
           list-style-type: none;
           margin: 0;
           padding: 0;
           overflow: hidden;
 
           .items-wrapper {
-            height: 205px;
+            min-height: 205px;
             width: 100%;
             display: flex;
 
-            transition-property: 'margin-left';
-            margin-left: $wrapper-max-width;
+            transition-property: none;
+            // margin-left: $testimonial-width * 5;
 
             li.testimonial {
-              min-width: $wrapper-max-width;
+              // min-width: $testimonial-width * 5;
               min-height: 205px;
 
               .text {
-                min-width: $wrapper-max-width;
-                max-width: $wrapper-max-width;
-                margin-left: $wrapper-max-width;
+                // min-width: $testimonial-width * 5;
+                // max-width: $testimonial-width * 5;
+                // margin-left: $testimonial-width * 5;
 
-                transition-property: 'margin-left';
+                transition-property: none;
                 transition-duration: 0.25s;
                 transition-timing-function: ease-in-out;
 
@@ -435,14 +422,14 @@ $wrapper-max-width: 500px;
               }
 
               .client {
-                min-width: $wrapper-max-width;
-                max-width: $wrapper-max-width;
-                margin-left: $wrapper-max-width;
+                // min-width: $testimonial-width * 5;
+                // max-width: $testimonial-width * 5;
+                // margin-left: $testimonial-width * 5;
 
                 height: 75px;
                 padding-top: 15px;
 
-                transition-property: 'margin-left';
+                transition-property: none;
                 transition-duration: 0.25s;
                 transition-timing-function: ease-in-out;
                 transition-delay: 0.3s;
