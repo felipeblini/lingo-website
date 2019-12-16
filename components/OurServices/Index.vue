@@ -231,16 +231,27 @@ $services-box-padding: 8px;
 
     width: 204px;
     height: 608px;
-    top: 63%;
+    top: 65%;
 
     @media (min-width: 992px) {
       width: 242px;
       height: 731px;
     }
 
+    @media (min-width: 1080px) {
+      top: 80%;
+    }
+
     @media (min-width: 1200px) {
+      width: 237px;
+      height: 697px;
+      top: 93%;
+    }
+
+    @media (min-width: 1600px) {
       width: 471px;
       height: 1415px;
+      top: 40%;
     }
 
     position: absolute;

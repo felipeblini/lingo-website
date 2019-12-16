@@ -26,7 +26,7 @@
             :style="{ width: `${responsiveWidth}px` }"
             v-touch:swipe="touchHandler"
           >
-            <ul class="list">
+            <ul class="testimonialsList">
               <div
                 class="items-wrapper"
                 ref="itemsWrapper"
@@ -66,10 +66,13 @@
               </div>
             </ul>
             <div class="navigation">
-              <button class="navigator left" @click="stepPrev()">
+              <button class="testimonial-navigator tn-left" @click="stepPrev()">
                 left
               </button>
-              <button class="navigator right" @click="stepNext()">
+              <button
+                class="testimonial-navigator tn-right"
+                @click="stepNext()"
+              >
                 right
               </button>
             </div>
@@ -200,7 +203,7 @@ export default {
 
           if (!this.interval) {
             this.interval = setInterval(() => {
-              // this.stepNext()
+              this.stepNext()
             }, 6000)
           }
         }
@@ -265,7 +268,7 @@ export default {
         clearInterval(this.interval)
 
         this.interval = setInterval(() => {
-          // this.stepNext()
+          this.stepNext()
         }, 6000)
       } else {
         let clone = this.list[this.cloneRightIndex]
@@ -347,7 +350,7 @@ export default {
         clearInterval(this.interval)
 
         this.interval = setInterval(() => {
-          // this.stepNext()
+          this.stepNext()
         }, 6000)
       }
     },
@@ -355,7 +358,7 @@ export default {
     restartInterval() {
       clearInterval(this.interval)
       this.interval = setInterval(() => {
-        // this.stepNext()
+        this.stepNext()
       }, 6000)
     }
   }
@@ -363,8 +366,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// $testimonial-width: 100px;
-
 .lingo-testimonials-component {
   z-index: 1;
   position: relative;
@@ -421,8 +422,7 @@ export default {
           margin-top: 0;
         }
 
-        ul.list {
-          // width: $testimonial-width * 5;
+        ul.testimonialsList {
           width: 100%;
           min-height: 205px;
           list-style-type: none;
@@ -436,17 +436,11 @@ export default {
             display: flex;
 
             transition-property: none;
-            // margin-left: $testimonial-width * 5;
 
             li.testimonial {
-              // min-width: $testimonial-width * 5;
               min-height: 205px;
 
               .text {
-                // min-width: $testimonial-width * 5;
-                // max-width: $testimonial-width * 5;
-                // margin-left: $testimonial-width * 5;
-
                 transition-property: none;
                 transition-duration: 0.25s;
                 transition-timing-function: ease-in-out;
@@ -455,10 +449,6 @@ export default {
               }
 
               .client {
-                // min-width: $testimonial-width * 5;
-                // max-width: $testimonial-width * 5;
-                // margin-left: $testimonial-width * 5;
-
                 height: 75px;
                 padding-top: 15px;
 
@@ -495,7 +485,7 @@ export default {
           display: flex;
           justify-content: space-between;
 
-          button.navigator {
+          button.testimonial-navigator {
             background-color: transparent;
             background-repeat: no-repeat;
             background-size: cover;
@@ -506,11 +496,11 @@ export default {
             overflow: hidden;
             border: none;
 
-            &.left {
+            &.tn-left {
               background-image: url('./img/left-arrow.svg');
             }
 
-            &.right {
+            &.tn-right {
               background-image: url('./img/right-arrow.svg');
             }
           }
