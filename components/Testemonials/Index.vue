@@ -96,6 +96,7 @@ export default {
       cloneLeftIndex: 1,
       interval: 0,
       wrapperWidth: 0,
+      originalListlength: 0,
       responsiveWidth: 0
     }
   },
@@ -131,7 +132,7 @@ export default {
         text:
           'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit, magnam doloribus illum quo. Quibusdam qui distinctio doloribus illum quo, est praesentium accusamus',
         client: {
-          name: 'Nome da Silva',
+          name: 'Nome da Silva 1',
           role: 'Empresa - Cargo'
         }
       },
@@ -140,11 +141,49 @@ export default {
         text:
           'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
         client: {
-          name: 'Fulano de Souza',
+          name: 'Fulano de Souza 2',
           role: 'Empresa2 - Cargo2'
+        }
+      },
+      {
+        id: 2,
+        text:
+          'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+        client: {
+          name: 'Fulano de Souza 3',
+          role: 'Empresa2 - Cargo3'
+        }
+      },
+      {
+        id: 2,
+        text:
+          'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+        client: {
+          name: 'Fulano de Souza 4',
+          role: 'Empresa2 - Cargo4'
+        }
+      },
+      {
+        id: 2,
+        text:
+          'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+        client: {
+          name: 'Fulano de Souza 5',
+          role: 'Empresa2 - Cargo5'
+        }
+      },
+      {
+        id: 2,
+        text:
+          'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+        client: {
+          name: 'Fulano de Souza 6',
+          role: 'Empresa2 - Cargo6'
         }
       }
     ]
+
+    this.originalListlength = this.list.length
 
     const handleScroll = () => {
       setTimeout(() => {
@@ -273,16 +312,10 @@ export default {
             prevItem.children[0].style.transitionProperty = 'none'
           }, 1000)
         } else {
-          console.log('clonning left', this.cloneLeftIndex)
-          console.log('last item ' + this.list[this.cloneLeftIndex])
-
-          const clone = this.list[this.list.length - this.cloneLeftIndex]
+          const clone = this.list[this.originalListlength - 1]
           setTimeout(() => {
             this.list.unshift(clone)
-            this.cloneLeftIndex++
-          }, 0)
 
-          setTimeout(() => {
             const activeItem = document.querySelector(`#t-0`)
             console.log({ activeItem })
 
