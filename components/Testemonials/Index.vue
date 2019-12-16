@@ -1,5 +1,5 @@
 <template>
-  <div class="lingo-testemonials-component">
+  <div class="lingo-testimonials-component">
     <div class="quotations-image-wrapper">
       <img src="./img/aspas.svg" alt="" />
     </div>
@@ -18,23 +18,48 @@
 
       <div class="row">
         <div
-          class="col-8 offset-2 col-sm-10 offset-sm-1 col-xl-8 offset-xl-2 testemonials-line"
+          class="col-12 col-sm-10 offset-sm-1 col-xl-8 offset-xl-2 testimonials-line "
         >
-          <div class="testemonials-wrapper">
-            <ul class="list" ref="list">
-              <div class="items-wrapper" ref="itemsWrapper">
+          <div
+            class="testimonials-wrapper"
+            ref="wrapper"
+            :style="{ maxWidth: `${maxWidth}px` }"
+          >
+            <ul class="list" :style="{ width: `${wrapperClientWidth}px` }">
+              <div
+                class="items-wrapper"
+                ref="itemsWrapper"
+                :style="{ marginLeft: `${wrapperClientWidth}px` }"
+              >
                 <li
                   @click="restartInterval"
                   @mouseover="restartInterval"
-                  class="testemonial"
-                  v-for="(testemonial, index) in list"
+                  class="testimonial"
+                  v-for="(testimonial, index) in list"
                   :key="index"
                   :id="`t-${index}`"
+                  :style="{ minWidth: `${wrapperClientWidth}px` }"
                 >
-                  <div class="text">"{{ testemonial.text }}"</div>
-                  <div class="client">
-                    <div class="name">{{ testemonial.client.name }}</div>
-                    <div class="role">{{ testemonial.client.role }}</div>
+                  <div
+                    class="text"
+                    :style="{
+                      minWidth: `${wrapperClientWidth}px`,
+                      maxWidth: `${wrapperClientWidth}px`,
+                      marginLeft: `${wrapperClientWidth}px`
+                    }"
+                  >
+                    {{ `"${testimonial.text}"` }}
+                  </div>
+                  <div
+                    class="client"
+                    :style="{
+                      minWidth: `${wrapperClientWidth}px`,
+                      maxWidth: `${wrapperClientWidth}px`,
+                      marginLeft: `${wrapperClientWidth}px`
+                    }"
+                  >
+                    <div class="name">{{ testimonial.client.name }}</div>
+                    <div class="role">{{ testimonial.client.role }}</div>
                   </div>
                 </li>
               </div>
@@ -51,22 +76,67 @@
         </div>
       </div>
     </div>
+    <p class="mt-5">
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id hic a placeat
+      eum commodi earum. Ratione iste explicabo laudantium ipsa deleniti totam,
+      corporis consequuntur dolore veritatis, ullam expedita maiores molestias?
+    </p>
+    <p>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id hic a placeat
+      eum commodi earum. Ratione iste explicabo laudantium ipsa deleniti totam,
+      corporis consequuntur dolore veritatis, ullam expedita maiores molestias?
+    </p>
+    <p>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id hic a placeat
+      eum commodi earum. Ratione iste explicabo laudantium ipsa deleniti totam,
+      corporis consequuntur dolore veritatis, ullam expedita maiores molestias?
+    </p>
+    <p>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id hic a placeat
+      eum commodi earum. Ratione iste explicabo laudantium ipsa deleniti totam,
+      corporis consequuntur dolore veritatis, ullam expedita maiores molestias?
+    </p>
+    <p>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id hic a placeat
+      eum commodi earum. Ratione iste explicabo laudantium ipsa deleniti totam,
+      corporis consequuntur dolore veritatis, ullam expedita maiores molestias?
+    </p>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    maxWidth: {
+      type: Number,
+      default: 500
+    }
+  },
   data() {
     return {
       list: [],
       active: 0,
-      initialListLenght: 0,
       cloneRightIndex: 0,
       cloneLeftIndex: 1,
-      interval: 0
+      interval: 0,
+      wrapperClientWidth: 0
     }
   },
+  computed: {
+    // maxWidthCmptd  () {
+    //   return this.$refs.wrapper.clientWidth
+    // }
+  },
   mounted() {
+    this.wrapperClientWidth = this.$refs.wrapper.clientWidth
+
+    window.addEventListener('resize', () => {
+      setTimeout(() => {
+        this.wrapperClientWidth = this.$refs.wrapper.clientWidth
+        console.log(this.wrapperClientWidth)
+      }, 100)
+    })
+
     this.list = [
       {
         id: 1,
@@ -88,13 +158,11 @@ export default {
       }
     ]
 
-    this.initialListLenght = this.list.length
-
     const handleScroll = () => {
       setTimeout(() => {
         if (
           document
-            .querySelectorAll('.testemonial > .text')[0]
+            .querySelectorAll('.testimonial > .text')[0]
             .getBoundingClientRect().top <=
           window.innerHeight - 100
         ) {
@@ -105,7 +173,7 @@ export default {
 
           if (!this.interval) {
             this.interval = setInterval(() => {
-              this.stepNext()
+              // this.stepNext()
             }, 6000)
           }
         }
@@ -119,14 +187,14 @@ export default {
       console.log({ active, listLength: this.list.length })
 
       if (active < this.list.length) {
-        const width = this.$refs.list.clientWidth
+        const width = this.wrapperClientWidth
         const wrapper = this.$refs.itemsWrapper
 
         wrapper.style.transitionDelay = '0s'
         wrapper.style.transitionProperty = 'margin-left'
         wrapper.style.marginLeft = `${active * width * -1}px`
 
-        document.querySelectorAll('.testemonial').forEach((el) => {
+        document.querySelectorAll('.testimonial').forEach((el) => {
           el.classList.remove('active')
         })
 
@@ -166,7 +234,7 @@ export default {
         clearInterval(this.interval)
 
         this.interval = setInterval(() => {
-          this.stepNext()
+          // this.stepNext()
         }, 6000)
       } else {
         let clone = this.list[this.cloneRightIndex]
@@ -185,9 +253,9 @@ export default {
       console.log({ active })
 
       if (active >= 0) {
-        const width = this.$refs.list.clientWidth
+        const width = this.wrapperClientWidth
         const wrapper = this.$refs.itemsWrapper
-        const wrapperMgLeft = Number(wrapper.style.marginLeft.replace('px', ''))
+        const wrapperML = Number(wrapper.style.marginLeft.replace('px', ''))
         const activeItem = document.querySelector(`#t-${active}`)
 
         const prevItem = document.querySelector(`#t-${active - 1}`)
@@ -200,7 +268,7 @@ export default {
           prevItem.children[0].style.transitionProperty = 'margin-left'
           prevItem.children[1].style.transitionProperty = 'margin-left'
 
-          wrapper.style.marginLeft = `${wrapperMgLeft + width}px`
+          wrapper.style.marginLeft = `${wrapperML + width}px`
           prevItem.children[0].style.marginLeft = 0
           prevItem.children[1].style.marginLeft = 0
 
@@ -228,14 +296,14 @@ export default {
             const activeItem = document.querySelector(`#t-0`)
             console.log({ activeItem })
 
-            document.querySelectorAll('.testemonial').forEach((el) => {
+            document.querySelectorAll('.testimonial').forEach((el) => {
               el.classList.remove('active')
             })
 
             activeItem.classList.add('active')
 
-            activeItem.children[0].style.marginLeft = '-500px'
-            activeItem.children[1].style.marginLeft = '-500px'
+            activeItem.children[0].style.marginLeft = `${width * -1}px`
+            activeItem.children[1].style.marginLeft = `${width * -1}px`
             activeItem.children[0].style.visibility = 'visible'
             activeItem.children[1].style.visibility = 'visible'
 
@@ -256,7 +324,7 @@ export default {
         clearInterval(this.interval)
 
         this.interval = setInterval(() => {
-          this.stepNext()
+          // this.stepNext()
         }, 6000)
       }
     },
@@ -264,7 +332,7 @@ export default {
     restartInterval() {
       clearInterval(this.interval)
       this.interval = setInterval(() => {
-        this.stepNext()
+        // this.stepNext()
       }, 6000)
     }
   }
@@ -272,9 +340,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$testemonial-width: 100px;
+$wrapper-max-width: 500px;
 
-.lingo-testemonials-component {
+.lingo-testimonials-component {
   z-index: 1;
   position: relative;
 
@@ -309,25 +377,33 @@ $testemonial-width: 100px;
       }
     }
 
-    .testemonials-line {
+    .testimonials-line {
       display: flex;
       justify-content: center;
+
+      border: solid 3px red;
 
       @media (min-width: 1080px) {
         justify-content: flex-end;
       }
 
-      .testemonials-wrapper {
-        width: $testemonial-width * 5;
-        margin-top: -65px;
+      .testimonials-wrapper {
+        border: solid;
+
         height: 240px;
+        width: 100%;
+        // max-width: $wrapper-max-width;
+
+        @media (min-width: 1080px) {
+          margin-top: -65px;
+        }
 
         @media (min-width: 1200px) {
           margin-top: 0;
         }
 
         ul.list {
-          width: $testemonial-width * 5;
+          // width: $wrapper-max-width;
           height: 205px;
           list-style-type: none;
           margin: 0;
@@ -339,19 +415,19 @@ $testemonial-width: 100px;
             width: 100%;
             display: flex;
 
-            transition-property: none;
-            margin-left: $testemonial-width * 5;
+            transition-property: 'margin-left';
+            margin-left: $wrapper-max-width;
 
-            li.testemonial {
-              min-width: $testemonial-width * 5;
+            li.testimonial {
+              min-width: $wrapper-max-width;
               min-height: 205px;
 
               .text {
-                min-width: $testemonial-width * 5;
-                max-width: $testemonial-width * 5;
-                margin-left: $testemonial-width * 5;
+                min-width: $wrapper-max-width;
+                max-width: $wrapper-max-width;
+                margin-left: $wrapper-max-width;
 
-                transition-property: none;
+                transition-property: 'margin-left';
                 transition-duration: 0.25s;
                 transition-timing-function: ease-in-out;
 
@@ -359,14 +435,14 @@ $testemonial-width: 100px;
               }
 
               .client {
-                min-width: $testemonial-width * 5;
-                max-width: $testemonial-width * 5;
-                margin-left: $testemonial-width * 5;
+                min-width: $wrapper-max-width;
+                max-width: $wrapper-max-width;
+                margin-left: $wrapper-max-width;
 
                 height: 75px;
                 padding-top: 15px;
 
-                transition-property: none;
+                transition-property: 'margin-left';
                 transition-duration: 0.25s;
                 transition-timing-function: ease-in-out;
                 transition-delay: 0.3s;
