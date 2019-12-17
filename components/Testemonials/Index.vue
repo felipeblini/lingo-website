@@ -110,7 +110,9 @@ export default {
       this.responsiveWidth = window.innerWidth - 50
     }
 
-    this.wrapperWidth = this.$refs.listWrapper.clientWidth
+    this.wrapperWidth = this.$refs.listWrapper
+      ? this.$refs.listWrapper.clientWidth
+      : this.maxWidth
 
     window.addEventListener('resize', () => {
       setTimeout(() => {
@@ -119,7 +121,9 @@ export default {
           this.stepNext()
         }
 
-        this.wrapperWidth = this.$refs.listWrapper.clientWidth
+        this.wrapperWidth = this.$refs.listWrapper
+          ? this.$refs.listWrapper.clientWidth
+          : this.maxWidth
 
         console.log({
           windowWidth: window.innerWidth,
@@ -221,49 +225,54 @@ export default {
 
     stepNext(active = ++this.active) {
       if (active < this.list.length) {
-        const width = this.$refs.listWrapper.clientWidth
+        const width = this.$refs.listWrapper
+          ? this.$refs.listWrapper.clientWidth
+          : this.maxWidth
+
         const wrapper = this.$refs.itemsWrapper
 
-        wrapper.style.transitionDelay = '0s'
-        wrapper.style.transitionProperty = 'margin-left'
-        wrapper.style.marginLeft = `${active * width * -1}px`
+        if (wrapper) {
+          wrapper.style.transitionDelay = '0s'
+          wrapper.style.transitionProperty = 'margin-left'
+          wrapper.style.marginLeft = `${active * width * -1}px`
 
-        document.querySelectorAll('.testimonial').forEach((el) => {
-          el.classList.remove('active')
-        })
+          document.querySelectorAll('.testimonial').forEach((el) => {
+            el.classList.remove('active')
+          })
 
-        const activeItem = document.querySelector(`#t-${active}`)
-        const prevItem = document.querySelector(`#t-${active - 1}`)
+          const activeItem = document.querySelector(`#t-${active}`)
+          const prevItem = document.querySelector(`#t-${active - 1}`)
 
-        activeItem.classList.add('active')
+          activeItem.classList.add('active')
 
-        activeItem.children[0].style.transitionProperty = 'margin-left'
-        activeItem.children[0].style.marginLeft = 0
+          activeItem.children[0].style.transitionProperty = 'margin-left'
+          activeItem.children[0].style.marginLeft = 0
 
-        activeItem.children[1].style.transitionProperty = 'margin-left'
-        activeItem.children[1].style.marginLeft = 0
+          activeItem.children[1].style.transitionProperty = 'margin-left'
+          activeItem.children[1].style.marginLeft = 0
 
-        activeItem.children[0].style.visibility = 'visible'
-        activeItem.children[1].style.visibility = 'visible'
+          activeItem.children[0].style.visibility = 'visible'
+          activeItem.children[1].style.visibility = 'visible'
 
-        if (prevItem) {
-          prevItem.children[0].style.transitionProperty = 'margin-left'
-          prevItem.children[0].style.marginLeft = `${width * -1}px`
+          if (prevItem) {
+            prevItem.children[0].style.transitionProperty = 'margin-left'
+            prevItem.children[0].style.marginLeft = `${width * -1}px`
 
-          prevItem.children[1].style.transitionProperty = 'margin-left'
-          prevItem.children[1].style.marginLeft = `${width * -1}px`
+            prevItem.children[1].style.transitionProperty = 'margin-left'
+            prevItem.children[1].style.marginLeft = `${width * -1}px`
+
+            setTimeout(() => {
+              prevItem.children[0].style.transitionProperty = 'none'
+              prevItem.children[1].style.transitionProperty = 'none'
+            }, 1000)
+          }
 
           setTimeout(() => {
-            prevItem.children[0].style.transitionProperty = 'none'
-            prevItem.children[1].style.transitionProperty = 'none'
+            wrapper.style.transitionProperty = 'none'
+            activeItem.children[0].style.transitionProperty = 'none'
+            activeItem.children[1].style.transitionProperty = 'none'
           }, 1000)
         }
-
-        setTimeout(() => {
-          wrapper.style.transitionProperty = 'none'
-          activeItem.children[0].style.transitionProperty = 'none'
-          activeItem.children[1].style.transitionProperty = 'none'
-        }, 1000)
 
         clearInterval(this.interval)
 
@@ -285,35 +294,43 @@ export default {
 
     stepPrev(active = this.active) {
       if (active >= 0) {
-        const width = this.$refs.listWrapper.clientWidth
+        const width = this.$refs.listWrapper
+          ? this.$refs.listWrapper.clientWidth
+          : this.maxWidth
+
         const wrapper = this.$refs.itemsWrapper
-        const wrapperMgLeft = Number(wrapper.style.marginLeft.replace('px', ''))
-        const activeItem = document.querySelector(`#t-${active}`)
 
-        const prevItem = document.querySelector(`#t-${active - 1}`)
+        if (wrapper) {
+          const wrapperMgLeft = Number(
+            wrapper.style.marginLeft.replace('px', '')
+          )
+          const activeItem = document.querySelector(`#t-${active}`)
 
-        if (prevItem) {
-          activeItem.classList.remove('active')
-          prevItem.classList.add('active')
+          const prevItem = document.querySelector(`#t-${active - 1}`)
 
-          wrapper.style.transitionProperty = 'margin-left'
-          prevItem.children[0].style.transitionProperty = 'margin-left'
-          prevItem.children[1].style.transitionProperty = 'margin-left'
+          if (prevItem) {
+            activeItem.classList.remove('active')
+            prevItem.classList.add('active')
 
-          wrapper.style.marginLeft = `${wrapperMgLeft + width}px`
-          prevItem.children[0].style.marginLeft = 0
-          prevItem.children[1].style.marginLeft = 0
+            wrapper.style.transitionProperty = 'margin-left'
+            prevItem.children[0].style.transitionProperty = 'margin-left'
+            prevItem.children[1].style.transitionProperty = 'margin-left'
 
-          activeItem.children[0].style.marginLeft = `${width}px`
-          activeItem.children[1].style.marginLeft = `${width}px`
+            wrapper.style.marginLeft = `${wrapperMgLeft + width}px`
+            prevItem.children[0].style.marginLeft = 0
+            prevItem.children[1].style.marginLeft = 0
 
-          if (active > 0) this.active--
+            activeItem.children[0].style.marginLeft = `${width}px`
+            activeItem.children[1].style.marginLeft = `${width}px`
 
-          setTimeout(() => {
-            wrapper.style.transitionProperty = 'none'
-            prevItem.children[0].style.transitionProperty = 'none'
-            prevItem.children[0].style.transitionProperty = 'none'
-          }, 1000)
+            if (active > 0) this.active--
+
+            setTimeout(() => {
+              wrapper.style.transitionProperty = 'none'
+              prevItem.children[0].style.transitionProperty = 'none'
+              prevItem.children[0].style.transitionProperty = 'none'
+            }, 1000)
+          }
         } else {
           const clone = this.list[this.originalListlength - 1]
           setTimeout(() => {
@@ -496,12 +513,10 @@ export default {
             overflow: hidden;
             border: none;
 
-            &.tn-left {
-              background-image: url('./img/left-arrow.svg');
-            }
+            background-image: url('./img/left-arrow.svg');
 
             &.tn-right {
-              background-image: url('./img/right-arrow.svg');
+              @include flip-horizontal-and-vertical;
             }
           }
         }

@@ -23,11 +23,14 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~assets/scss/app.scss'],
+  css: ['~assets/scss/app.scss', 'swiper/dist/css/swiper.css'],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/vue-touch', ssr: false }],
+  plugins: [
+    { src: '~/plugins/vue-touch', ssr: false },
+    { src: '~/plugins/vue-awesome-swipper.js', ssr: false }
+  ],
   /*
    ** Nuxt.js modules
    */

@@ -3,3 +3,19 @@
   mask-size: contain;
   background-color: #{$color};
 }
+@mixin flip-horizontal {
+  moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter:  'FlipH';
+}
+@mixin flip-horizontal-and-vertical {
+  moz-transform: scaleX(-1) scaleY(-1);
+  -o-transform: scaleX(-1) scaleY(-1);
+  -webkit-transform: scaleX(-1) scaleY(-1);
+  transform: scaleX(-1) scaleY(-1);
+  filter: FlipH;
+  -ms-filter:  'FlipH';
+}
