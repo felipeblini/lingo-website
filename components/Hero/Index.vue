@@ -1,5 +1,5 @@
 <template>
-  <div ref="hero-container">
+  <div class="hero-cmp" ref="hero-container">
     <div class="hero-text container">
       <div>
         <h1>LOREM IPSUM</h1>
@@ -99,7 +99,8 @@
             @load="isImageLoading = false"
           ></image>
         </svg>
-
+      </figure>
+      <figure>
         <svg class="svg-border" viewBox="0 0 2066.02 1378.36">
           <defs>
             <style>
@@ -111,7 +112,6 @@
               }
             </style>
           </defs>
-          <title>contorno</title>
           <path
             class="ballon-border"
             d="M2079.76,868.18c-147.28,268.26-843.8,495.9-843.8,495.9,277.48-277.32,222.45-439.66,222.45-439.66C1413,736.47,964.22,800.53,964.22,800.53c-179.7,41.3-300.29,48.18-300.29,48.18C165,851,39.36,116.86,39.36,116.86L16.56-15.56"
@@ -157,153 +157,238 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// ballon -->
-.hero-ballon {
-  position: absolute;
-  top: -5px;
-  width: 100%;
-  overflow: hidden;
-
-  svg.svg-ballon {
-    margin-left: -10%;
-    margin-top: -3%;
-  }
-
-  svg.svg-border {
-    margin-top: -3%;
-    width: calc(100% + 10%);
-    left: 0;
-    position: absolute;
-    top: 0;
-    margin-left: -10%;
-    z-index: -1;
-  }
-} // <-- ballon
-
-// hero-text -->
-.hero-text {
-  color: white;
-  z-index: 1;
+.hero-cmp {
   position: relative;
+  z-index: 0;
+  padding-top: 60px;
 
-  display: flex;
-  justify-content: center;
+  // ballon -->
+  .hero-ballon {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    overflow: hidden;
 
-  @media (min-width: 730px) {
-    top: 35px;
-  }
+    width: 126%;
 
-  @media (min-width: 992px) {
-    top: 65px;
-  }
-
-  > div {
-    width: 100%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
+    @media (min-width: 768px) {
+      @media (pointer: fine) {
+        width: 103%;
+      }
+    }
 
     @media (min-width: 992px) {
-      align-items: flex-end;
+      @media (pointer: fine) {
+        width: 114%;
+      }
     }
 
-    h1 {
-      font-size: 29px;
+    svg.svg-ballon {
+      position: relative;
+      margin-top: -5%;
+      z-index: 1;
 
-      @media (min-width: 540px) {
-        font-size: 49px;
+      margin-left: -16%;
+    }
+
+    svg.svg-border {
+      position: absolute;
+      width: 117%;
+      top: -19px;
+      left: -69px;
+
+      @media (min-width: 360px) {
+        top: -24px;
+        left: -74px;
       }
 
-      @media (min-width: 880px) {
-        font-size: 75px;
+      @media (min-width: 375px) {
+        top: -27px;
+      }
+
+      @media (min-width: 411px) {
+        left: -85px;
+      }
+
+      @media (min-width: 768px) {
+        top: -53px;
+        left: -156px;
+
+        @media (pointer: fine) {
+          top: -43px;
+          left: -119px;
+        }
       }
 
       @media (min-width: 992px) {
-        font-size: 87px;
+        @media (pointer: fine) {
+          top: -56px;
+          left: -191px;
+        }
       }
 
-      font-weight: 800;
+      @media (min-width: 1024px) {
+        top: -73px;
+        left: -206px;
+      }
+
+      @media (min-width: 1200px) {
+        left: -16%;
+        top: -8%;
+      }
+    }
+  } // <-- ballon
+
+  // hero-text -->
+  .hero-text {
+    color: white;
+    z-index: 1;
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+
+    @media (min-width: 730px) {
+      top: 35px;
     }
 
-    p {
-      font-size: 10px;
-      display: block;
-      width: 250px;
-      margin: 0 auto;
-      margin-top: -10px;
+    @media (min-width: 992px) {
+      top: 137px;
 
-      @media (min-width: 540px) {
-        font-size: 14px;
+      @media (pointer: fine) {
+        top: 88px;
       }
+    }
 
-      @media (min-width: 880px) {
-        font-size: 20px;
-        width: 500px;
-      }
+    @media (min-width: 1200px) {
+      top: 137px;
+    }
+
+    > div {
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
 
       @media (min-width: 992px) {
-        font-size: 26px;
-        width: auto;
-        margin: unset;
+        align-items: flex-end;
       }
-    }
-  }
 
-  @media (min-width: 992px) {
-    > div {
       h1 {
-        font-size: 102px;
+        font-size: 27px;
+
+        @media (min-width: 360px) {
+          font-size: 32px;
+        }
+
+        @media (min-width: 411px) {
+          font-size: 45px;
+        }
+
+        @media (min-width: 768px) {
+          font-size: 70px;
+        }
+
+        @media (min-width: 880px) {
+          font-size: 75px;
+        }
+
+        @media (min-width: 992px) {
+          font-size: 87px;
+        }
+
+        font-weight: 800;
       }
 
       p {
-        width: 58%;
-        text-align: right;
-        margin-right: 20px;
-        font-size: 26px;
+        font-size: 11px;
+        display: block;
+        width: 250px;
+        margin: 0 auto;
+        margin-top: -10px;
+
+        @media (min-width: 360px) {
+          font-size: 12px;
+        }
+
+        @media (min-width: 411px) {
+          font-size: 14px;
+        }
+
+        @media (min-width: 768px) {
+          font-size: 18px;
+          width: 364px;
+        }
+
+        @media (min-width: 880px) {
+          font-size: 20px;
+          width: 500px;
+        }
+
+        @media (min-width: 992px) {
+          font-size: 26px;
+          width: auto;
+          margin: unset;
+        }
       }
     }
-  }
 
-  @media (min-width: 1200px) {
-    top: 40px;
+    @media (min-width: 992px) {
+      > div {
+        h1 {
+          font-size: 102px;
+        }
 
-    > div {
-      h1 {
-        font-size: 118px;
-      }
-
-      p {
-        font-size: 30px;
-      }
-    }
-  }
-
-  @media (min-width: 1400px) {
-    top: 67px;
-
-    > div {
-      h1 {
-        font-size: 125px;
+        p {
+          width: 58%;
+          text-align: right;
+          margin-right: 20px;
+          font-size: 26px;
+        }
       }
     }
-  }
 
-  @media (min-width: 1600px) {
-    top: 113px;
+    @media (min-width: 1200px) {
+      top: 40px;
 
-    > div {
-      h1 {
-        font-size: 141px;
+      > div {
+        h1 {
+          font-size: 118px;
+        }
+
+        p {
+          font-size: 30px;
+        }
       }
     }
-  }
 
-  @media (min-width: 1920px) {
-    top: 159px;
-  }
+    @media (min-width: 1400px) {
+      top: 67px;
 
-  @media (min-width: 2000px) {
-    top: 177px;
-  }
-} // <-- hero-text
+      > div {
+        h1 {
+          font-size: 125px;
+        }
+      }
+    }
+
+    @media (min-width: 1600px) {
+      top: 113px;
+
+      > div {
+        h1 {
+          font-size: 141px;
+        }
+      }
+    }
+
+    @media (min-width: 1920px) {
+      top: 159px;
+    }
+
+    @media (min-width: 2000px) {
+      top: 177px;
+    }
+  } // <-- hero-text
+}
 </style>

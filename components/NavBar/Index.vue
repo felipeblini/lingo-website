@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import WhatsappButton from '~/components/WhatsappButton/Index.vue'
 import SwitchLanguageButton from './SwitchLanguageButton.vue'
+import WhatsappButton from '~/components/WhatsappButton/Index.vue'
 
 export default {
   components: {
@@ -52,13 +52,11 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  max-width: 1090px;
-  margin: 0 auto;
   z-index: 2;
+  width: 100%;
+  position: absolute;
 
   .container {
-    padding-top: 3px;
-
     @media (min-width: 600px) {
       padding-top: 20px;
     }
@@ -70,20 +68,22 @@ export default {
     }
 
     .navbar-brand {
-      margin-right: 20px;
-      width: 77px;
+      margin-right: 0;
+      width: 128px;
+      height: 39px;
+
       text-indent: -9999px;
       overflow: hidden;
 
-      @media (min-width: 600px) {
-        width: 127px;
+      @media (min-width: 768px) {
+        width: 160px;
+        height: 59px;
       }
 
       @media (min-width: 1200px) {
-        width: 180px;
+        width: 173px;
+        height: 53px;
       }
-
-      height: 55px;
 
       @include lingo-logo($white);
     }
@@ -92,10 +92,25 @@ export default {
       flex-grow: 1;
       display: flex;
       justify-content: flex-end;
-      padding-right: 20px;
+
+      padding-right: 23px;
+
+      @media (min-width: 768px) {
+        padding-right: 40px;
+      }
     }
 
     .navbar-toggler {
+      position: absolute;
+
+      right: 5px;
+
+      @media (min-width: 768px) {
+        right: 18px;
+      }
+
+      font-size: 2rem;
+      color: #fff;
       border: none;
       outline: none;
     }
@@ -107,6 +122,20 @@ export default {
         width: 300px;
         background: #fff;
         right: 72px;
+      }
+
+      &.collapse {
+        display: none;
+
+        &.show {
+          display: block;
+          width: 100%;
+          background-color: rgba(239, 72, 101, 0.92);
+          padding: 30px 74px;
+          position: absolute;
+          left: 0px;
+          font-size: 31px;
+        }
       }
     }
 

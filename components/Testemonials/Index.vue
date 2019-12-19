@@ -137,7 +137,7 @@ export default {
       {
         id: 1,
         text:
-          'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit, magnam doloribus illum quo. Quibusdam qui distinctio doloribus illum quo, est praesentium accusamus',
+          'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
         client: {
           name: 'Nome da Silva 1',
           role: 'Empresa - Cargo'
@@ -426,10 +426,6 @@ export default {
       }
 
       .testimonials-wrapper {
-        // width: $testimonial-width * 5;
-
-        height: 240px;
-
         @media (min-width: 1080px) {
           margin-top: -65px;
         }
@@ -440,22 +436,18 @@ export default {
 
         ul.testimonialsList {
           width: 100%;
-          min-height: 205px;
           list-style-type: none;
           margin: 0;
           padding: 0;
           overflow: hidden;
 
           .items-wrapper {
-            min-height: 205px;
             width: 100%;
             display: flex;
 
             transition-property: none;
 
             li.testimonial {
-              min-height: 205px;
-
               .text {
                 transition-property: none;
                 transition-duration: 0.25s;

@@ -21,7 +21,7 @@ export default {
         if (scroll >= height) {
           this.$refs['wp-button'].style.bottom = '142px'
         } else {
-          this.$refs['wp-button'].style.bottom = '44px'
+          this.$refs['wp-button'].style.bottom = '20px'
         }
       }, 100)
     })
@@ -39,8 +39,8 @@ a.whatsapp-component {
 
   position: fixed;
 
-  bottom: 44px;
-  right: 43px;
+  bottom: 20px;
+  right: 17px;
 
   transition-property: bottom;
   transition-duration: 0.25s;
@@ -54,9 +54,15 @@ a.whatsapp-component {
     color: #fff;
     background: #4caf50;
 
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     font-size: 30px;
+
+    @media (min-width: 768px) {
+      width: 80px;
+      height: 80px;
+      font-size: 48px;
+    }
 
     @media (min-width: 1200px) {
       width: 53px;

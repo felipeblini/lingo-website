@@ -34,20 +34,28 @@ export default {
 <style lang="scss" scoped>
 .lingo-minibio {
   visibility: hidden;
-  padding-top: 138px;
-  padding-left: 50px;
-  width: 100%;
   display: flex;
-
   flex-direction: column;
   align-items: flex-start;
 
+  padding-top: 92px;
+  padding-left: 17px;
+  width: 100%;
+
+  @media (min-width: 360px) {
+    padding-top: 100px;
+  }
+
   @media (min-width: 411px) {
-    padding-top: 38px;
+    padding-top: 120px;
   }
 
   @media (min-width: 576px) {
     padding-left: unset;
+  }
+
+  @media (min-width: 768px) {
+    padding-top: 176px;
   }
 
   @media (min-width: 992px) {
@@ -55,10 +63,22 @@ export default {
     align-items: center;
     padding-top: 30px;
     padding-left: 30px;
+
+    @media (pointer: fine) {
+      padding-top: 96px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    padding-top: 98px;
   }
 
   @media (min-width: 1200px) {
-    padding-top: 36px;
+    padding-top: 136px;
+  }
+
+  @media (min-width: 1900px) {
+    padding-top: 10%;
   }
 
   h3.minibio-title {
@@ -72,34 +92,31 @@ export default {
       font-size: 38px;
     }
 
-    margin: 0px 0 -12px;
-
-    @media (min-width: 560px) {
-      margin: 0px 0 -18px;
+    @media (min-width: 768px) {
+      font-size: 53px;
     }
 
-    @media (min-width: 1200px) {
-      font-size: 53px;
-      margin: 0px 0 -21px;
+    @media (min-width: 1024px) {
+      font-size: 48px;
     }
 
     @media (min-width: 1800px) {
       font-size: 59px;
-      margin: 0px 0 -28px;
     }
   }
 
   .minibio-brand {
     @include lingo-logo($gray);
 
-    width: 269px;
-    height: 97px;
-    margin-left: -18px;
+    width: 229px;
+    height: 79px;
+    margin-left: -19px;
+    margin-top: -22px;
 
     @media (min-width: 411px) {
-      width: 196px;
-      height: 72px;
-      margin-left: -14px;
+      width: 274px;
+      height: 101px;
+      margin-top: -26px;
     }
 
     @media (min-width: 477px) {
@@ -114,15 +131,46 @@ export default {
       margin-left: -23px;
     }
 
+    @media (min-width: 768px) {
+      width: 496px;
+      height: 183px;
+      margin-left: -39px;
+      margin-top: -43px;
+
+      @media (pointer: fine) {
+        width: 448px;
+        height: 166px;
+      }
+    }
+
     @media (min-width: 992px) {
       width: 327px;
       height: 136px;
       margin-left: -26px;
+
+      @media (pointer: fine) {
+        margin-top: -30px;
+      }
+    }
+
+    @media (min-width: 960px) {
+      @media (pointer: fine) {
+        top: -50px;
+        left: -168px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        width: 367px;
+        height: 135px;
+        margin-top: -34px;
+      }
     }
 
     @media (min-width: 1200px) {
       width: 370px;
-      height: 147px;
+      height: 137px;
       margin-left: -29px;
     }
 
@@ -136,22 +184,24 @@ export default {
   .minibio-text {
     padding-left: 0px;
     font-size: 0.9rem;
-    padding-right: 50%;
     position: relative;
 
-    @media (min-width: 992px) {
-      padding-right: 35%;
+    @media (min-width: 768px) {
+      font-size: 1.3rem;
     }
 
-    @media (min-width: 1200px) {
-      padding-right: 38%;
-      padding-left: 0;
+    @media (min-width: 992px) {
+      padding-right: 27%;
+    }
+
+    @media (min-width: 1024px) {
+      @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        font-size: 1.5rem;
+      }
     }
 
     @media (min-width: 1300px) {
-      padding-right: 38%;
       padding-left: 15px;
-      font-size: 1rem;
     }
 
     @media (min-width: 1800px) {

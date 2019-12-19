@@ -13,7 +13,7 @@ export default {}
   overflow: hidden;
 
   .mapa-mundi {
-    background: url('./img/mapa-mundi-mobile.svg');
+    background-image: url('./img/mapa-mundi-mobile.svg');
     background-size: contain;
     background-repeat: no-repeat;
     height: 0;
@@ -23,7 +23,7 @@ export default {}
     margin-top: 15px;
 
     @media (min-width: 1080px) {
-      background: url('./img/mapa-mundi-desktop.svg');
+      background-image: url('./img/mapa-mundi-desktop.svg');
       padding-top: 24%;
       background-position-x: -22px;
       width: 105%;

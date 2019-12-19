@@ -73,6 +73,10 @@ export default {
 
 <style lang="scss" scoped>
 .about-group-wrapper {
+  overflow: hidden;
+  // position: relative;
+  // top: -95px;
+
   background: #efeae4;
   background-repeat: no-repeat;
 

@@ -37,13 +37,18 @@ export default {
   z-index: 2;
 }
 
+$sm: 30px;
+$md: 60px;
+
 .swl {
   border-radius: 30px;
-  height: 29px;
+  // height: 29px;
+  height: $sm;
 }
 
 .switchlang-wrapper {
-  width: 71px;
+  // width: 71px;
+  width: calc(#{$sm} * 2 + 10px);
   background: #efeae4;
 
   display: flex;
@@ -51,10 +56,11 @@ export default {
   position: relative;
 
   justify-content: space-around;
-  font-size: 14px;
+  // font-size: 14px;
+  font-size: calc(#{$sm} / 1.9);
 
   p {
-    margin-top: 3px;
+    margin-top: calc(#{$sm} / 10);
     cursor: pointer;
     user-select: none;
   }
@@ -76,7 +82,8 @@ export default {
 
   &.en {
     .swipper {
-      left: 35px;
+      // left: 35px;
+      left: calc(#{$sm} + 5px);
     }
 
     p.en {
@@ -86,8 +93,36 @@ export default {
 }
 
 .swipper {
-  width: 36px;
+  // width: 36px;
+  width: calc(#{$sm} + 6px);
   background: #ef4865;
   position: absolute;
+}
+
+@media (min-width: 1024px) {
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .swl {
+      height: $md;
+    }
+
+    .switchlang-wrapper {
+      width: calc(#{$md} * 2 + 10px);
+      font-size: calc(#{$md} / 1.9);
+
+      p {
+        margin-top: calc(#{$md} / 10);
+      }
+
+      &.en {
+        .swipper {
+          left: calc(#{$md} + 5px);
+        }
+      }
+    }
+
+    .swipper {
+      width: calc(#{$md} + 6px);
+    }
+  }
 }
 </style>
