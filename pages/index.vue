@@ -17,7 +17,7 @@
 <script>
 import LingoHero from '~/components/Hero'
 import LingoMiniBio from '~/components/Minibio'
-import LingoAbout from '~/components/About'
+import LingoAbout from '~/components/About/Index.vue'
 import LingoServices from '~/components/OurServices'
 import LingoTestemonials from '~/components/Testemonials'
 import LingoPartners from '~/components/Partners'
