@@ -15,14 +15,14 @@
 </template>
 
 <script>
-import LingoHero from '~/components/Hero/Index.vue'
-import LingoMiniBio from '~/components/Minibio/Index.vue'
-import LingoAbout from '~/components/About/Index.vue'
-import LingoServices from '~/components/OurServices/Index.vue'
-import LingoTestemonials from '~/components/Testemonials/Index.vue'
-import LingoPartners from '~/components/Partners/Index.vue'
-import LingoMapaMundi from '~/components/MapaMundi/Index.vue'
-import LingoFooter from '~/components/Footer/Index.vue'
+import LingoHero from '@/components/Hero'
+import LingoMiniBio from '@/components/Minibio'
+import LingoAbout from '@/components/About'
+import LingoServices from '@/components/OurServices'
+import LingoTestemonials from '@/components/Testemonials'
+import LingoPartners from '@/components/Partners'
+import LingoMapaMundi from '@/components/MapaMundi'
+import LingoFooter from '@/components/Footer'
 
 export default {
   components: {
