@@ -22,7 +22,7 @@ import LingoServices from '~/components/OurServices'
 import LingoTestemonials from '~/components/Testemonials'
 import LingoPartners from '~/components/Partners'
 import LingoMapaMundi from '~/components/MapaMundi'
-import LingoFooter from '~/components/Footer'
+import LingoFooter from '~/components/Footer/Index.vue'
 
 export default {
   components: {
