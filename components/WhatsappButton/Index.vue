@@ -56,7 +56,7 @@ a.whatsapp-component {
 
     width: 80px;
     height: 80px;
-    font-size: 46px;
+    font-size: 30px;
 
     @media (min-width: 1200px) {
       width: 53px;
