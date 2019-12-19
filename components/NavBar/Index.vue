@@ -40,7 +40,7 @@
 
 <script>
 import WhatsappButton from '~/components/WhatsappButton/Index.vue'
-import SwitchLanguageButton from '~/components/NavBar/SwitchLanguageButton.vue'
+import SwitchLanguageButton from '~/components/NavBar/SwitchLanguageButton/Index.vue'
 
 export default {
   components: {
