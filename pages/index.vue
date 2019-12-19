@@ -38,7 +38,7 @@
 
 <script>
 import LingoHero from '~/components/Hero/Index.vue'
-import MiniBio from '@/components/Minibio/index.vue'
+import MiniBio from '~/components/Minibio/index.vue'
 import WhoAreUs from '~/components/WhoAreUs/Index.vue'
 import OurServices from '~/components/OurServices/Index.vue'
 import CustomersTestemonials from '~/components/Testemonials/Index.vue'

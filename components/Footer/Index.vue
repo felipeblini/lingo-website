@@ -41,7 +41,7 @@ export default {}
 </script>
 
 <style lang="scss" scoped>
-footer.lingo-footer-wrapper {
+.lingo-footer-wrapper {
   overflow: hidden;
 
   .footer-background {
