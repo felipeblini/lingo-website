@@ -37,14 +37,14 @@
 </template>
 
 <script>
-import LingoHero from '~/components/Hero/'
-import MiniBio from '~/components/Minibio/'
-import WhoAreUs from '~/components/WhoAreUs/'
-import OurServices from '~/components/OurServices/'
-import CustomersTestemonials from '~/components/Testemonials/'
-import OurPartners from '~/components/Partners/'
-import MapaMundi from '~/components/MapaMundi/'
-import LingoFooter from '~/components/Footer/'
+import LingoHero from '~/components/Hero/Index.vue'
+import MiniBio from '~/components/Minibio/Index.vue'
+import WhoAreUs from '~/components/WhoAreUs/Index.vue'
+import OurServices from '~/components/OurServices/Index.vue'
+import CustomersTestemonials from '~/components/Testemonials/Index.vue'
+import OurPartners from '~/components/Partners/Index.vue'
+import MapaMundi from '~/components/MapaMundi/Index.vue'
+import LingoFooter from '~/components/Footer/Index.vue'
 
 export default {
   components: {
