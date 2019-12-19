@@ -1,5 +1,5 @@
 <template>
-  <a href="#" class="whatsapp-component">
+  <a href="#" class="whatsapp-component" ref="wp-button">
     <div class="circle-icon">
       <font-awesome-icon :icon="['fab', 'whatsapp']" />
     </div>
@@ -11,7 +11,22 @@
 </template>
 
 <script>
-export default {}
+export default {
+  mounted() {
+    window.addEventListener('scroll', () => {
+      setTimeout(() => {
+        const scroll = window.pageYOffset
+        const height = document.body.clientHeight - 1100
+        console.log({ scroll, height })
+        if (scroll >= height) {
+          this.$refs['wp-button'].style.bottom = '142px'
+        } else {
+          this.$refs['wp-button'].style.bottom = '44px'
+        }
+      }, 100)
+    })
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -23,8 +38,12 @@ a.whatsapp-component {
   align-items: center;
 
   position: fixed;
-  bottom: 27px;
-  right: 34px;
+
+  bottom: 44px;
+  right: 43px;
+
+  transition-property: bottom;
+  transition-duration: 0.25s;
 
   @media (min-width: 1200px) {
     position: initial;
@@ -32,18 +51,24 @@ a.whatsapp-component {
   }
 
   .circle-icon {
-    width: 53px;
-    height: 53px;
+    color: #fff;
+    background: #4caf50;
+
+    width: 80px;
+    height: 80px;
+    font-size: 46px;
+
+    @media (min-width: 1200px) {
+      width: 53px;
+      height: 53px;
+      font-size: 36px;
+    }
 
     border-radius: 50%;
 
     display: flex;
     align-items: center;
     justify-content: center;
-
-    color: #fff;
-    font-size: 36px;
-    background: #4caf50;
 
     -webkit-box-shadow: 11px 11px 28px -12px rgba(0, 0, 0, 0.65);
     -moz-box-shadow: 11px 11px 28px -12px rgba(0, 0, 0, 0.65);

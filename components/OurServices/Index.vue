@@ -264,7 +264,7 @@ $services-box-padding: 8px;
 
   .services-container {
     position: relative;
-    z-index: 2;
+    z-index: 1;
     display: flex;
     justify-content: center;
     margin-top: -67px;
