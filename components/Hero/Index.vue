@@ -262,6 +262,14 @@ export default {
 
     @media (min-width: 1200px) {
       top: 137px;
+
+      @media (pointer: fine) {
+        top: 151px;
+      }
+    }
+
+    @media (min-width: 1600px) {
+      top: 257px;
     }
 
     > div {
@@ -349,8 +357,6 @@ export default {
     }
 
     @media (min-width: 1200px) {
-      top: 40px;
-
       > div {
         h1 {
           font-size: 118px;
@@ -363,8 +369,6 @@ export default {
     }
 
     @media (min-width: 1400px) {
-      top: 67px;
-
       > div {
         h1 {
           font-size: 125px;
@@ -373,21 +377,11 @@ export default {
     }
 
     @media (min-width: 1600px) {
-      top: 113px;
-
       > div {
         h1 {
           font-size: 141px;
         }
       }
-    }
-
-    @media (min-width: 1920px) {
-      top: 159px;
-    }
-
-    @media (min-width: 2000px) {
-      top: 177px;
     }
   } // <-- hero-text
 }
