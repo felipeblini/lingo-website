@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import SwitchLanguageButton from './SwitchLanguageButton.vue'
 import WhatsappButton from '~/components/WhatsappButton/Index.vue'
+import SwitchLanguageButton from '~/components/NavBar/SwitchLanguageButton.vue'
 
 export default {
   components: {

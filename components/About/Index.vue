@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import LingoTeam from './Team/Index.vue'
+import LingoTeam from '~/components/About/Team/Index.vue'
 
 export default {
   components: {
