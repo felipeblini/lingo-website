@@ -8,17 +8,9 @@
 
     <LingoServices />
     <LingoTestemonials />
-
     <LingoPartners />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+    <LingoMapaMundi />
+    <LingoFooter />
   </div>
 </template>
 
@@ -29,6 +21,8 @@ import LingoAbout from '~/components/About'
 import LingoServices from '~/components/OurServices'
 import LingoTestemonials from '~/components/Testemonials'
 import LingoPartners from '~/components/Partners'
+import LingoMapaMundi from '~/components/MapaMundi'
+import LingoFooter from '~/components/Footer'
 
 export default {
   components: {
@@ -37,13 +31,16 @@ export default {
     LingoAbout,
     LingoServices,
     LingoTestemonials,
-    LingoPartners
+    LingoPartners,
+    LingoMapaMundi,
+    LingoFooter
   },
   data() {
     return {
       heroHeight: 0
     }
   },
+
   methods: {
     onHeroHeightCalculated(height) {
       this.heroHeight = height
