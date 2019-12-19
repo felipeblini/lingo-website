@@ -1,38 +1,60 @@
 <template>
   <div>
-    <div class="about-group-wrapper">
-      <LingoHero @onHeightCalculated="onHeroHeightCalculated" />
-      <LingoMiniBio :hero-height="heroHeight" />
-      <LingoAbout :hero-height="heroHeight" />
-    </div>
+    <section class="about-group-wrapper">
+      <section class="hero">
+        <LingoHero @onHeightCalculated="onHeroHeightCalculated" />
+      </section>
 
-    <LingoServices />
-    <LingoTestemonials />
-    <LingoPartners />
-    <LingoMapaMundi />
-    <LingoFooter />
+      <section class="mini-bio">
+        <MiniBio :hero-height="heroHeight" />
+      </section>
+
+      <section class="who-are-us">
+        <WhoAreUs :hero-height="heroHeight" />
+      </section>
+    </section>
+
+    <section>
+      <OurServices />
+    </section>
+
+    <section>
+      <CustomersTestemonials />
+    </section>
+
+    <section>
+      <OurPartners />
+    </section>
+
+    <section>
+      <MapaMundi />
+    </section>
+
+    <footer>
+      <LingoFooter />
+    </footer>
   </div>
 </template>
 
 <script>
-import LingoHero from '~/components/About/Index.vue'
-import LingoMiniBio from '~/components/Minibio/index.vue'
-import LingoAbout from '~/components/About/Index.vue'
-import LingoServices from '~/components/OurServices/Index.vue'
-import LingoTestemonials from '~/components/Testemonials/Index.vue'
-import LingoPartners from '~/components/Partners/Index.vue'
-import LingoMapaMundi from '~/components/MapaMundi/Index.vue'
-import LingoFooter from '~/components/Footer/Index.vue'
+import LingoHero from '~/components/Hero/'
+import MiniBio from '~/components/Minibio/'
+import WhoAreUs from '~/components/WhoAreUs/'
+import OurServices from '~/components/OurServices/'
+import CustomersTestemonials from '~/components/Testemonials/'
+import OurPartners from '~/components/Partners/'
+import MapaMundi from '~/components/MapaMundi/'
+import LingoFooter from '~/components/Footer/'
 
 export default {
   components: {
     LingoHero,
-    LingoMiniBio,
-    LingoAbout,
-    LingoServices,
-    LingoTestemonials,
-    LingoPartners,
-    LingoMapaMundi,
+    MiniBio,
+    WhoAreUs,
+    OurServices,
+    CustomersTestemonials,
+    OurPartners,
+    MapaMundi,
     LingoFooter
   },
   data() {

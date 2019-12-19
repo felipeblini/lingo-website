@@ -1,5 +1,5 @@
 <template>
-  <footer class="lingo-footer-wrapper">
+  <div class="lingo-footer-wrapper">
     <div class="footer-background">
       <div class="container">
         <div class="row">
@@ -13,20 +13,27 @@
               </div>
             </address>
             <div class="social-icons">
-              <a href="#" class="whatsapp"
-                ><font-awesome-icon :icon="['fab', 'whatsapp']"
-              /></a>
-              <a href="#"><font-awesome-icon :icon="['fab', 'instagram']"/></a>
-              <a href="#"
-                ><font-awesome-icon :icon="['fab', 'facebook-square']"
-              /></a>
-              <a href="#"><font-awesome-icon :icon="['fab', 'youtube']"/></a>
+              <a href="#" class="whatsapp">
+                <font-awesome-icon :icon="['fab', 'whatsapp']" />
+              </a>
+
+              <a href="#">
+                <font-awesome-icon :icon="['fab', 'instagram']" />
+              </a>
+
+              <a href="#">
+                <font-awesome-icon :icon="['fab', 'facebook-square']" />
+              </a>
+
+              <a href="#">
+                <font-awesome-icon :icon="['fab', 'youtube']" />
+              </a>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </footer>
+  </div>
 </template>
 
 <script>

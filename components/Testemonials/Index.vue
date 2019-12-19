@@ -384,7 +384,6 @@ export default {
 
 <style lang="scss" scoped>
 .lingo-testimonials-component {
-  z-index: 1;
   position: relative;
 
   .quotations-image-wrapper {
