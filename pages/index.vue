@@ -15,14 +15,14 @@
 </template>
 
 <script>
-import LingoHero from '@/components/Hero'
-import LingoMiniBio from '@/components/Minibio'
-import LingoAbout from '@/components/About'
-import LingoServices from '@/components/OurServices'
-import LingoTestemonials from '@/components/Testemonials'
-import LingoPartners from '@/components/Partners'
-import LingoMapaMundi from '@/components/MapaMundi'
-import LingoFooter from '@/components/Footer'
+import LingoHero from '../components/Hero'
+import LingoMiniBio from '../components/Minibio'
+import LingoAbout from '../components/About'
+import LingoServices from '../components/OurServices'
+import LingoTestemonials from '../components/Testemonials'
+import LingoPartners from '../components/Partners'
+import LingoMapaMundi from '../components/MapaMundi'
+import LingoFooter from '../components/Footer'
 
 export default {
   components: {
