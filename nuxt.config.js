@@ -29,6 +29,7 @@ export default {
    */
   plugins: [
     { src: '~/plugins/vue-touch', ssr: false },
+    { src: '~/plugins/vue-smooth-scroll', ssr: false },
     { src: '~/plugins/vue-awesome-swipper.js', ssr: false }
   ],
   /*

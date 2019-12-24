@@ -1,5 +1,5 @@
 <template>
-  <div class="lingo-services-component">
+  <div :id="anchorName" class="lingo-services-component">
     <img
       class="only-mobile-block"
       src="./img/designs/curva-division-mobile.svg"
@@ -208,6 +208,15 @@ export default {
         'en-US':
           'Lorem ipsum dolor sit amet consectetur adipisicing elit exercitationem distinctio earum eaque ab nisi en-US'
       }
+    }
+  },
+
+  computed: {
+    anchorName() {
+      return `${this.$store.state.menu.services[this.$store.state.language]
+        .toLowerCase()
+        .replace(' ', '-')
+        .replace('ç', 'c')}`
     }
   }
 }

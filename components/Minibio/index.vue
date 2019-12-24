@@ -1,5 +1,5 @@
 <template>
-  <div ref="lingo-minibio" class="container lingo-minibio">
+  <div :id="anchorName" ref="lingo-minibio" class="container lingo-minibio">
     <div>
       <h3 class="gray minibio-title">{{ title[$store.state.language] }}</h3>
       <div class="minibio-brand"></div>
@@ -28,6 +28,11 @@ export default {
   computed: {
     miniBioMarginTop() {
       return ((this.heroHeight * 44) / 100) * -1
+    },
+    anchorName() {
+      return `${this.$store.state.menu.company[this.$store.state.language]
+        .toLowerCase()
+        .replace(' ', '-')}`
     }
   },
   mounted() {

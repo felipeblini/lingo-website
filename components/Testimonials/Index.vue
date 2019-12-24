@@ -1,5 +1,5 @@
 <template>
-  <div class="lingo-testimonials-component">
+  <div :id="anchorName" class="lingo-testimonials-component">
     <div class="quotations-image-wrapper">
       <img src="./img/aspas.svg" alt="" />
     </div>
@@ -108,6 +108,14 @@ export default {
       wrapperWidth: 0,
       originalListlength: 0,
       responsiveWidth: 0
+    }
+  },
+
+  computed: {
+    anchorName() {
+      return `${this.$store.state.menu.testimonials[this.$store.state.language]
+        .toLowerCase()
+        .replace(' ', '-')}`
     }
   },
   mounted() {

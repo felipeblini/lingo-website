@@ -1,5 +1,5 @@
 <template>
-  <div class="lingo-footer-cmp">
+  <div :id="anchorName" class="lingo-footer-cmp">
     <div class="footer-background"></div>
     <div class="container footer-container">
       <div class="row">
@@ -67,6 +67,14 @@ export default {
         facebook: '',
         youtube: ''
       }
+    }
+  },
+
+  computed: {
+    anchorName() {
+      return `${this.$store.state.menu.contact[this.$store.state.language]
+        .toLowerCase()
+        .replace(' ', '-')}`
     }
   },
 

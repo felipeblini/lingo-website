@@ -1,7 +1,7 @@
 <template>
   <b-navbar toggleable="custom" type="light" variant="">
     <div class="container">
-      <b-navbar-brand href="#top">
+      <b-navbar-brand href="#top" v-smooth-scroll>
         Lingo Interpretação, tradução simultânea, transcrição, revisão e media
         trainning
       </b-navbar-brand>
@@ -16,24 +16,84 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item href="#">
-            {{ menu[1][$store.state.language] }}
-          </b-nav-item>
-          <b-nav-item href="#">
-            {{ menu[2][$store.state.language] }}
-          </b-nav-item>
-          <b-nav-item href="#">
-            {{ menu[3][$store.state.language] }}
-          </b-nav-item>
-          <b-nav-item href="#">
-            {{ menu[4][$store.state.language] }}
-          </b-nav-item>
-          <b-nav-item href="#">
-            {{ menu[5][$store.state.language] }}
-          </b-nav-item>
-          <b-nav-item href="#">
-            {{ menu[6][$store.state.language] }}
-          </b-nav-item>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              :href="
+                `#${$store.state.menu['company'][$store.state.language]
+                  .toLowerCase()
+                  .replace(' ', '-')}`
+              "
+              v-smooth-scroll
+              >{{ $store.state.menu['company'][$store.state.language] }}</a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              :href="
+                `#${$store.state.menu['who-are-us'][$store.state.language]
+                  .toLowerCase()
+                  .replace(' ', '-')}`
+              "
+              v-smooth-scroll
+              >{{ $store.state.menu['who-are-us'][$store.state.language] }}</a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              :href="
+                `#${$store.state.menu['services'][$store.state.language]
+                  .toLowerCase()
+                  .replace(' ', '-')
+                  .replace('ç', 'c')}`
+              "
+              v-smooth-scroll
+              >{{ $store.state.menu['services'][$store.state.language] }}</a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              :href="
+                `#${$store.state.menu['testimonials'][$store.state.language]
+                  .toLowerCase()
+                  .replace(' ', '-')}`
+              "
+              v-smooth-scroll
+              >{{ $store.state.menu['testimonials'][$store.state.language] }}</a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              :href="
+                `#${$store.state.menu['partners'][$store.state.language]
+                  .toLowerCase()
+                  .replace(' ', '-')}`
+              "
+              v-smooth-scroll
+              >{{ $store.state.menu['partners'][$store.state.language] }}</a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              :href="
+                `#${$store.state.menu['contact'][$store.state.language]
+                  .toLowerCase()
+                  .replace(' ', '-')}`
+              "
+              v-smooth-scroll
+              >{{ $store.state.menu['contact'][$store.state.language] }}</a
+            >
+          </li>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -54,40 +114,29 @@
 import SwitchLanguageButton from './SwitchLanguageButton.vue'
 import WhatsappButton from '~/components/WhatsappButton/Index.vue'
 
+if (process.client) {
+  window.addEventListener('scroll', () => {
+    setTimeout(() => {
+      const navbar = document.querySelectorAll('.navbar')[0]
+      const top = window.pageYOffset
+
+      console.log({ top })
+
+      if (top > 50) {
+        if (!navbar.classList.contains('fixed')) {
+          navbar.classList.add('fixed')
+        }
+      } else {
+        navbar.classList.remove('fixed')
+      }
+    }, 200)
+  })
+}
+
 export default {
   components: {
     WhatsappButton,
     SwitchLanguageButton
-  },
-  data() {
-    return {
-      menu: {
-        1: {
-          'pt-BR': 'Empresa',
-          'en-US': 'The Company'
-        },
-        2: {
-          'pt-BR': 'Quem somos',
-          'en-US': 'About Us'
-        },
-        3: {
-          'pt-BR': 'Serviços',
-          'en-US': 'Services'
-        },
-        4: {
-          'pt-BR': 'Depoimentos',
-          'en-US': 'Testimonials'
-        },
-        5: {
-          'pt-BR': 'Parceiros',
-          'en-US': 'Partners'
-        },
-        6: {
-          'pt-BR': 'Contato',
-          'en-US': 'Contact'
-        }
-      }
-    }
   },
   methods: {
     onLanguageToggled(value) {
@@ -103,13 +152,19 @@ export default {
   width: 100%;
   position: absolute;
 
+  transition: all 0.25s;
+
+  &.fixed {
+    position: fixed;
+    background-color: rgba(198, 78, 97, 0.96078);
+  }
+
   .container {
     @media (min-width: 600px) {
-      padding-top: 20px;
+      padding: 20px;
     }
 
     @media (min-width: 1200px) {
-      padding-top: 34px;
       align-items: flex-end;
       flex-wrap: nowrap;
     }

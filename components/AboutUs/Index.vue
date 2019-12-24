@@ -1,5 +1,6 @@
 <template>
   <div
+    :id="anchorName"
     class="lingo-about"
     :style="{ marginTop: percentsOfHeroHeight(20) + 'px' }"
   >
@@ -88,6 +89,11 @@ export default {
   computed: {
     percentsOfHeroHeight() {
       return (percents) => (this.heroHeight * percents) / 100
+    },
+    anchorName() {
+      return `${this.$store.state.menu['who-are-us'][this.$store.state.language]
+        .toLowerCase()
+        .replace(' ', '-')}`
     }
   },
   mounted() {

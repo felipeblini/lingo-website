@@ -1,5 +1,5 @@
 <template>
-  <div class="container partners-container">
+  <div :id="anchorName" class="container partners-container">
     <div class="row">
       <div class="col-12 col-lg-8 offset-lg-2">
         <div class="partners-wrapper">
@@ -81,6 +81,14 @@ export default {
           disableOnInteraction: true
         }
       }
+    }
+  },
+
+  computed: {
+    anchorName() {
+      return `${this.$store.state.menu.partners[this.$store.state.language]
+        .toLowerCase()
+        .replace(' ', '-')}`
     }
   },
 

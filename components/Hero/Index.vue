@@ -139,6 +139,7 @@ export default {
       }
     }
   },
+
   mounted() {
     const container = this.$refs['hero-container']
 
