@@ -11,7 +11,7 @@
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 200 40"
           >
-            <text>Depoimentos</text>
+            <text>{{ title[$store.state.language] }}</text>
           </svg>
         </div>
       </div>
@@ -36,7 +36,7 @@
                   @click="restartInterval"
                   @mouseover="restartInterval"
                   class="testimonial"
-                  v-for="(testimonial, index) in list"
+                  v-for="(testimonial, index) in list[$store.state.language]"
                   :key="index"
                   :id="`t-${index}`"
                   :style="{ minWidth: `${responsiveWidth}px` }"
@@ -93,7 +93,14 @@ export default {
   },
   data() {
     return {
-      list: [],
+      title: {
+        'pt-BR': 'Depoimentos',
+        'en-US': 'Testimonials'
+      },
+      list: {
+        'pt-BR': [],
+        'en-US': []
+      },
       active: 0,
       cloneRightIndex: 0,
       cloneLeftIndex: 1,
@@ -124,73 +131,10 @@ export default {
         this.wrapperWidth = this.$refs.listWrapper
           ? this.$refs.listWrapper.clientWidth
           : this.maxWidth
-
-        console.log({
-          windowWidth: window.innerWidth,
-          wrapperWidth: this.wrapperWidth,
-          responsiveWidth: this.responsiveWidth
-        })
       }, 100)
     })
 
-    this.list = [
-      {
-        id: 1,
-        text:
-          'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
-        client: {
-          name: 'Nome da Silva 1',
-          role: 'Empresa - Cargo'
-        }
-      },
-      {
-        id: 2,
-        text:
-          'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
-        client: {
-          name: 'Fulano de Souza 2',
-          role: 'Empresa2 - Cargo2'
-        }
-      },
-      {
-        id: 2,
-        text:
-          'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
-        client: {
-          name: 'Fulano de Souza 3',
-          role: 'Empresa2 - Cargo3'
-        }
-      },
-      {
-        id: 2,
-        text:
-          'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
-        client: {
-          name: 'Fulano de Souza 4',
-          role: 'Empresa2 - Cargo4'
-        }
-      },
-      {
-        id: 2,
-        text:
-          'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
-        client: {
-          name: 'Fulano de Souza 5',
-          role: 'Empresa2 - Cargo5'
-        }
-      },
-      {
-        id: 2,
-        text:
-          'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
-        client: {
-          name: 'Fulano de Souza 6',
-          role: 'Empresa2 - Cargo6'
-        }
-      }
-    ]
-
-    this.originalListlength = this.list.length
+    this.originalListlength = this.list[this.$store.state.language].length
 
     const handleScroll = () => {
       setTimeout(() => {
@@ -215,8 +159,74 @@ export default {
     }
 
     window.addEventListener('scroll', handleScroll)
+
+    this.fetchList()
   },
   methods: {
+    fetchList() {
+      if (this.list[this.$store.state.language].length === 0) {
+        this.list[this.$store.state.language] = [
+          {
+            id: 1,
+            text:
+              'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+            client: {
+              name: 'Nome da Silva 1',
+              role: `Empresa - Cargo ${this.$store.state.language}`
+            }
+          },
+          {
+            id: 2,
+            text:
+              'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+            client: {
+              name: 'Fulano de Souza 2',
+              role: `Empresa2 - Cargo2 ${this.$store.state.language}`
+            }
+          },
+          {
+            id: 2,
+            text:
+              'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+            client: {
+              name: 'Fulano de Souza 3',
+              role: `Empresa2 - Cargo3 ${this.$store.state.language}`
+            }
+          },
+          {
+            id: 2,
+            text:
+              'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+            client: {
+              name: 'Fulano de Souza 4',
+              role: `Empresa2 - Cargo4 ${this.$store.state.language}`
+            }
+          },
+          {
+            id: 2,
+            text:
+              'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+            client: {
+              name: 'Fulano de Souza 5',
+              role: `Empresa2 - Cargo5 ${this.$store.state.language}`
+            }
+          },
+          {
+            id: 2,
+            text:
+              'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+            client: {
+              name: 'Fulano de Souza 6',
+              role: `Empresa2 - Cargo6 ${this.$store.state.language}`
+            }
+          }
+        ]
+      }
+
+      console.log('testimonials ready')
+      this.$emit('ready')
+    },
+
     touchHandler(direction) {
       if (window.innerWidth < 1080) {
         direction === 'left' ? this.stepNext() : this.stepPrev()
@@ -224,7 +234,7 @@ export default {
     },
 
     stepNext(active = ++this.active) {
-      if (active < this.list.length) {
+      if (active < this.list[this.$store.state.language].length) {
         const width = this.$refs.listWrapper
           ? this.$refs.listWrapper.clientWidth
           : this.maxWidth
@@ -280,13 +290,15 @@ export default {
           this.stepNext()
         }, 6000)
       } else {
-        let clone = this.list[this.cloneRightIndex]
+        let clone = this.list[this.$store.state.language][this.cloneRightIndex]
 
         if (!clone) {
-          clone = this.list[(this.cloneRightIndex = 0)]
+          clone = this.list[this.$store.state.language][
+            (this.cloneRightIndex = 0)
+          ]
         }
 
-        this.list.push(clone)
+        this.list[this.$store.state.language].push(clone)
         this.cloneRightIndex++
         this.$nextTick(() => this.stepNext(this.active))
       }
@@ -332,12 +344,13 @@ export default {
             }, 1000)
           }
         } else {
-          const clone = this.list[this.originalListlength - 1]
+          const clone = this.list[this.$store.state.language][
+            this.originalListlength - 1
+          ]
           setTimeout(() => {
-            this.list.unshift(clone)
+            this.list[this.$store.state.language].unshift(clone)
 
             const activeItem = document.querySelector(`#t-0`)
-            console.log({ activeItem })
 
             document.querySelectorAll('.testimonial').forEach((el) => {
               el.classList.remove('active')
@@ -377,6 +390,12 @@ export default {
       this.interval = setInterval(() => {
         this.stepNext()
       }, 6000)
+    }
+  },
+
+  watch: {
+    '$store.state.language'() {
+      this.fetchList()
     }
   }
 }

@@ -2,10 +2,9 @@
   <div class="hero-cmp" ref="hero-container">
     <div class="hero-text container">
       <div>
-        <h1>LOREM IPSUM</h1>
+        <h1>{{ title[$store.state.language] }}</h1>
         <p>
-          lorem ipsum dolor sit amet consectetur adipisicing elit lorem ipsum
-          dolor sit amet consectetur
+          {{ text[$store.state.language] }}
         </p>
       </div>
     </div>
@@ -127,7 +126,17 @@ export default {
   data() {
     return {
       isImageLoading: true,
-      viewportWidth: 0
+      viewportWidth: 0,
+      title: {
+        'pt-BR': 'Lorem Ipsum pt',
+        'en-US': 'Lorem Ipsum en'
+      },
+      text: {
+        'pt-BR':
+          'lorem ipsum dolor sit amet consectetur adipisicing elit lorem ipsum dolor sit amet consectetur! pt',
+        'en-US':
+          'lorem ipsum dolor sit amet consectetur adipisicing elit lorem ipsum dolor sit amet consectetur! en'
+      }
     }
   },
   mounted() {
@@ -140,7 +149,7 @@ export default {
       const heroHeight = ballon.clientHeight - navBarHeight
 
       container.style.height = `${heroHeight}px`
-      this.$emit('onHeightCalculated', heroHeight)
+      this.$emit('height-calculated', heroHeight)
     }
 
     this.viewportWidth = window.innerWidth

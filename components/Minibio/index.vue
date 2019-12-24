@@ -1,14 +1,10 @@
 <template>
   <div ref="lingo-minibio" class="container lingo-minibio">
     <div>
-      <h3 class="gray minibio-title">Conheça a</h3>
+      <h3 class="gray minibio-title">{{ title[$store.state.language] }}</h3>
       <div class="minibio-brand"></div>
     </div>
-    <div class="minibio-text">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, officiis
-      assumenda magnam corrupti facilis et nesciunt vel expedita eos sunt animi
-      sint dolores minus. Totam ea fugit distinctio ut a!
-    </div>
+    <div class="minibio-text" v-html="text[$store.state.language]" />
   </div>
 </template>
 
@@ -17,15 +13,55 @@ export default {
   props: {
     heroHeight: Number
   },
+  data() {
+    return {
+      title: {
+        'pt-BR': 'Conheça a',
+        'en-US': 'Know'
+      },
+      text: {
+        'pt-BR': '',
+        'en-US': ''
+      }
+    }
+  },
   computed: {
     miniBioMarginTop() {
       return ((this.heroHeight * 44) / 100) * -1
     }
   },
+  mounted() {
+    this.fetchContent()
+  },
+  methods: {
+    fetchContent() {
+      if (!this.text[this.$store.state.language]) {
+        // TODO: fetch <language> text on wordPress
+        this.text[
+          this.$store.state.language
+        ] = `Dolor corrupti facilis et nesciunt vel expedita eos sunt animi
+              sint dolores minus adipisicing elit. Maiores, officiis
+              Totam ea fugit distinctio ut a. assumenda magnam sit amet consectetur! ${this.$store.state.language}`
+      }
+
+      setTimeout(() => {
+        console.log('minibio ready')
+        this.$emit('ready')
+      }, 1000)
+    }
+  },
+
   watch: {
     miniBioMarginTop(value) {
       this.$refs['lingo-minibio'].style.marginTop = `${value}px`
       this.$refs['lingo-minibio'].style.visibility = 'visible'
+
+      console.log('minibio-margin-calculated')
+      this.$emit('minibio-margin-calculated')
+    },
+
+    '$store.state.language'() {
+      this.fetchContent()
     }
   }
 }

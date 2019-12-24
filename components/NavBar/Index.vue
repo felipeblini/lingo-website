@@ -7,7 +7,7 @@
       </b-navbar-brand>
 
       <div class="only-mobile switch-lang-mobile">
-        <SwitchLanguageButton />
+        <SwitchLanguageButton @toggled="onLanguageToggled" />
       </div>
 
       <b-navbar-toggle target="nav-collapse">
@@ -16,18 +16,30 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item href="#">Empresa</b-nav-item>
-          <b-nav-item href="#">Quem somos</b-nav-item>
-          <b-nav-item href="#">Serviços</b-nav-item>
-          <b-nav-item href="#">Depoimentos</b-nav-item>
-          <b-nav-item href="#">Parceiros</b-nav-item>
-          <b-nav-item href="#">Contato</b-nav-item>
+          <b-nav-item href="#">
+            {{ menu[1][$store.state.language] }}
+          </b-nav-item>
+          <b-nav-item href="#">
+            {{ menu[2][$store.state.language] }}
+          </b-nav-item>
+          <b-nav-item href="#">
+            {{ menu[3][$store.state.language] }}
+          </b-nav-item>
+          <b-nav-item href="#">
+            {{ menu[4][$store.state.language] }}
+          </b-nav-item>
+          <b-nav-item href="#">
+            {{ menu[5][$store.state.language] }}
+          </b-nav-item>
+          <b-nav-item href="#">
+            {{ menu[6][$store.state.language] }}
+          </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <div class="mr-3 only-desktop">
-            <SwitchLanguageButton />
+            <SwitchLanguageButton @toggled="onLanguageToggled" />
           </div>
           <WhatsappButton class="only-desktop" />
         </b-navbar-nav>
@@ -46,6 +58,41 @@ export default {
   components: {
     WhatsappButton,
     SwitchLanguageButton
+  },
+  data() {
+    return {
+      menu: {
+        1: {
+          'pt-BR': 'Empresa',
+          'en-US': 'The Company'
+        },
+        2: {
+          'pt-BR': 'Quem somos',
+          'en-US': 'About Us'
+        },
+        3: {
+          'pt-BR': 'Serviços',
+          'en-US': 'Services'
+        },
+        4: {
+          'pt-BR': 'Depoimentos',
+          'en-US': 'Testimonials'
+        },
+        5: {
+          'pt-BR': 'Parceiros',
+          'en-US': 'Partners'
+        },
+        6: {
+          'pt-BR': 'Contato',
+          'en-US': 'Contact'
+        }
+      }
+    }
+  },
+  methods: {
+    onLanguageToggled(value) {
+      this.$store.commit('toggleLanguage', value)
+    }
   }
 }
 </script>

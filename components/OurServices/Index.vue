@@ -20,7 +20,9 @@
                 <div class="service-icon">
                   <img class="icon" src="./img/box-icons/revisao.svg" alt="" />
                 </div>
-                <h4 class="service-title">Revisão</h4>
+                <h4 class="service-title">
+                  {{ services.titles.revision[$store.state.language] }}
+                </h4>
               </div>
             </div>
           </div>
@@ -31,7 +33,9 @@
                 <div class="service-icon">
                   <img class="icon" src="./img/box-icons/revisao.svg" alt="" />
                 </div>
-                <h4 class="service-title">Revisão</h4>
+                <h4 class="service-title">
+                  {{ services.titles.revision[$store.state.language] }}
+                </h4>
               </div>
             </div>
 
@@ -44,7 +48,9 @@
                     alt=""
                   />
                 </div>
-                <h4 class="service-title">Transcrição</h4>
+                <h4 class="service-title">
+                  {{ services.titles.transcription[$store.state.language] }}
+                </h4>
               </div>
             </div>
 
@@ -53,7 +59,9 @@
                 <div class="service-icon">
                   <img class="icon" src="./img/box-icons/media.svg" alt="" />
                 </div>
-                <h4 class="service-title">Media Training</h4>
+                <h4 class="service-title">
+                  {{ services.titles.mediaTrainning[$store.state.language] }}
+                </h4>
               </div>
             </div>
 
@@ -66,7 +74,9 @@
                     alt=""
                   />
                 </div>
-                <h4 class="service-title">Traduções</h4>
+                <h4 class="service-title">
+                  {{ services.titles.tranlations[$store.state.language] }}
+                </h4>
               </div>
             </div>
 
@@ -79,7 +89,9 @@
                     alt=""
                   />
                 </div>
-                <h4 class="service-title">Interpretação</h4>
+                <h4 class="service-title">
+                  {{ services.titles.interpretations[$store.state.language] }}
+                </h4>
               </div>
             </div>
           </div>
@@ -95,15 +107,16 @@
                     alt=""
                   />
                 </div>
-                <h4 class="service-title big">Traduções</h4>
+                <h4 class="service-title big">
+                  {{ services.titles.tranlations[$store.state.language] }}
+                </h4>
               </div>
             </div>
           </div>
 
           <div class="line only-desktop-flex quote">
             <p>
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit
-              exercitationem distinctio earum eaque ab nisi vitae"
+              {{ quotation[$store.state.language] }}
             </p>
           </div>
         </div>
@@ -118,10 +131,11 @@
 
           <div class="line">
             <div class="box-gradient">
-              <h1 class="section-title white">Nosso Trabalho</h1>
+              <h1 class="section-title white">
+                {{ title[$store.state.language] }}
+              </h1>
               <p class="section-description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit impedit
-                cupiditate fugit, voluptatum fuga blanditiis
+                {{ text[$store.state.language] }}
               </p>
             </div>
           </div>
@@ -136,7 +150,9 @@
                     alt=""
                   />
                 </div>
-                <h4 class="service-title">Interpretação</h4>
+                <h4 class="service-title">
+                  {{ services.titles.interpretations[$store.state.language] }}
+                </h4>
               </div>
             </div>
 
@@ -149,7 +165,52 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      title: {
+        'pt-BR': 'Nosso Trabalho',
+        'en-US': 'Our Services'
+      },
+      text: {
+        'pt-BR':
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit impedit cupiditate fugit, voluptatum fuga blanditiis pt-BR',
+        'en-US':
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit impedit cupiditate fugit, voluptatum fuga blanditiis en-US'
+      },
+      services: {
+        titles: {
+          revision: {
+            'pt-BR': 'Revisão',
+            'en-US': 'Revision'
+          },
+          transcription: {
+            'pt-BR': 'Trancrições',
+            'en-US': 'Transcriptions'
+          },
+          mediaTrainning: {
+            'pt-BR': 'Media Trainning',
+            'en-US': 'Media Trainning'
+          },
+          tranlations: {
+            'pt-BR': 'Traduções',
+            'en-US': 'Translations'
+          },
+          interpretations: {
+            'pt-BR': 'Interpreação',
+            'en-US': 'Interpretations'
+          }
+        }
+      },
+      quotation: {
+        'pt-BR':
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit exercitationem distinctio earum eaque ab nisi pt-BR',
+        'en-US':
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit exercitationem distinctio earum eaque ab nisi en-US'
+      }
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -1,34 +1,50 @@
 <template>
-  <div class="lingo-footer-wrapper">
-    <div class="footer-background">
-      <div class="container">
-        <div class="row">
-          <div class="col footer-container">
-            <div class="footer-logo"></div>
-            <address>
-              Endereço da Lingo, 000 - Cidade/UF<br />
-              <div class="d-flex">
-                <span class="d-block">lingo@lingo.com.br</span>
-                <span class="d-block">00.000-000</span>
-              </div>
-            </address>
-            <div class="social-icons">
-              <a href="#" class="whatsapp">
-                <font-awesome-icon :icon="['fab', 'whatsapp']" />
-              </a>
-
-              <a href="#">
-                <font-awesome-icon :icon="['fab', 'instagram']" />
-              </a>
-
-              <a href="#">
-                <font-awesome-icon :icon="['fab', 'facebook-square']" />
-              </a>
-
-              <a href="#">
-                <font-awesome-icon :icon="['fab', 'youtube']" />
-              </a>
+  <div class="lingo-footer-cmp">
+    <div class="footer-background"></div>
+    <div class="container footer-container">
+      <div class="row">
+        <div class="col footer-items-wrapper">
+          <div class="footer-logo"></div>
+          <address>
+            {{ contact.line1 }}<br />
+            <div class="d-flex">
+              <span class="d-block">{{ contact.line2 }}</span>
+              <span class="d-block">{{ contact.line3 }}</span>
             </div>
+          </address>
+          <div class="social-icons">
+            <a
+              target="_blank"
+              :href="`https://wa.me/${socialLinks.whatsapp}`"
+              v-if="socialLinks.whatsapp"
+              class="whatsapp"
+            >
+              <font-awesome-icon :icon="['fab', 'whatsapp']" />
+            </a>
+
+            <a
+              target="_blank"
+              :href="socialLinks.instagram"
+              v-if="socialLinks.instagram"
+            >
+              <font-awesome-icon :icon="['fab', 'instagram']" />
+            </a>
+
+            <a
+              target="_blank"
+              :href="socialLinks.facebook"
+              v-if="socialLinks.facebook"
+            >
+              <font-awesome-icon :icon="['fab', 'facebook-square']" />
+            </a>
+
+            <a
+              target="_blank"
+              :href="socialLinks.youtube"
+              v-if="socialLinks.youtube"
+            >
+              <font-awesome-icon :icon="['fab', 'youtube']" />
+            </a>
           </div>
         </div>
       </div>
@@ -37,22 +53,55 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      contact: {
+        line1: '',
+        line2: '',
+        line3: ''
+      },
+      socialLinks: {
+        whatsapp: '',
+        instagram: '',
+        facebook: '',
+        youtube: ''
+      }
+    }
+  },
+
+  mounted() {
+    // TODO: fetch data on wordpress
+    this.contact.line1 = 'Endereço da Lingo, 000 - Cidade/UF'
+    this.contact.line2 = 'lingo@lingo.com.br'
+    this.contact.line3 = '00.000-000'
+
+    this.socialLinks.whatsapp = '5521972627541'
+    this.socialLinks.instagram = 'https://instagram.com'
+    this.socialLinks.facebook = 'https://facebook.com'
+    this.socialLinks.youtube = 'https://youtube.com'
+
+    this.$store.commit('storeWhatsappNumber', this.socialLinks.whatsapp)
+
+    console.log('footer ready')
+    this.$emit('ready')
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-.lingo-footer-wrapper {
+.lingo-footer-cmp {
+  position: relative;
   overflow: hidden;
 
   .footer-background {
+    position: absolute;
     width: 200%;
     height: 228px;
     background-image: url('./img/curvarodape1.svg');
     background-repeat: no-repeat;
     background-size: cover;
     left: -62%;
-
-    position: relative;
 
     @media (min-width: 440px) {
       left: -43%;
@@ -75,45 +124,43 @@ export default {}
     @media (min-width: 1500px) {
       height: 320px;
     }
+  }
 
-    .footer-container {
-      padding-top: 43px;
+  .footer-container {
+    padding-top: 30px;
+
+    @media (min-width: 768px) {
+      padding-top: 90px;
+      padding-bottom: 30px;
+    }
+
+    @media (min-width: 1080px) {
+      padding-top: 125px;
+      padding-left: 35px;
+      padding-right: 35px;
+    }
+
+    @media (min-width: 1080px) {
+      padding-left: 55px;
+      padding-right: 55px;
+    }
+
+    @media (min-width: 1500px) {
+      padding-top: 180px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .footer-items-wrapper {
       color: #fff;
-      display: flex;
-      flex-direction: column;
 
+      display: flex;
       align-items: center;
 
-      left: 5%;
-
-      @media (min-width: 441px) {
-        left: -2%;
-      }
-
-      @media (min-width: 495px) {
-        left: -4%;
-      }
-
-      @media (min-width: 495px) {
-        left: -7%;
-      }
+      flex-direction: column;
 
       @media (min-width: 768px) {
-        padding-top: 100px;
         flex-direction: row;
-      }
-
-      @media (min-width: 1080px) {
-        left: unset;
-        padding-left: 85px;
-        padding-right: 85px;
-        padding-top: 132px;
-      }
-
-      @media (min-width: 1500px) {
-        padding-left: 0;
-        padding-right: 0;
-        padding-top: 180px;
       }
 
       .footer-logo {

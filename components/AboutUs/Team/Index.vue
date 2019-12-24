@@ -1,40 +1,30 @@
 <template>
   <div class="lingo-team row mt-3">
-    <div class="col member">
+    <div class="col member" v-for="(member, index) in list" :key="index">
       <div class="d-flex align-items-center member-header">
-        <img class="member-flag" src="./img/flag-eng.png" alt="" />
-        <h4 class="member-name black">Jan Onoszco</h4>
+        <img
+          class="member-flag"
+          :src="require(`./img/flag-${member.flag}.png`)"
+          alt=""
+        />
+        <h4 class="member-name black">{{ member.name }}</h4>
       </div>
       <p class="member-minibio">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedita
-        ea ullam saepe
-      </p>
-    </div>
-    <div class="col member">
-      <div class="d-flex align-items-center member-header">
-        <img class="member-flag" src="./img/flag-br.png" alt="" />
-        <h4 class="member-name black">Marcos Godoy</h4>
-      </div>
-      <p class="member-minibio">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedita
-        ea ullam saepe
-      </p>
-    </div>
-    <div class="col member">
-      <div class="d-flex align-items-center member-header">
-        <img class="member-flag" src="./img/flag-br.png" alt="" />
-        <h4 class="member-name black">Fernanda Garcia</h4>
-      </div>
-      <p class="member-minibio">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedita
-        ea ullam saepe
+        {{ member.minibio }}
       </p>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    list: {
+      type: Array,
+      default: () => []
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

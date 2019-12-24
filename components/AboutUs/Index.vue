@@ -46,11 +46,11 @@
 
       <div class="about-title-wrapper row justify-content-center mt-5">
         <div class="col-sm-4 text-center">
-          <h2 class="about-title pink">Quem Somos</h2>
+          <h2 class="about-title pink">{{ title[$store.state.language] }}</h2>
         </div>
       </div>
 
-      <LingoTeam />
+      <LingoTeam :list="listOfMembers[$store.state.language]" />
     </div>
 
     <img
@@ -71,6 +71,14 @@ export default {
   },
   data() {
     return {
+      title: {
+        'pt-BR': 'Quem Somos',
+        'en-US': 'About Us'
+      },
+      listOfMembers: {
+        'pt-BR': [],
+        'en-US': []
+      },
       isMobile: false
     }
   },
@@ -92,6 +100,42 @@ export default {
         this.isMobile = window.innerWidth < mobileBreakpoint
       }, 200)
     })
+
+    this.fetchList()
+  },
+
+  methods: {
+    fetchList() {
+      if (this.listOfMembers[this.$store.state.language].length === 0) {
+        // TODO: fetch list by language on wordPress
+        this.listOfMembers[this.$store.state.language] = [
+          {
+            name: 'Jan Onoszco',
+            minibio: `Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedit ea ullam saepe ${this.$store.state.language}`,
+            flag: 'eng'
+          },
+          {
+            name: 'Marcos Godoy',
+            minibio: `Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedit ea ullam saepe ${this.$store.state.language}`,
+            flag: 'br'
+          },
+          {
+            name: 'Fernanda Garcia',
+            minibio: `Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedit ea ullam saepe ${this.$store.state.language}`,
+            flag: 'br'
+          }
+        ]
+      }
+
+      console.log('about us ready')
+      this.$emit('ready')
+    }
+  },
+
+  watch: {
+    '$store.state.language'() {
+      this.fetchList()
+    }
   }
 }
 </script>

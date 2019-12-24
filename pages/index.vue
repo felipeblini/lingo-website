@@ -1,16 +1,23 @@
 <template>
   <div>
+    <loading :active.sync="isLoading" color="#EF4865" :opacity="0.8"></loading>
+
     <section class="about-group-wrapper">
       <section class="hero">
-        <LingoHero @onHeightCalculated="onHeroHeightCalculated" />
+        <LingoHero @height-calculated="onHeroHeightCalculated" />
       </section>
 
       <section class="mini-bio">
-        <MiniBio :hero-height="heroHeight" />
+        <MiniBio
+          :hero-height="heroHeight"
+          @minibio-margin-calculated="miniBioMgCalculated = true"
+          @ready="childrenReady++"
+          data-isdinamic
+        />
       </section>
 
       <section class="who-are-us">
-        <WhoAreUs :hero-height="heroHeight" />
+        <AboutUs :hero-height="heroHeight" @ready="childrenReady++" />
       </section>
     </section>
 
@@ -19,11 +26,11 @@
     </section>
 
     <section>
-      <CustomersTestemonials />
+      <CustomersTestimonials @ready="childrenReady++" />
     </section>
 
     <section>
-      <OurPartners />
+      <OurPartners @ready="childrenReady++" />
     </section>
 
     <section>
@@ -31,41 +38,64 @@
     </section>
 
     <footer>
-      <LingoFooter />
+      <LingoFooter @ready="childrenReady++" />
     </footer>
   </div>
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
 import LingoHero from '~/components/Hero/Index.vue'
 import MiniBio from '~/components/Minibio/index.vue'
-import WhoAreUs from '~/components/WhoAreUs/Index.vue'
+import AboutUs from '~/components/AboutUs/Index.vue'
 import OurServices from '~/components/OurServices/Index.vue'
-import CustomersTestemonials from '~/components/Testemonials/Index.vue'
+import CustomersTestimonials from '~/components/Testimonials/Index.vue'
 import OurPartners from '~/components/Partners/Index.vue'
 import MapaMundi from '~/components/MapaMundi/Index.vue'
 import LingoFooter from '~/components/Footer/Index.vue'
 
+import 'vue-loading-overlay/dist/vue-loading.css'
+
 export default {
   components: {
+    Loading,
     LingoHero,
     MiniBio,
-    WhoAreUs,
+    AboutUs,
     OurServices,
-    CustomersTestemonials,
+    CustomersTestimonials,
     OurPartners,
     MapaMundi,
     LingoFooter
   },
   data() {
     return {
-      heroHeight: 0
+      heroHeight: 0,
+      isLoading: true,
+      childrenReady: 0,
+      miniBioMgCalculated: false
     }
   },
 
   methods: {
     onHeroHeightCalculated(height) {
       this.heroHeight = height
+    }
+  },
+
+  watch: {
+    '$store.state.language'() {
+      this.isLoading = true
+      this.childrenReady = 2 // footer and partners are aready ready in this moment
+    },
+
+    childrenReady(ready) {
+      console.log({ ready })
+      const dinamicChildren = this.$children.filter((el) => el.$listeners.ready)
+
+      if (ready === dinamicChildren.length) {
+        this.isLoading = false
+      }
     }
   }
 }
@@ -74,9 +104,6 @@ export default {
 <style lang="scss" scoped>
 .about-group-wrapper {
   overflow: hidden;
-  // position: relative;
-  // top: -95px;
-
   background: #efeae4;
   background-repeat: no-repeat;
 

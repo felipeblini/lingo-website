@@ -5,7 +5,7 @@
         <div class="partners-wrapper">
           <div class="brackets">{</div>
           <div class="content">
-            <h1 class="yellow">Parceiros</h1>
+            <h1 class="yellow">{{ title[$store.state.language] }}</h1>
             <div class="swipper-partners-container">
               <button
                 @click.prevent.stop="slidePrev"
@@ -50,38 +50,11 @@
 export default {
   data() {
     return {
-      list: [
-        {
-          nome: 'p1',
-          link: '',
-          logoUrl:
-            'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620062/logo1_1X_yaf1mg.jpg'
-        },
-        {
-          nome: 'p2',
-          link: '',
-          logoUrl:
-            'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620062/logo2_1X_lm12ww.jpg'
-        },
-        {
-          nome: 'p3',
-          link: '',
-          logoUrl:
-            'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620063/logo3_1X_xu2iqw.jpg'
-        },
-        {
-          nome: 'p4',
-          link: '',
-          logoUrl:
-            'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620063/logo4_1X_gnf3jk.jpg'
-        },
-        {
-          nome: 'p5',
-          link: '',
-          logoUrl:
-            'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620062/logo2_1X_lm12ww.jpg'
-        }
-      ],
+      title: {
+        'pt-BR': 'Parceiros',
+        'en-US': 'Partners'
+      },
+      list: [],
       showSlider: false,
       swiperOption: {
         slidesPerView: 4,
@@ -112,6 +85,39 @@ export default {
   },
 
   mounted() {
+    this.list = [
+      {
+        nome: 'p1',
+        link: '',
+        logoUrl:
+          'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620062/logo1_1X_yaf1mg.jpg'
+      },
+      {
+        nome: 'p2',
+        link: '',
+        logoUrl:
+          'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620062/logo2_1X_lm12ww.jpg'
+      },
+      {
+        nome: 'p3',
+        link: '',
+        logoUrl:
+          'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620063/logo3_1X_xu2iqw.jpg'
+      },
+      {
+        nome: 'p4',
+        link: '',
+        logoUrl:
+          'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620063/logo4_1X_gnf3jk.jpg'
+      },
+      {
+        nome: 'p5',
+        link: '',
+        logoUrl:
+          'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620062/logo2_1X_lm12ww.jpg'
+      }
+    ]
+
     setTimeout(() => {
       if (this.list.length < 5) {
         this.swiperOption.slidesPerView = this.list.length
@@ -133,6 +139,9 @@ export default {
 
       this.showSlider = true
     }, 500)
+
+    console.log('partners ready')
+    this.$emit('ready')
   },
 
   methods: {

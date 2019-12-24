@@ -1,23 +1,36 @@
 <template>
-  <a href="#" class="whatsapp-component" ref="wp-button">
+  <a
+    :href="`https://wa.me/${$store.state.whatsappNumber}`"
+    target="_blank"
+    class="whatsapp-component"
+    ref="wp-button"
+  >
     <div class="circle-icon">
       <font-awesome-icon :icon="['fab', 'whatsapp']" />
     </div>
 
     <div class="rectangle">
-      <p>Quer falar com a gente?</p>
+      <p>{{ text[$store.state.language] }}</p>
     </div>
   </a>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      text: {
+        'pt-BR': 'Quer falar com a gente?',
+        'en-US': 'Want to talk with us?'
+      }
+    }
+  },
   mounted() {
     window.addEventListener('scroll', () => {
       setTimeout(() => {
         const scroll = window.pageYOffset
         const height = document.body.clientHeight - 1100
-        console.log({ scroll, height })
+
         if (scroll >= height) {
           this.$refs['wp-button'].style.bottom = '142px'
         } else {

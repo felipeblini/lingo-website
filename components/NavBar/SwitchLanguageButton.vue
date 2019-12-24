@@ -16,14 +16,32 @@
 export default {
   methods: {
     toggle() {
-      if (this.$refs['switchlang-wrapper'].classList.value.includes('en')) {
-        this.$refs['switchlang-wrapper'].classList.remove('en')
-        this.$refs['switchlang-wrapper'].classList.add('br')
-      } else if (
-        this.$refs['switchlang-wrapper'].classList.value.includes('br')
-      ) {
-        this.$refs['switchlang-wrapper'].classList.remove('br')
-        this.$refs['switchlang-wrapper'].classList.add('en')
+      const switcher = this.$refs['switchlang-wrapper']
+
+      if (switcher.classList.value.includes('en')) {
+        switcher.classList.remove('en')
+        switcher.classList.add('br')
+
+        this.$emit('toggled', 'pt-BR')
+      } else if (switcher.classList.value.includes('br')) {
+        switcher.classList.remove('br')
+        switcher.classList.add('en')
+
+        this.$emit('toggled', 'en-US')
+      }
+    }
+  },
+
+  watch: {
+    '$store.state.language'(value) {
+      const switcher = this.$refs['switchlang-wrapper']
+
+      if (value === 'pt-BR') {
+        switcher.classList.remove('en')
+        switcher.classList.add('br')
+      } else if (value === 'en-US') {
+        switcher.classList.remove('br')
+        switcher.classList.add('en')
       }
     }
   }
