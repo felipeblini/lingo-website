@@ -1,6 +1,10 @@
 <template>
   <div>
-    <loading :active.sync="isLoading" color="#EF4865" :opacity="0.8"></loading>
+    <div v-if="isLoading" class="loading">
+      <div class="loading-spinner">
+        <font-awesome-icon :icon="['fas', 'spinner']" spin />
+      </div>
+    </div>
 
     <section class="about-group-wrapper">
       <section class="hero">
@@ -12,7 +16,6 @@
           :hero-height="heroHeight"
           @minibio-margin-calculated="miniBioMgCalculated = true"
           @ready="childrenReady++"
-          data-isdinamic
         />
       </section>
 
@@ -44,7 +47,6 @@
 </template>
 
 <script>
-import Loading from 'vue-loading-overlay'
 import LingoHero from '~/components/Hero/Index.vue'
 import MiniBio from '~/components/Minibio/index.vue'
 import AboutUs from '~/components/AboutUs/Index.vue'
@@ -54,11 +56,8 @@ import OurPartners from '~/components/Partners/Index.vue'
 import MapaMundi from '~/components/MapaMundi/Index.vue'
 import LingoFooter from '~/components/Footer/Index.vue'
 
-import 'vue-loading-overlay/dist/vue-loading.css'
-
 export default {
   components: {
-    Loading,
     LingoHero,
     MiniBio,
     AboutUs,
@@ -77,12 +76,6 @@ export default {
     }
   },
 
-  methods: {
-    onHeroHeightCalculated(height) {
-      this.heroHeight = height
-    }
-  },
-
   watch: {
     '$store.state.language'() {
       this.isLoading = true
@@ -97,11 +90,39 @@ export default {
         this.isLoading = false
       }
     }
+  },
+
+  methods: {
+    onHeroHeightCalculated(height) {
+      this.heroHeight = height
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.loading {
+  background: #ffffffdb;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: 2;
+
+  .loading-spinner {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    height: 60px;
+    margin-top: -30px;
+    width: 60px;
+    margin-left: -30px;
+    font-size: 54px;
+  }
+}
+
 .about-group-wrapper {
   overflow: hidden;
   background: #efeae4;
