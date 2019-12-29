@@ -60,12 +60,10 @@ $md: 60px;
 
 .swl {
   border-radius: 30px;
-  // height: 29px;
   height: $sm;
 }
 
 .switchlang-wrapper {
-  // width: 71px;
   width: calc(#{$sm} * 2 + 10px);
   background: #efeae4;
 
@@ -74,7 +72,6 @@ $md: 60px;
   position: relative;
 
   justify-content: space-around;
-  // font-size: 14px;
   font-size: calc(#{$sm} / 1.9);
 
   p {
@@ -90,7 +87,7 @@ $md: 60px;
 
   &.br {
     .swipper {
-      left: 0;
+      left: -2px;
     }
 
     p.br {

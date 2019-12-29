@@ -30,11 +30,21 @@ export default {
       setTimeout(() => {
         const scroll = window.pageYOffset
         const height = document.body.clientHeight - 1100
+        const width = window.innerWidth
 
-        if (scroll >= height) {
-          this.$refs['wp-button'].style.bottom = '142px'
+        console.log({ width })
+
+        if (width > 768 && width < 1090) {
+          if (scroll >= height) {
+            this.$refs['wp-button'].style.bottom = '123px'
+            this.$refs['wp-button'].style.right = '36px'
+          } else {
+            this.$refs['wp-button'].style.bottom = '20px'
+            this.$refs['wp-button'].style.right = '17px'
+          }
         } else {
           this.$refs['wp-button'].style.bottom = '20px'
+          this.$refs['wp-button'].style.right = '17px'
         }
       }, 100)
     })
@@ -54,7 +64,6 @@ a.whatsapp-component {
 
   bottom: 20px;
   right: 17px;
-
   transition-property: bottom;
   transition-duration: 0.25s;
 

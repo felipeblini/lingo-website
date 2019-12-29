@@ -24,7 +24,7 @@
                   .toLowerCase()
                   .replace(' ', '-')}`
               "
-              v-smooth-scroll
+              v-smooth-scroll="{ offset: -10 }"
               >{{ $store.state.menu['company'][$store.state.language] }}</a
             >
           </li>
@@ -37,7 +37,7 @@
                   .toLowerCase()
                   .replace(' ', '-')}`
               "
-              v-smooth-scroll
+              v-smooth-scroll="{ offset: -240 }"
               >{{ $store.state.menu['who-are-us'][$store.state.language] }}</a
             >
           </li>
@@ -64,7 +64,7 @@
                   .toLowerCase()
                   .replace(' ', '-')}`
               "
-              v-smooth-scroll
+              v-smooth-scroll="{ offset: -160 }"
               >{{ $store.state.menu['testimonials'][$store.state.language] }}</a
             >
           </li>
@@ -77,7 +77,7 @@
                   .toLowerCase()
                   .replace(' ', '-')}`
               "
-              v-smooth-scroll
+              v-smooth-scroll="{ offset: -30 }"
               >{{ $store.state.menu['partners'][$store.state.language] }}</a
             >
           </li>
@@ -119,8 +119,6 @@ if (process.client) {
     setTimeout(() => {
       const navbar = document.querySelectorAll('.navbar')[0]
       const top = window.pageYOffset
-
-      console.log({ top })
 
       if (top > 50) {
         if (!navbar.classList.contains('fixed')) {
@@ -220,10 +218,15 @@ export default {
     .navbar-collapse {
       @media (max-width: 1200px) {
         position: absolute;
-        top: 100px;
-        width: 300px;
-        background: #fff;
+        top: 0;
+        left: 0px;
         right: 72px;
+        z-index: -1;
+
+        width: 100%;
+        background: rgba(198, 78, 97, 0.96078);
+        padding: 105px 74px;
+        font-size: 31px;
       }
 
       &.collapse {
@@ -231,12 +234,6 @@ export default {
 
         &.show {
           display: block;
-          width: 100%;
-          background-color: rgba(239, 72, 101, 0.92);
-          padding: 30px 74px;
-          position: absolute;
-          left: 0px;
-          font-size: 31px;
         }
       }
     }
@@ -258,7 +255,7 @@ export default {
     }
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1201px) {
     &.navbar-expand-custom {
       // flex-direction: row;
       // flex-wrap: nowrap;
