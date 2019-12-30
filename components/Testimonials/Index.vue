@@ -142,8 +142,6 @@ export default {
       }, 100)
     })
 
-    this.originalListlength = this.list[this.$store.state.language].length
-
     const handleScroll = () => {
       setTimeout(() => {
         if (
@@ -229,6 +227,8 @@ export default {
             }
           }
         ]
+
+        this.originalListlength = this.list[this.$store.state.language].length
       }
 
       console.log('testimonials ready')
@@ -313,11 +313,11 @@ export default {
     },
 
     stepPrev(active = this.active) {
-      if (active >= 0) {
-        const width = this.$refs.listWrapper
-          ? this.$refs.listWrapper.clientWidth
-          : this.maxWidth
+      const width = this.$refs.listWrapper
+        ? this.$refs.listWrapper.clientWidth
+        : this.maxWidth
 
+      if (active > 0) {
         const wrapper = this.$refs.itemsWrapper
 
         if (wrapper) {
@@ -343,7 +343,7 @@ export default {
             activeItem.children[0].style.marginLeft = `${width}px`
             activeItem.children[1].style.marginLeft = `${width}px`
 
-            if (active > 0) this.active--
+            this.active--
 
             setTimeout(() => {
               wrapper.style.transitionProperty = 'none'
@@ -351,46 +351,47 @@ export default {
               prevItem.children[0].style.transitionProperty = 'none'
             }, 1000)
           }
-        } else {
-          const clone = this.list[this.$store.state.language][
-            this.originalListlength - 1
-          ]
-          setTimeout(() => {
-            this.list[this.$store.state.language].unshift(clone)
-
-            const activeItem = document.querySelector(`#t-0`)
-
-            document.querySelectorAll('.testimonial').forEach((el) => {
-              el.classList.remove('active')
-            })
-
-            activeItem.classList.add('active')
-
-            activeItem.children[0].style.marginLeft = `${width * -1}px`
-            activeItem.children[1].style.marginLeft = `${width * -1}px`
-            activeItem.children[0].style.visibility = 'visible'
-            activeItem.children[1].style.visibility = 'visible'
-
-            setTimeout(() => {
-              activeItem.children[0].style.transitionProperty = 'margin-left'
-              activeItem.children[1].style.transitionProperty = 'margin-left'
-              activeItem.children[0].style.marginLeft = 0
-              activeItem.children[1].style.marginLeft = 0
-            }, 200)
-
-            setTimeout(() => {
-              activeItem.children[0].style.transitionProperty = 'none'
-              activeItem.children[1].style.transitionProperty = 'none'
-            }, 900)
-          }, 0)
         }
+      } else {
+        const clone = this.list[this.$store.state.language][
+          this.originalListlength - 1
+        ]
 
-        clearInterval(this.interval)
+        setTimeout(() => {
+          this.list[this.$store.state.language].unshift(clone)
 
-        this.interval = setInterval(() => {
-          this.stepNext()
-        }, 6000)
+          const activeItem = document.querySelector(`#t-0`)
+
+          document.querySelectorAll('.testimonial').forEach((el) => {
+            el.classList.remove('active')
+          })
+
+          activeItem.classList.add('active')
+
+          activeItem.children[0].style.marginLeft = `${width * -1}px`
+          activeItem.children[1].style.marginLeft = `${width * -1}px`
+          activeItem.children[0].style.visibility = 'visible'
+          activeItem.children[1].style.visibility = 'visible'
+
+          setTimeout(() => {
+            activeItem.children[0].style.transitionProperty = 'margin-left'
+            activeItem.children[1].style.transitionProperty = 'margin-left'
+            activeItem.children[0].style.marginLeft = 0
+            activeItem.children[1].style.marginLeft = 0
+          }, 200)
+
+          setTimeout(() => {
+            activeItem.children[0].style.transitionProperty = 'none'
+            activeItem.children[1].style.transitionProperty = 'none'
+          }, 900)
+        }, 0)
       }
+
+      clearInterval(this.interval)
+
+      this.interval = setInterval(() => {
+        this.stepNext()
+      }, 6000)
     },
 
     restartInterval() {
