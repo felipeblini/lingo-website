@@ -97,7 +97,6 @@ $md: 60px;
 
   &.en {
     .swipper {
-      // left: 35px;
       left: calc(#{$sm} + 5px);
     }
 
@@ -108,7 +107,6 @@ $md: 60px;
 }
 
 .swipper {
-  // width: 36px;
   width: calc(#{$sm} + 6px);
   background: #ef4865;
   position: absolute;

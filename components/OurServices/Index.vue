@@ -15,12 +15,12 @@
               <div class="logo">Lingo</div>
             </div>
 
-            <div class="service-box revisao">
+            <div tabindex="0" class="service-box service-1 revisao">
               <div class="service-info">
                 <div class="service-icon">
                   <img class="icon" src="./img/box-icons/revisao.svg" alt="" />
                 </div>
-                <h4 class="service-title">
+                <h4 class="service-title" :class="$store.state.language">
                   {{ services.titles.revision[$store.state.language] }}
                 </h4>
               </div>
@@ -28,18 +28,21 @@
           </div>
 
           <div class="line all-items">
-            <div class="service-box revisao only-mobile-flex">
+            <div
+              tabindex="1"
+              class="service-box service-1 revisao only-mobile-flex"
+            >
               <div class="service-info">
                 <div class="service-icon">
                   <img class="icon" src="./img/box-icons/revisao.svg" alt="" />
                 </div>
-                <h4 class="service-title">
+                <h4 class="service-title" :class="$store.state.language">
                   {{ services.titles.revision[$store.state.language] }}
                 </h4>
               </div>
             </div>
 
-            <div class="service-box transcricao">
+            <div tabindex="2" class="service-box service-2 transcricao">
               <div class="service-info">
                 <div class="service-icon">
                   <img
@@ -48,24 +51,27 @@
                     alt=""
                   />
                 </div>
-                <h4 class="service-title">
+                <h4 class="service-title" :class="$store.state.language">
                   {{ services.titles.transcription[$store.state.language] }}
                 </h4>
               </div>
             </div>
 
-            <div class="service-box media">
+            <div tabindex="3" class="service-box service-3 media">
               <div class="service-info">
                 <div class="service-icon">
                   <img class="icon" src="./img/box-icons/media.svg" alt="" />
                 </div>
-                <h4 class="service-title">
+                <h4 class="service-title" :class="$store.state.language">
                   {{ services.titles.mediaTrainning[$store.state.language] }}
                 </h4>
               </div>
             </div>
 
-            <div class="service-box traducoes only-mobile-flex">
+            <div
+              tabindex="4"
+              class="service-box service-4 traducoes only-mobile-flex"
+            >
               <div class="service-info">
                 <div class="service-icon">
                   <img
@@ -74,13 +80,16 @@
                     alt=""
                   />
                 </div>
-                <h4 class="service-title">
+                <h4 class="service-title" :class="$store.state.language">
                   {{ services.titles.tranlations[$store.state.language] }}
                 </h4>
               </div>
             </div>
 
-            <div class="service-box interpretacao only-mobile-flex">
+            <div
+              tabindex="5"
+              class="service-box service-5 interpretacao only-mobile-flex"
+            >
               <div class="service-info">
                 <div class="service-icon">
                   <img
@@ -89,7 +98,7 @@
                     alt=""
                   />
                 </div>
-                <h4 class="service-title">
+                <h4 class="service-title" :class="$store.state.language">
                   {{ services.titles.interpretations[$store.state.language] }}
                 </h4>
               </div>
@@ -98,7 +107,8 @@
 
           <div class="line only-desktop-flex">
             <div class="ponto-virgula"></div>
-            <div class="service-box big traducoes">
+
+            <div tabindex="6" class="service-box service-4 big traducoes">
               <div class="service-info">
                 <div class="service-icon">
                   <img
@@ -107,7 +117,7 @@
                     alt=""
                   />
                 </div>
-                <h4 class="service-title big">
+                <h4 class="service-title big" :class="$store.state.language">
                   {{ services.titles.tranlations[$store.state.language] }}
                 </h4>
               </div>
@@ -141,7 +151,7 @@
           </div>
 
           <div class="line only-desktop-flex">
-            <div class="service-box interpretacao">
+            <div tabindex="7" class="service-box service-5 interpretacao">
               <div class="service-info">
                 <div class="service-icon">
                   <img
@@ -150,7 +160,7 @@
                     alt=""
                   />
                 </div>
-                <h4 class="service-title">
+                <h4 class="service-title" :class="$store.state.language">
                   {{ services.titles.interpretations[$store.state.language] }}
                 </h4>
               </div>
@@ -218,6 +228,40 @@ export default {
         .replace(' ', '-')
         .replace('ç', 'c')}`
     }
+  },
+
+  mounted() {
+    let focused = 1
+
+    const switchServicesFocus = function() {
+      document
+        .querySelectorAll('.service-box')
+        .forEach((el) =>
+          el.classList.contains(`service-${focused}`) ? el.focus() : el.blur()
+        )
+
+      focused++
+
+      if (focused > 5) focused = 1
+    }
+
+    let interval = setInterval(switchServicesFocus, 3000)
+
+    document.querySelectorAll('.service-box').forEach(
+      (el) =>
+        (el.onmouseover = () => {
+          clearInterval(interval)
+          document.querySelectorAll('.service-box').forEach((el2) => {
+            el2.blur()
+          })
+        })
+    )
+
+    document
+      .querySelectorAll('.boxes-collumns-wrapper')[0]
+      .addEventListener('mouseleave', () => {
+        interval = setInterval(switchServicesFocus, 3000)
+      })
   }
 }
 </script>
@@ -499,6 +543,7 @@ $services-box-padding: 8px;
           }
 
           p.section-description {
+            padding-right: 37px;
             font-size: 12px;
 
             @media (min-width: 760px) {
@@ -608,20 +653,35 @@ $services-box-padding: 8px;
             text-align: center;
             color: black;
 
-            font-size: 16px;
+            font-size: 15px;
+
+            &.en-US {
+              font-size: 13px;
+            }
 
             @media (min-width: 430px) {
               font-size: 20px;
               padding: 5px;
+
+              &.en-US {
+                font-size: 16px;
+              }
             }
 
             &.big {
               font-size: 40px;
+
+              &.en-US {
+                font-size: 36px;
+              }
             }
           }
         }
 
+        &:focus,
         &:hover {
+          outline: none;
+
           .service-info {
             display: flex;
             flex-direction: column;
