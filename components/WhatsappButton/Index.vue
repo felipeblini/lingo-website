@@ -32,8 +32,6 @@ export default {
         const height = document.body.clientHeight - 1100
         const width = window.innerWidth
 
-        console.log({ width })
-
         if (width > 768 && width < 1090) {
           if (scroll >= height) {
             this.$refs['wp-button'].style.bottom = '123px'

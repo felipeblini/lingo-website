@@ -231,37 +231,43 @@ export default {
   },
 
   mounted() {
-    let focused = 1
+    let active = 1
 
-    const switchServicesFocus = function() {
+    document
+      .querySelectorAll('.service-box')
+      .forEach((el) =>
+        el.classList.contains('service-1')
+          ? el.classList.add('active')
+          : el.classList.remove('active')
+      )
+
+    active++
+
+    const interval = setInterval(() => {
       document
         .querySelectorAll('.service-box')
         .forEach((el) =>
-          el.classList.contains(`service-${focused}`) ? el.focus() : el.blur()
+          el.classList.contains(`service-${active}`)
+            ? el.classList.add('active')
+            : el.classList.remove('active')
         )
 
-      focused++
+      active++
 
-      if (focused > 5) focused = 1
-    }
-
-    let interval = setInterval(switchServicesFocus, 3000)
+      if (active > 5) active = 1
+    }, 3000)
 
     document.querySelectorAll('.service-box').forEach(
       (el) =>
         (el.onmouseover = () => {
           clearInterval(interval)
           document.querySelectorAll('.service-box').forEach((el2) => {
-            el2.blur()
+            el2.classList.remove('active')
           })
+
+          el.classList.add('active')
         })
     )
-
-    document
-      .querySelectorAll('.boxes-collumns-wrapper')[0]
-      .addEventListener('mouseleave', () => {
-        interval = setInterval(switchServicesFocus, 3000)
-      })
   }
 }
 </script>
@@ -678,10 +684,9 @@ $services-box-padding: 8px;
           }
         }
 
-        &:focus,
-        &:hover {
-          outline: none;
+        outline: none;
 
+        &.active {
           .service-info {
             display: flex;
             flex-direction: column;

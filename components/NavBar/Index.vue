@@ -3,7 +3,7 @@
     <div class="container">
       <b-navbar-brand href="#top" v-smooth-scroll>
         Lingo Interpretação, tradução simultânea, transcrição, revisão e media
-        trainning
+        training
       </b-navbar-brand>
 
       <div class="only-mobile switch-lang-mobile">
