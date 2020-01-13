@@ -176,9 +176,6 @@ export default {
     onLanguageToggled(value) {
       this.$store.commit('toggleLanguage', value)
     }
-  },
-  mounted() {
-    console.log(this.whoAreUsScrollOffset)
   }
 }
 </script>

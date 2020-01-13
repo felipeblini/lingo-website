@@ -111,7 +111,13 @@ export default {
     }
 
     .member-minibio {
-      font-size: 14px;
+      font-size: 14pt;
+
+      @media (min-width: 1024px) {
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+          font-size: 18pt;
+        }
+      }
     }
   }
 }

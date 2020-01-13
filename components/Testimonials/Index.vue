@@ -5,14 +5,8 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-8 offset-2 col-sm-10 offset-sm-1 col-xl-8 offset-xl-2">
-          <svg
-            class="title light-gray"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 200 40"
-          >
-            <text>{{ title[$store.state.language] }}</text>
-          </svg>
+        <div class="col-12 col-xl-8 offset-xl-2 text-center">
+          <h2 class="gray">{{ title[$store.state.language] }}</h2>
         </div>
       </div>
 
@@ -23,14 +17,14 @@
           <div
             class="testimonials-wrapper"
             ref="listWrapper"
-            :style="{ width: `${responsiveWidth}px` }"
+            :style="{ width: `${responsiveWidth}pt` }"
             v-touch:swipe="touchHandler"
           >
             <ul class="testimonialsList">
               <div
                 class="items-wrapper"
                 ref="itemsWrapper"
-                :style="{ marginLeft: `${responsiveWidth}px` }"
+                :style="{ marginLeft: `${responsiveWidth}pt` }"
               >
                 <li
                   @click="restartInterval"
@@ -39,14 +33,14 @@
                   v-for="(testimonial, index) in list[$store.state.language]"
                   :key="index"
                   :id="`t-${index}`"
-                  :style="{ minWidth: `${responsiveWidth}px` }"
+                  :style="{ minWidth: `${responsiveWidth}pt` }"
                 >
                   <div
                     class="text"
                     :style="{
-                      minWidth: `${responsiveWidth}px`,
-                      maxWidth: `${responsiveWidth}px`,
-                      marginLeft: `${responsiveWidth}px`
+                      minWidth: `${responsiveWidth}pt`,
+                      maxWidth: `${responsiveWidth}pt`,
+                      marginLeft: `${responsiveWidth}pt`
                     }"
                   >
                     "{{ testimonial.text }}"
@@ -54,9 +48,9 @@
                   <div
                     class="client"
                     :style="{
-                      minWidth: `${responsiveWidth}px`,
-                      maxWidth: `${responsiveWidth}px`,
-                      marginLeft: `${responsiveWidth}px`
+                      minWidth: `${responsiveWidth}pt`,
+                      maxWidth: `${responsiveWidth}pt`,
+                      marginLeft: `${responsiveWidth}pt`
                     }"
                   >
                     <div class="name">{{ testimonial.client.name }}</div>
@@ -88,7 +82,7 @@ export default {
   props: {
     maxWidth: {
       type: Number,
-      default: 500
+      default: 480
     }
   },
   data() {
@@ -121,8 +115,10 @@ export default {
   mounted() {
     this.responsiveWidth = this.maxWidth
 
+    console.log(window.innerWidth, this.maxWidth)
+
     if (window.innerWidth < this.maxWidth) {
-      this.responsiveWidth = window.innerWidth - 50
+      this.responsiveWidth = window.innerWidth - 150
     }
 
     this.wrapperWidth = this.$refs.listWrapper
@@ -430,17 +426,14 @@ export default {
   }
 
   .container {
-    svg.title {
+    h2 {
       margin-bottom: 30px;
-
-      @media (min-width: 1080px) and (max-width: 1200px) {
-        top: -47px;
-        position: relative;
-      }
+      color: $light-gray;
+      font-size: 32pt;
 
       text {
         @media (min-width: 992px) {
-          fill: $yellow;
+          color: $yellow;
         }
       }
     }
@@ -451,9 +444,19 @@ export default {
 
       @media (min-width: 1080px) {
         justify-content: flex-end;
+        margin-left: 242px;
+        margin-top: 20px;
       }
 
       .testimonials-wrapper {
+        font-size: 14pt;
+
+        @media (min-width: 1024px) {
+          @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            font-size: 18pt;
+          }
+        }
+
         @media (min-width: 1080px) {
           margin-top: -65px;
         }
@@ -515,8 +518,8 @@ export default {
             width: 269px;
           }
 
-          height: 35px;
-          padding-top: 5px;
+          height: 57px;
+          padding-top: 18px;
 
           display: flex;
           justify-content: space-between;

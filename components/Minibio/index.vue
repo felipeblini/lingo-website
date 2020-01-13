@@ -232,6 +232,7 @@ export default {
     padding-left: 0px;
     font-size: 0.9rem;
     position: relative;
+    font-size: 14pt;
 
     @media (min-width: 768px) {
       font-size: 1.3rem;

@@ -165,7 +165,7 @@ export default {
 
 <style lang="scss" scoped>
 .partners-container {
-  padding-top: 73px;
+  padding-top: 30px;
 
   @media (min-width: 768px) {
     padding-top: 100px;
