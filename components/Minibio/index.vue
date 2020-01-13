@@ -11,7 +11,8 @@
 <script>
 export default {
   props: {
-    heroHeight: Number
+    heroHeight: Number,
+    ssrText: String
   },
   data() {
     return {
@@ -36,23 +37,25 @@ export default {
     }
   },
   mounted() {
-    this.fetchContent()
+    this.text['pt-BR'] = this.ssrText
+    this.$emit('ready')
   },
   methods: {
     fetchContent() {
       if (!this.text[this.$store.state.language]) {
         // TODO: fetch <language> text on wordPress
-        this.text[
-          this.$store.state.language
-        ] = `Dolor corrupti facilis et nesciunt vel expedita eos sunt animi
+        setTimeout(() => {
+          this.text[
+            this.$store.state.language
+          ] = `Dolor corrupti facilis et nesciunt vel expedita eos sunt animi
               sint dolores minus adipisicing elit. Maiores, officiis
               Totam ea fugit distinctio ut a. assumenda magnam sit amet consectetur! ${this.$store.state.language}`
-      }
 
-      setTimeout(() => {
-        console.log('minibio ready')
+          this.$emit('ready')
+        }, 1000)
+      } else {
         this.$emit('ready')
-      }, 1000)
+      }
     }
   },
 
@@ -61,12 +64,15 @@ export default {
       this.$refs['lingo-minibio'].style.marginTop = `${value}px`
       this.$refs['lingo-minibio'].style.visibility = 'visible'
 
-      console.log('minibio-margin-calculated')
       this.$emit('minibio-margin-calculated')
     },
 
     '$store.state.language'() {
       this.fetchContent()
+    },
+
+    ssrText(value) {
+      console.log({ value })
     }
   }
 }

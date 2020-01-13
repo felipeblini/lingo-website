@@ -14,6 +14,7 @@
       <section class="mini-bio">
         <MiniBio
           :hero-height="heroHeight"
+          :ssrText="minibioDefaultText"
           @minibio-margin-calculated="miniBioMgCalculated = true"
           @ready="childrenReady++"
         />
@@ -56,6 +57,18 @@ import OurPartners from '~/components/Partners/Index.vue'
 import MapaMundi from '~/components/MapaMundi/Index.vue'
 import LingoFooter from '~/components/Footer/Index.vue'
 
+// TODO: fetch pt-BR text on wordPress for minibio
+const _getSSRMinibioText = () =>
+  new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        text: `Dolor corrupti facilis et nesciunt vel expedita eos sunt animi
+              sint dolores minus adipisicing elit. Maiores, officiis
+              Totam ea fugit distinctio ut a. assumenda magnam sit amet consectetur! pt-BR default-ssr`
+      })
+    }, 5000)
+  })
+
 export default {
   components: {
     LingoHero,
@@ -66,6 +79,10 @@ export default {
     OurPartners,
     MapaMundi,
     LingoFooter
+  },
+  async asyncData() {
+    const data = await _getSSRMinibioText()
+    return { minibioDefaultText: data.text }
   },
   data() {
     return {

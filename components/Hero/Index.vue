@@ -53,7 +53,7 @@
             v-if="isImageLoading"
             width="100%"
             height="100%"
-            xlink:href="./img/img_principal-blur.jpg"
+            :xlink:href="img.imgLoading"
             mask="url(#shape-mask-hero)"
             style="opacity: 0.3"
           ></image>
@@ -62,7 +62,7 @@
             v-if="viewportWidth <= 768"
             width="100%"
             height="100%"
-            xlink:href="./img/img_principal-phone.jpg"
+            :xlink:href="img.imgPhone"
             mask="url(#shape-mask-hero)"
             style="opacity: 0.3"
             @load="isImageLoading = false"
@@ -72,7 +72,7 @@
             v-if="viewportWidth > 768 && viewportWidth <= 992"
             width="100%"
             height="100%"
-            xlink:href="./img/img_principal-tablet.jpg"
+            :xlink:href="img.imgTablet"
             mask="url(#shape-mask-hero)"
             style="opacity: 0.3"
             @load="isImageLoading = false"
@@ -82,7 +82,7 @@
             v-if="viewportWidth > 992 && viewportWidth <= 2200"
             width="100%"
             height="100%"
-            xlink:href="./img/img_principal-desktop.jpg"
+            :xlink:href="img.imgDektop"
             mask="url(#shape-mask-hero)"
             style="opacity: 0.3"
             @load="isImageLoading = false"
@@ -92,7 +92,7 @@
             v-if="viewportWidth > 2200"
             width="100%"
             height="100%"
-            xlink:href="./img/img_principal-desktop-xl.jpg"
+            :xlink:href="img.imgDesktopXl"
             mask="url(#shape-mask-hero)"
             style="opacity: 0.3"
             @load="isImageLoading = false"
@@ -122,10 +122,23 @@
 </template>
 
 <script>
+const imgLoading = require('./img/img_principal-blur.jpg')
+const imgPhone = require('./img/img_principal-phone.jpg')
+const imgTablet = require('./img/img_principal-tablet.jpg')
+const imgDektop = require('./img/img_principal-desktop.jpg')
+const imgDektopXl = require('./img/img_principal-desktop-xl.jpg')
+
 export default {
   data() {
     return {
       isImageLoading: true,
+      img: {
+        imgLoading,
+        imgPhone,
+        imgTablet,
+        imgDektop,
+        imgDektopXl
+      },
       viewportWidth: 0,
       title: {
         'pt-BR': 'Lorem Ipsum pt',

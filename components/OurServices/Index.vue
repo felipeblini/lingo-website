@@ -630,10 +630,16 @@ $services-box-padding: 8px;
         }
 
         .service-info {
-          display: none;
+          display: flex;
           width: 100%;
           height: 100%;
+          flex-direction: column;
+          justify-content: center;
+          justify-content: space-evenly;
           background: rgba($color: #fff, $alpha: 0.8);
+          opacity: 0;
+          -webkit-transition: opacity 0.5s;
+          transition-property: opacity 0.5s;
 
           .service-icon {
             text-align: center;
@@ -688,10 +694,9 @@ $services-box-padding: 8px;
 
         &.active {
           .service-info {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            justify-content: space-evenly;
+            -webkit-transition: opacity 1s;
+            transition-property: opacity 1s;
+            opacity: 0.9;
           }
         }
       }
