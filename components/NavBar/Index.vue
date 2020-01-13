@@ -1,7 +1,7 @@
 <template>
   <b-navbar toggleable="custom" type="light" variant="">
     <div class="container">
-      <b-navbar-brand href="#top" v-smooth-scroll>
+      <b-navbar-brand href="#top" v-smooth-scroll="{ duration: 2000 }">
         Lingo Interpretação, tradução simultânea, transcrição, revisão e media
         training
       </b-navbar-brand>
@@ -24,7 +24,7 @@
                   .toLowerCase()
                   .replace(' ', '-')}`
               "
-              v-smooth-scroll="{ offset: -30 }"
+              v-smooth-scroll="{ duration: 2000, offset: -30 }"
               >{{ $store.state.menu['company'][$store.state.language] }}</a
             >
           </li>
@@ -37,7 +37,7 @@
                   .toLowerCase()
                   .replace(' ', '-')}`
               "
-              v-smooth-scroll="{ offset: whoAreUsScrollOffset }"
+              v-smooth-scroll="{ duration: 2000, offset: whoAreUsScrollOffset }"
               >{{ $store.state.menu['who-are-us'][$store.state.language] }}</a
             >
           </li>
@@ -51,7 +51,10 @@
                   .replace(' ', '-')
                   .replace('ç', 'c')}`
               "
-              v-smooth-scroll="{ offset: ourServicesScrollOffset }"
+              v-smooth-scroll="{
+                duration: 2000,
+                offset: ourServicesScrollOffset
+              }"
               >{{ $store.state.menu['services'][$store.state.language] }}</a
             >
           </li>
@@ -64,7 +67,10 @@
                   .toLowerCase()
                   .replace(' ', '-')}`
               "
-              v-smooth-scroll="{ offset: testimonialsScrollOffset }"
+              v-smooth-scroll="{
+                duration: 2000,
+                offset: testimonialsScrollOffset
+              }"
               >{{ $store.state.menu['testimonials'][$store.state.language] }}</a
             >
           </li>
@@ -77,7 +83,7 @@
                   .toLowerCase()
                   .replace(' ', '-')}`
               "
-              v-smooth-scroll="{ offset: -30 }"
+              v-smooth-scroll="{ duration: 2000, offset: -30 }"
               >{{ $store.state.menu['partners'][$store.state.language] }}</a
             >
           </li>
@@ -90,7 +96,7 @@
                   .toLowerCase()
                   .replace(' ', '-')}`
               "
-              v-smooth-scroll
+              v-smooth-scroll="{ duration: 2000 }"
               >{{ $store.state.menu['contact'][$store.state.language] }}</a
             >
           </li>

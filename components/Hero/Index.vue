@@ -354,6 +354,13 @@ export default {
           font-size: 14px;
         }
 
+        @media (min-width: 550px) {
+          @media (pointer: fine) {
+            font-size: 18pt;
+            width: 500px;
+          }
+        }
+
         @media (min-width: 768px) {
           font-size: 18pt;
           width: 500px;
