@@ -24,7 +24,7 @@
                   .toLowerCase()
                   .replace(' ', '-')}`
               "
-              v-smooth-scroll="{ offset: -10 }"
+              v-smooth-scroll="{ offset: -30 }"
               >{{ $store.state.menu['company'][$store.state.language] }}</a
             >
           </li>
@@ -37,7 +37,7 @@
                   .toLowerCase()
                   .replace(' ', '-')}`
               "
-              v-smooth-scroll="{ offset: -240 }"
+              v-smooth-scroll="{ offset: whoAreUsScrollOffset }"
               >{{ $store.state.menu['who-are-us'][$store.state.language] }}</a
             >
           </li>
@@ -51,7 +51,7 @@
                   .replace(' ', '-')
                   .replace('ç', 'c')}`
               "
-              v-smooth-scroll
+              v-smooth-scroll="{ offset: ourServicesScrollOffset }"
               >{{ $store.state.menu['services'][$store.state.language] }}</a
             >
           </li>
@@ -64,7 +64,7 @@
                   .toLowerCase()
                   .replace(' ', '-')}`
               "
-              v-smooth-scroll="{ offset: -160 }"
+              v-smooth-scroll="{ offset: testimonialsScrollOffset }"
               >{{ $store.state.menu['testimonials'][$store.state.language] }}</a
             >
           </li>
@@ -136,10 +136,49 @@ export default {
     WhatsappButton,
     SwitchLanguageButton
   },
+  computed: {
+    whoAreUsScrollOffset() {
+      if (process.client) {
+        if (window.innerWidth <= 414) return -60
+        if (window.innerWidth <= 768) return -220
+        if (window.innerWidth <= 1024) return -250
+        return -270
+      }
+
+      return -270
+    },
+
+    ourServicesScrollOffset() {
+      if (process.client) {
+        if (window.innerWidth <= 320) return -50
+        if (window.innerWidth <= 414) return -30
+        if (window.innerWidth <= 768) return 250
+        if (window.innerWidth <= 1024) return -100
+        return 250
+      }
+
+      return 250
+    },
+
+    testimonialsScrollOffset() {
+      if (process.client) {
+        if (window.innerWidth <= 320) return 15
+        if (window.innerWidth <= 414) return 30
+        if (window.innerWidth <= 768) return 50
+        if (window.innerWidth <= 1024) return 100
+        return -160
+      }
+
+      return -160
+    }
+  },
   methods: {
     onLanguageToggled(value) {
       this.$store.commit('toggleLanguage', value)
     }
+  },
+  mounted() {
+    console.log(this.whoAreUsScrollOffset)
   }
 }
 </script>
@@ -225,8 +264,43 @@ export default {
 
         width: 100%;
         background: rgba(198, 78, 97, 0.96078);
-        padding: 105px 74px;
-        font-size: 31px;
+
+        ul.navbar-nav {
+          align-items: center;
+          height: calc(100vh - 19px);
+          justify-content: center;
+          padding: 105px 40px;
+          font-size: 26px;
+
+          @media (min-width: 321px) {
+            padding: 105px 74px;
+            font-size: 40px;
+          }
+
+          @media (min-width: 360px) {
+            font-size: 30px;
+          }
+
+          @media (min-width: 768px) {
+            font-size: 45px;
+          }
+
+          @media (min-width: 1024px) {
+            font-size: 55px;
+          }
+
+          li {
+            padding: 6px 0;
+
+            @media (min-width: 768px) {
+              padding: 10px 0;
+            }
+
+            @media (min-width: 1024px) {
+              padding: 14px 0;
+            }
+          }
+        }
       }
 
       &.collapse {
