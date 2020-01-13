@@ -232,10 +232,10 @@ export default {
     padding-left: 0px;
     font-size: 0.9rem;
     position: relative;
-    font-size: 14pt;
+    font-size: 18pt;
 
     @media (min-width: 768px) {
-      font-size: 1.3rem;
+      padding-right: 27%;
     }
 
     @media (min-width: 992px) {
@@ -244,7 +244,7 @@ export default {
 
     @media (min-width: 1024px) {
       @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-        font-size: 1.5rem;
+        font-size: 20pt;
       }
     }
 

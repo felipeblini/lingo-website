@@ -436,8 +436,11 @@ $services-box-padding: 8px;
         @media (min-width: 760px) and (max-width: 1079px) {
           width: calc((#{$service-box-width * 2} * 3));
 
-          @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-            width: calc((#{$service-box-width * 3} * 2.7));
+          @media (min-width: 1024px) {
+            @media (-webkit-min-device-pixel-ratio: 2),
+              (min-resolution: 192dpi) {
+              width: calc((#{$service-box-width * 3} * 2.7));
+            }
           }
         }
 

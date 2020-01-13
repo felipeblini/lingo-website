@@ -275,7 +275,15 @@ export default {
       top: 35px;
     }
 
-    @media (min-width: 992px) {
+    @media (min-width: 768px) {
+      top: 55px;
+    }
+
+    @media (min-width: 1024px) {
+      top: 75px;
+    }
+
+    @media (min-width: 1080px) {
       top: 137px;
 
       @media (pointer: fine) {
@@ -347,13 +355,12 @@ export default {
         }
 
         @media (min-width: 768px) {
-          font-size: 18px;
-          width: 364px;
+          font-size: 18pt;
+          width: 500px;
         }
 
         @media (min-width: 880px) {
           font-size: 20px;
-          width: 500px;
         }
 
         @media (min-width: 992px) {

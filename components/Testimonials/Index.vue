@@ -128,7 +128,7 @@ export default {
     window.addEventListener('resize', () => {
       setTimeout(() => {
         if (window.innerWidth < this.maxWidth) {
-          this.responsiveWidth = window.innerWidth - 50
+          this.responsiveWidth = window.innerWidth - 150
           this.stepNext()
         }
 
@@ -431,10 +431,12 @@ export default {
       color: $light-gray;
       font-size: 32pt;
 
-      text {
-        @media (min-width: 992px) {
-          color: $yellow;
-        }
+      @media (min-width: 768px) {
+        font-size: 56pt;
+      }
+
+      @media (min-width: 992px) {
+        color: $yellow;
       }
     }
 
