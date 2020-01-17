@@ -27,80 +27,86 @@
             </div>
           </div>
 
-          <div class="line all-items">
-            <div
-              tabindex="1"
-              class="service-box service-1 revisao only-mobile-flex"
-            >
-              <div class="service-info">
-                <div class="service-icon">
-                  <img class="icon" src="./img/box-icons/revisao.svg" alt="" />
+          <div class="line all-services-list">
+            <div class="list-wrapper">
+              <div
+                tabindex="1"
+                class="service-box service-1 revisao only-mobile-flex"
+              >
+                <div class="service-info">
+                  <div class="service-icon">
+                    <img
+                      class="icon"
+                      src="./img/box-icons/revisao.svg"
+                      alt=""
+                    />
+                  </div>
+                  <h4 class="service-title" :class="$store.state.language">
+                    {{ services.titles.revision[$store.state.language] }}
+                  </h4>
                 </div>
-                <h4 class="service-title" :class="$store.state.language">
-                  {{ services.titles.revision[$store.state.language] }}
-                </h4>
               </div>
-            </div>
 
-            <div tabindex="2" class="service-box service-2 transcricao">
-              <div class="service-info">
-                <div class="service-icon">
-                  <img
-                    class="icon"
-                    src="./img/box-icons/transcricao.svg"
-                    alt=""
-                  />
+              <div tabindex="2" class="service-box service-2 transcricao">
+                <div class="service-info">
+                  <div class="service-icon">
+                    <img
+                      class="icon"
+                      src="./img/box-icons/transcricao.svg"
+                      alt=""
+                    />
+                  </div>
+                  <h4 class="service-title" :class="$store.state.language">
+                    {{ services.titles.transcription[$store.state.language] }}
+                  </h4>
                 </div>
-                <h4 class="service-title" :class="$store.state.language">
-                  {{ services.titles.transcription[$store.state.language] }}
-                </h4>
               </div>
-            </div>
 
-            <div tabindex="3" class="service-box service-3 media">
-              <div class="service-info">
-                <div class="service-icon">
-                  <img class="icon" src="./img/box-icons/media.svg" alt="" />
+              <div tabindex="3" class="service-box service-3 media">
+                <div class="service-info">
+                  <div class="service-icon">
+                    <img class="icon" src="./img/box-icons/media.svg" alt="" />
+                  </div>
+                  <h4 class="service-title" :class="$store.state.language">
+                    {{ services.titles.mediaTraining[$store.state.language] }}
+                  </h4>
                 </div>
-                <h4 class="service-title" :class="$store.state.language">
-                  {{ services.titles.mediaTraining[$store.state.language] }}
-                </h4>
               </div>
-            </div>
 
-            <div
-              tabindex="4"
-              class="service-box service-4 traducoes only-mobile-flex"
-            >
-              <div class="service-info">
-                <div class="service-icon">
-                  <img
-                    class="icon"
-                    src="./img/box-icons/traducoes.svg"
-                    alt=""
-                  />
+              <div
+                tabindex="4"
+                class="service-box service-4 traducoes only-mobile-flex"
+              >
+                <div class="service-info">
+                  <div class="service-icon">
+                    <img
+                      class="icon"
+                      src="./img/box-icons/traducoes.svg"
+                      alt=""
+                    />
+                  </div>
+                  <h4 class="service-title" :class="$store.state.language">
+                    {{ services.titles.tranlations[$store.state.language] }}
+                  </h4>
                 </div>
-                <h4 class="service-title" :class="$store.state.language">
-                  {{ services.titles.tranlations[$store.state.language] }}
-                </h4>
               </div>
-            </div>
 
-            <div
-              tabindex="5"
-              class="service-box service-5 interpretacao only-mobile-flex"
-            >
-              <div class="service-info">
-                <div class="service-icon">
-                  <img
-                    class="icon"
-                    src="./img/box-icons/interpretacao.svg"
-                    alt=""
-                  />
+              <div
+                tabindex="5"
+                class="service-box service-5 interpretacao only-mobile-flex"
+              >
+                <div class="service-info">
+                  <div class="service-icon">
+                    <img
+                      class="icon"
+                      src="./img/box-icons/interpretacao.svg"
+                      alt=""
+                    />
+                  </div>
+                  <h4 class="service-title" :class="$store.state.language">
+                    {{ services.titles.interpreting[$store.state.language] }}
+                  </h4>
                 </div>
-                <h4 class="service-title" :class="$store.state.language">
-                  {{ services.titles.interpreting[$store.state.language] }}
-                </h4>
               </div>
             </div>
           </div>
@@ -440,12 +446,12 @@ $services-box-padding: 8px;
         @media (min-width: 760px) and (max-width: 1079px) {
           width: calc((#{$service-box-width * 2} * 3));
 
-          @media (min-width: 1024px) {
-            @media (-webkit-min-device-pixel-ratio: 2),
-              (min-resolution: 192dpi) {
-              width: calc((#{$service-box-width * 3} * 2.7));
-            }
-          }
+          // @media (min-width: 1024px) {
+          //   @media (-webkit-min-device-pixel-ratio: 2),
+          //     (min-resolution: 192dpi) {
+          //     width: calc((#{$service-box-width * 3} * 2.7));
+          //   }
+          // }
         }
 
         @media (min-width: 1080px) {
@@ -453,6 +459,28 @@ $services-box-padding: 8px;
 
           flex-wrap: nowrap;
           align-items: flex-end;
+        }
+
+        &.all-services-list {
+          justify-content: center;
+
+          .list-wrapper {
+            display: flex;
+            flex-wrap: inherit;
+
+            @media (min-width: 430px) {
+              width: calc(#{$service-box-width * 1.8} * 2);
+            }
+
+            @media (min-width: 779px) {
+              width: calc(#{$service-box-width * 2} * 2);
+
+              // @media (-webkit-min-device-pixel-ratio: 2),
+              //   (min-resolution: 192dpi) {
+              //   width: calc(#{$service-box-width * 2.7} * 2);
+              // }
+            }
+          }
         }
       }
 
@@ -529,12 +557,12 @@ $services-box-padding: 8px;
             width: calc(#{$service-box-width * 5});
             height: calc(#{$service-box-width * 3});
 
-            @media (-webkit-min-device-pixel-ratio: 2),
-              (min-resolution: 192dpi) {
-              width: calc(#{$service-box-width * 5.5});
-              height: calc(#{$service-box-width * 4.3});
-              padding-left: 44px;
-            }
+            // @media (-webkit-min-device-pixel-ratio: 2),
+            //   (min-resolution: 192dpi) {
+            //   width: calc(#{$service-box-width * 5.5});
+            //   height: calc(#{$service-box-width * 4.3});
+            //   padding-left: 44px;
+            // }
           }
 
           @media (min-width: 1080px) {
@@ -564,11 +592,11 @@ $services-box-padding: 8px;
               font-size: 58px;
               line-height: 53px;
 
-              @media (-webkit-min-device-pixel-ratio: 2),
-                (min-resolution: 192dpi) {
-                font-size: 88px;
-                line-height: 83px;
-              }
+              // @media (-webkit-min-device-pixel-ratio: 2),
+              //   (min-resolution: 192dpi) {
+              //   font-size: 88px;
+              //   line-height: 83px;
+              // }
             }
           }
 
@@ -577,12 +605,12 @@ $services-box-padding: 8px;
             font-size: 14pt;
 
             @media (min-width: 760px) {
-              font-size: 19px;
+              font-size: 16pt;
 
-              @media (-webkit-min-device-pixel-ratio: 2),
-                (min-resolution: 192dpi) {
-                font-size: 26px;
-              }
+              // @media (-webkit-min-device-pixel-ratio: 2),
+              //   (min-resolution: 192dpi) {
+              //   font-size: 26px;
+              // }
             }
           }
         }
@@ -621,14 +649,14 @@ $services-box-padding: 8px;
           min-height: calc(#{$service-box-width * 1.8} - 1px);
         }
 
-        @media (min-width: 500px) {
+        @media (min-width: 779px) {
           min-width: calc(#{$service-box-width * 2} - 1px);
           min-height: calc(#{$service-box-width * 2} - 1px);
 
-          @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-            min-width: calc(#{$service-box-width * 2.7} - 1px);
-            min-height: calc(#{$service-box-width * 2.7} - 1px);
-          }
+          // @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+          //   min-width: calc(#{$service-box-width * 2.7} - 1px);
+          //   min-height: calc(#{$service-box-width * 2.7} - 1px);
+          // }
         }
 
         &.big {
@@ -689,12 +717,12 @@ $services-box-padding: 8px;
                 width: 101px;
               }
 
-              @media (min-width: 1024px) {
-                @media (-webkit-min-device-pixel-ratio: 2),
-                  (min-resolution: 192dpi) {
-                  width: 150px;
-                }
-              }
+              // @media (min-width: 1024px) {
+              //   @media (-webkit-min-device-pixel-ratio: 2),
+              //     (min-resolution: 192dpi) {
+              //     width: 150px;
+              //   }
+              // }
 
               &.big {
                 width: 130px;
@@ -721,17 +749,17 @@ $services-box-padding: 8px;
               }
             }
 
-            @media (min-width: 1024px) {
-              @media (-webkit-min-device-pixel-ratio: 2),
-                (min-resolution: 192dpi) {
-                font-size: 27px;
-                padding: 5px;
+            // @media (min-width: 1024px) {
+            //   @media (-webkit-min-device-pixel-ratio: 2),
+            //     (min-resolution: 192dpi) {
+            //     font-size: 27px;
+            //     padding: 5px;
 
-                &.en-US {
-                  font-size: 27px;
-                }
-              }
-            }
+            //     &.en-US {
+            //       font-size: 27px;
+            //     }
+            //   }
+            // }
 
             &.big {
               font-size: 40px;
@@ -757,25 +785,25 @@ $services-box-padding: 8px;
   }
 }
 
-@media (min-width: 1080px) {
-  @media (pointer: coarse) {
-    .boxes-collumns-wrapper .line {
-      width: calc((200px * 2.7)) !important;
-    }
+// @media (min-width: 1080px) {
+//   @media (pointer: coarse) {
+//     .boxes-collumns-wrapper .line {
+//       // width: calc((200px * 2.7)) !important;
+//     }
 
-    .box-gradient {
-      padding-top: 30px;
-      padding-left: 30px;
+//     .box-gradient {
+//       padding-top: 30px;
+//       padding-left: 30px;
 
-      h1.section-title {
-        font-size: 66px !important;
-        line-height: 64px !important;
-      }
+//       h1.section-title {
+//         font-size: 66px !important;
+//         line-height: 64px !important;
+//       }
 
-      p.section-description {
-        font-size: 17pt !important;
-      }
-    }
-  }
-}
+//       p.section-description {
+//         font-size: 17pt !important;
+//       }
+//     }
+//   }
+// }
 </style>
