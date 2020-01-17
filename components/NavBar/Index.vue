@@ -321,6 +321,10 @@ export default {
       a.nav-link {
         color: #fff;
 
+        @media (pointer: coarse) {
+          font-size: 11pt;
+        }
+
         &:hover {
           text-decoration: underline;
         }

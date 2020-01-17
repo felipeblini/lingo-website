@@ -116,7 +116,7 @@ export default {
         // TODO: fetch list by language on wordPress
         this.listOfMembers[this.$store.state.language] = [
           {
-            name: 'Jan Onoszco',
+            name: 'Jan Onoszko',
             minibio: `Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedit ea ullam saepe ${this.$store.state.language}`,
             flag: 'eng'
           },

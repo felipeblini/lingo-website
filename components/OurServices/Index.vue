@@ -63,7 +63,7 @@
                   <img class="icon" src="./img/box-icons/media.svg" alt="" />
                 </div>
                 <h4 class="service-title" :class="$store.state.language">
-                  {{ services.titles.mediaTrainning[$store.state.language] }}
+                  {{ services.titles.mediaTraining[$store.state.language] }}
                 </h4>
               </div>
             </div>
@@ -99,7 +99,7 @@
                   />
                 </div>
                 <h4 class="service-title" :class="$store.state.language">
-                  {{ services.titles.interpretations[$store.state.language] }}
+                  {{ services.titles.interpreting[$store.state.language] }}
                 </h4>
               </div>
             </div>
@@ -161,7 +161,7 @@
                   />
                 </div>
                 <h4 class="service-title" :class="$store.state.language">
-                  {{ services.titles.interpretations[$store.state.language] }}
+                  {{ services.titles.interpreting[$store.state.language] }}
                 </h4>
               </div>
             </div>
@@ -198,17 +198,17 @@ export default {
             'pt-BR': 'Trancrições',
             'en-US': 'Transcriptions'
           },
-          mediaTrainning: {
-            'pt-BR': 'Media Trainning',
-            'en-US': 'Media Trainning'
+          mediaTraining: {
+            'pt-BR': 'Media Training',
+            'en-US': 'Media Training'
           },
           tranlations: {
             'pt-BR': 'Traduções',
             'en-US': 'Translations'
           },
-          interpretations: {
+          interpreting: {
             'pt-BR': 'Interpretação',
-            'en-US': 'Interpretations'
+            'en-US': 'Interpreting'
           }
         }
       },
@@ -257,17 +257,21 @@ export default {
       if (active > 5) active = 1
     }, 3000)
 
-    document.querySelectorAll('.service-box').forEach(
-      (el) =>
-        (el.onmouseover = () => {
-          clearInterval(interval)
-          document.querySelectorAll('.service-box').forEach((el2) => {
-            el2.classList.remove('active')
-          })
+    document.querySelectorAll('.service-box').forEach((el) => {
+      const selectItem = () => {
+        console.log('select')
+        clearInterval(interval)
 
-          el.classList.add('active')
+        document.querySelectorAll('.service-box').forEach((el2) => {
+          el2.classList.remove('active')
         })
-    )
+
+        el.classList.add('active')
+      }
+
+      el.onmouseover = selectItem
+      el.onclick = selectItem
+    })
   }
 }
 </script>
@@ -748,6 +752,28 @@ $services-box-padding: 8px;
             opacity: 0.9;
           }
         }
+      }
+    }
+  }
+}
+
+@media (min-width: 1080px) {
+  @media (pointer: coarse) {
+    .boxes-collumns-wrapper .line {
+      width: calc((200px * 2.7)) !important;
+    }
+
+    .box-gradient {
+      padding-top: 30px;
+      padding-left: 30px;
+
+      h1.section-title {
+        font-size: 66px !important;
+        line-height: 64px !important;
+      }
+
+      p.section-description {
+        font-size: 17pt !important;
       }
     }
   }

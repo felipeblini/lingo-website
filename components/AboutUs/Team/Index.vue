@@ -87,6 +87,7 @@ export default {
         align-items: center;
 
         height: 50px;
+        max-width: 180px;
         font-size: 23px;
         line-height: 21px;
 
