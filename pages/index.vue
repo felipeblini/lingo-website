@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <div v-if="isLoading" class="loading">
+  <div style="border: solid 6px red; height: 100vh">
+    <!-- <div v-if="isLoading" class="loading">
       <div class="loading-spinner">
         <font-awesome-icon :icon="['fas', 'spinner']" spin />
       </div>
-    </div>
+    </div> -->
 
     <section class="about-group-wrapper d-none">
       <section class="hero">
