@@ -3,9 +3,7 @@
     <div class="hero-text container">
       <div>
         <h1>{{ title[$store.state.language] }}</h1>
-        <p>
-          {{ text[$store.state.language] }}
-        </p>
+        <p>{{ text[$store.state.language] }} {{ viewportWidth }}</p>
       </div>
     </div>
 
