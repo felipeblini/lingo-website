@@ -6,7 +6,7 @@
       </div>
     </div>
 
-    <section class="about-group-wrapper">
+    <section class="about-group-wrapper d-none">
       <section class="hero">
         <LingoHero @height-calculated="onHeroHeightCalculated" />
       </section>

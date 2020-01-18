@@ -427,8 +427,6 @@ export default {
 
 <style lang="scss" scoped>
 .lingo-testimonials-component {
-  border: solid 3px red;
-  display: none;
   position: relative;
 
   .quotations-image-wrapper {
