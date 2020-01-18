@@ -1,14 +1,14 @@
 <template>
   <div ref="globalWrapper" style="border: solid 6px green; height: 100vh">
     <!-- <a id="top" href="#" /> -->
-    <!-- <lingo-navbar /> -->
+    <lingo-navbar />
 
     <nuxt />
   </div>
 </template>
 
 <script>
-// import NavBar from '~/components/NavBar/Index.vue'
+import NavBar from '~/components/NavBar/Index.vue'
 
 export default {
   data() {
@@ -22,7 +22,7 @@ export default {
     this.$refs.globalWrapper.style.width = `${this.responsiveWidth}px`
   },
   components: {
-    // 'lingo-navbar': NavBar
+    'lingo-navbar': NavBar
   }
 }
 </script>
