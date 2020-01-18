@@ -6,7 +6,9 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-xl-8 offset-xl-2 text-center">
-          <h2 class="gray">{{ title[$store.state.language] }}</h2>
+          <h2 class="gray">
+            {{ title[$store.state.language] }} {{ responsiveWidth }}
+          </h2>
         </div>
       </div>
 
@@ -82,7 +84,8 @@ export default {
   props: {
     maxWidth: {
       type: Number,
-      default: 480
+      default: 480,
+      description: 'wrapper maxwidth in points'
     }
   },
   data() {
@@ -113,13 +116,22 @@ export default {
     }
   },
   mounted() {
+    function _pixelToPoint(pixel) {
+      return Math.floor(pixel / 1.3333333333333333)
+    }
+
     this.responsiveWidth = this.maxWidth
 
-    console.log(window.innerWidth, this.maxWidth)
+    console.log({
+      innerWidth: _pixelToPoint(window.innerWidth),
+      maxWidth: this.maxWidth
+    })
 
-    if (window.innerWidth < this.maxWidth) {
-      this.responsiveWidth = window.innerWidth - 150
+    if (_pixelToPoint(window.innerWidth) < this.maxWidth) {
+      this.responsiveWidth = _pixelToPoint(window.innerWidth) - 50
     }
+
+    console.log({ responsiveWidth: this.responsiveWidth })
 
     this.wrapperWidth = this.$refs.listWrapper
       ? this.$refs.listWrapper.clientWidth
@@ -127,8 +139,8 @@ export default {
 
     window.addEventListener('resize', () => {
       setTimeout(() => {
-        if (window.innerWidth < this.maxWidth) {
-          this.responsiveWidth = window.innerWidth - 150
+        if (_pixelToPoint(window.innerWidth) < this.maxWidth) {
+          this.responsiveWidth = _pixelToPoint(window.innerWidth) - 50
           this.stepNext()
         }
 
@@ -161,7 +173,6 @@ export default {
     }
 
     window.addEventListener('scroll', handleScroll)
-
     this.fetchList()
   },
   methods: {
@@ -227,12 +238,20 @@ export default {
         this.originalListlength = this.list[this.$store.state.language].length
       }
 
-      console.log('testimonials ready')
       this.$emit('ready')
     },
 
     touchHandler(direction) {
-      if (window.innerWidth < 1080) {
+      function _isTouchDevice() {
+        try {
+          document.createEvent('TouchEvent')
+          return true
+        } catch (e) {
+          return false
+        }
+      }
+
+      if (_isTouchDevice()) {
         direction === 'left' ? this.stepNext() : this.stepPrev()
       }
     },
@@ -408,6 +427,8 @@ export default {
 
 <style lang="scss" scoped>
 .lingo-testimonials-component {
+  border: solid 3px red;
+  display: none;
   position: relative;
 
   .quotations-image-wrapper {

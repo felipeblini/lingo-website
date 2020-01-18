@@ -29,9 +29,9 @@
       <OurServices />
     </section>
 
-    <!-- <section>
+    <section>
       <CustomersTestimonials @ready="childrenReady++" />
-    </section> -->
+    </section>
 
     <section>
       <OurPartners @ready="childrenReady++" />
@@ -52,7 +52,7 @@ import LingoHero from '~/components/Hero/Index.vue'
 import MiniBio from '~/components/Minibio/index.vue'
 import AboutUs from '~/components/AboutUs/Index.vue'
 import OurServices from '~/components/OurServices/Index.vue'
-// import CustomersTestimonials from '~/components/Testimonials/Index.vue'
+import CustomersTestimonials from '~/components/Testimonials/Index.vue'
 import OurPartners from '~/components/Partners/Index.vue'
 import MapaMundi from '~/components/MapaMundi/Index.vue'
 import LingoFooter from '~/components/Footer/Index.vue'
@@ -75,7 +75,7 @@ export default {
     MiniBio,
     AboutUs,
     OurServices,
-    // CustomersTestimonials,
+    CustomersTestimonials,
     OurPartners,
     MapaMundi,
     LingoFooter
