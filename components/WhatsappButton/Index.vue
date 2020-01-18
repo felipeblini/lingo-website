@@ -21,7 +21,7 @@ export default {
     return {
       text: {
         'pt-BR': 'Quer falar com a gente?',
-        'en-US': 'Want to talk with us?'
+        'en-US': 'Please give us a call'
       }
     }
   },

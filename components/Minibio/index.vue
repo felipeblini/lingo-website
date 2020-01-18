@@ -18,7 +18,7 @@ export default {
     return {
       title: {
         'pt-BR': 'Conheça a',
-        'en-US': 'Know'
+        'en-US': 'About'
       },
       text: {
         'pt-BR': '',
@@ -118,10 +118,6 @@ export default {
     align-items: center;
     padding-top: 96px;
     padding-left: 30px;
-
-    // @media (pointer: fine) {
-    //   padding-top: 96px;
-    // }
   }
 
   @media (min-width: 1015px) {

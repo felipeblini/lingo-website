@@ -47,18 +47,37 @@ export default {
     padding-top: 68%;
   }
 
-  @media (min-width: 576px) {
-    padding-top: 38%;
+  @media (min-width: 767px) {
+    padding-top: 58%;
+  }
+
+  @media (min-width: 992px) {
+    padding-top: 48%;
   }
 
   @media (min-width: 1200px) {
-    padding-top: 49%;
     padding-right: 77px;
     padding-left: 77px;
   }
 
-  @media (min-width: 1500px) {
-    padding-top: 54%;
+  @media (min-width: 1400px) {
+    padding-top: 58%;
+  }
+
+  @media (min-width: 1800px) {
+    padding-top: 62%;
+  }
+
+  @media (min-width: 2500px) {
+    padding-top: 72%;
+  }
+
+  @media (min-width: 3000px) {
+    padding-top: 82%;
+  }
+
+  @media (min-width: 3500px) {
+    padding-top: 92%;
   }
 
   .member {

@@ -74,7 +74,7 @@ export default {
     return {
       title: {
         'pt-BR': 'Quem Somos',
-        'en-US': 'About Us'
+        'en-US': 'Meet the Team'
       },
       listOfMembers: {
         'pt-BR': [],
@@ -223,19 +223,21 @@ export default {
     }
 
     @media (min-width: 1200px) {
-      max-width: 1044px;
+      max-width: 961px;
       margin-top: -218px;
       margin-left: 42px;
     }
 
-    @media (min-width: 1300px) {
-      max-width: 1063px;
-      margin-top: -217px;
-      margin-left: -1px;
+    @media (min-width: 1500px) {
+      max-width: 1011px;
     }
 
     @media (min-width: 1500px) {
-      max-width: 1080px;
+      max-width: 1011px;
+    }
+
+    @media (min-width: 1920px) {
+      max-width: 1030px;
     }
   }
 
@@ -263,6 +265,7 @@ export default {
     @media (min-width: 571px) {
       text-align: left;
       line-height: 7vw;
+      position: absolute;
     }
 
     @media (min-width: 1215px) {

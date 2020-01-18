@@ -99,7 +99,6 @@ export default {
       this.childrenReady = 2 // footer and partners are aready ready in this moment
     },
     childrenReady(ready) {
-      console.log({ ready })
       const dinamicChildren = this.$children.filter((el) => el.$listeners.ready)
 
       if (ready === dinamicChildren.length) {
@@ -119,7 +118,7 @@ export default {
 <style lang="scss" scoped>
 .loading {
   background: #ffffffdb;
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;

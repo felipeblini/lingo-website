@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-12 col-xl-8 offset-xl-2 text-center">
           <h2 class="gray">
-            {{ title[$store.state.language] }} {{ responsiveWidth }}
+            {{ title[$store.state.language] }}
           </h2>
         </div>
       </div>
@@ -446,7 +446,7 @@ export default {
 
   .container {
     h2 {
-      margin-bottom: 30px;
+      // margin-bottom: 30px;
       color: $light-gray;
       font-size: 32pt;
 
@@ -465,8 +465,13 @@ export default {
 
       @media (min-width: 1080px) {
         justify-content: flex-end;
-        margin-left: 242px;
-        margin-top: 20px;
+        margin-left: 177px;
+        margin-top: 63px;
+      }
+
+      @media (min-width: 1200px) {
+        margin-top: 0;
+        margin-left: 360px;
       }
 
       .testimonials-wrapper {
@@ -476,14 +481,6 @@ export default {
           @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
             font-size: 18pt;
           }
-        }
-
-        @media (min-width: 1080px) {
-          margin-top: -65px;
-        }
-
-        @media (min-width: 1200px) {
-          margin-top: 0;
         }
 
         ul.testimonialsList {

@@ -270,13 +270,18 @@ export default {
 
         ul.navbar-nav {
           align-items: center;
-          height: calc(100vh - 19px);
+          height: 100vh;
           justify-content: center;
-          padding: 105px 40px;
+          // padding: 105px 40px
           font-size: 26px;
+          overflow: scroll;
+
+          @media (orientation: landscape) {
+            padding-top: 150px;
+          }
 
           @media (min-width: 321px) {
-            padding: 105px 74px;
+            // padding: 105px 74px;
             font-size: 40px;
           }
 
