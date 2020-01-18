@@ -1,5 +1,6 @@
 <template>
   <div style="border: solid 6px red; height: 100%; max-width: 100%">
+    <h1>{{ responsiveWidth }}</h1>
     <!-- <div v-if="isLoading" class="loading">
       <div class="loading-spinner">
         <font-awesome-icon :icon="['fas', 'spinner']" spin />
@@ -89,7 +90,8 @@ export default {
       heroHeight: 0,
       isLoading: true,
       childrenReady: 0,
-      miniBioMgCalculated: false
+      miniBioMgCalculated: false,
+      responsiveWidth: 0
     }
   },
 
@@ -98,7 +100,6 @@ export default {
       this.isLoading = true
       this.childrenReady = 2 // footer and partners are aready ready in this moment
     },
-
     childrenReady(ready) {
       console.log({ ready })
       const dinamicChildren = this.$children.filter((el) => el.$listeners.ready)
@@ -107,6 +108,10 @@ export default {
         this.isLoading = false
       }
     }
+  },
+
+  mounted() {
+    this.responsiveWidth = window.innerWidth
   },
 
   methods: {
