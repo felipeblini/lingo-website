@@ -1,5 +1,5 @@
 <template>
-  <div style="border: solid 6px red; height: 100vh">
+  <div style="border: solid 6px red; height: 100%; max-width: 100%">
     <!-- <div v-if="isLoading" class="loading">
       <div class="loading-spinner">
         <font-awesome-icon :icon="['fas', 'spinner']" spin />

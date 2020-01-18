@@ -3,7 +3,7 @@
     <!-- <a id="top" href="#" /> -->
     <!-- <lingo-navbar /> -->
 
-    <!-- <nuxt /> -->
+    <nuxt />
   </div>
 </template>
 
