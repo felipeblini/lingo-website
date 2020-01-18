@@ -41,7 +41,7 @@
       <MapaMundi />
     </section>
 
-    <footer>
+    <footer class="d-none">
       <LingoFooter @ready="childrenReady++" />
     </footer>
   </div>
