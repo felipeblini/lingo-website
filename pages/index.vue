@@ -37,7 +37,7 @@
       <OurPartners @ready="childrenReady++" />
     </section>
 
-    <section>
+    <section class="d-none">
       <MapaMundi />
     </section>
 
