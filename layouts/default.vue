@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <a id="top" href="#" />
+  <div style="border: solid 6px green; height: 100vh">
+    <!-- <a id="top" href="#" /> -->
     <!-- <lingo-navbar /> -->
 
-    <nuxt />
+    <!-- <nuxt /> -->
   </div>
 </template>
 
