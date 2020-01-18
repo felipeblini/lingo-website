@@ -1,6 +1,6 @@
 <template>
   <div style=" height: 100vh">
-    <!-- <a id="top" href="#" /> -->
+    <a id="top" href="#" />
     <lingo-navbar />
 
     <nuxt />
@@ -11,16 +11,6 @@
 import NavBar from '~/components/NavBar/Index.vue'
 
 export default {
-  // data() {
-  //   return {
-  //     responsiveWidth: 0
-  //   }
-  // },
-
-  // mounted() {
-  //   this.responsiveWidth = window.innerWidth
-  //   this.$refs.globalWrapper.style.width = `${this.responsiveWidth}px`
-  // },
   components: {
     'lingo-navbar': NavBar
   }

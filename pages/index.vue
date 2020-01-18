@@ -25,23 +25,23 @@
       </section>
     </section>
 
-    <section class=" d-none">
+    <section>
       <OurServices />
     </section>
 
-    <section class="d-none">
+    <section>
       <CustomersTestimonials @ready="childrenReady++" />
     </section>
 
-    <section class="d-none">
+    <section>
       <OurPartners @ready="childrenReady++" />
     </section>
 
-    <section class="d-none">
+    <section>
       <MapaMundi />
     </section>
 
-    <footer class="d-none">
+    <footer>
       <LingoFooter @ready="childrenReady++" />
     </footer>
   </div>
