@@ -115,7 +115,7 @@ export default {
 
   mounted() {
     this.responsiveWidth = window.innerWidth
-    this.$refs.globalWrapper.style.width = `${this.responsiveWidth - 500}px`
+    this.$refs.globalWrapper.style.width = `${this.responsiveWidth}px`
   },
 
   methods: {
