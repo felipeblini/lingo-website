@@ -321,7 +321,7 @@ export default {
       a.nav-link {
         color: #fff;
 
-        @media (pointer: coarse) {
+        @media (min-width: 1200px) and (pointer: coarse) {
           font-size: 11pt;
         }
 
