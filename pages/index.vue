@@ -1,5 +1,8 @@
 <template>
-  <div style="border: solid 6px red; height: 100%; max-width: 100%">
+  <div
+    ref="globalWrapper"
+    style="border: solid 6px red; height: 100%; max-width: 100%"
+  >
     <h1>{{ responsiveWidth }}</h1>
     <!-- <div v-if="isLoading" class="loading">
       <div class="loading-spinner">
@@ -112,6 +115,7 @@ export default {
 
   mounted() {
     this.responsiveWidth = window.innerWidth
+    this.$refs.globalWrapper.style.width = `${this.responsiveWidth - 500}px`
   },
 
   methods: {

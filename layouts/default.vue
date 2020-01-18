@@ -1,5 +1,5 @@
 <template>
-  <div style="border: solid 6px green; height: 100vh">
+  <div ref="globalWrapper" style="border: solid 6px green; height: 100vh">
     <!-- <a id="top" href="#" /> -->
     <!-- <lingo-navbar /> -->
 
@@ -11,6 +11,16 @@
 // import NavBar from '~/components/NavBar/Index.vue'
 
 export default {
+  data() {
+    return {
+      responsiveWidth: 0
+    }
+  },
+
+  mounted() {
+    this.responsiveWidth = window.innerWidth
+    this.$refs.globalWrapper.style.width = `${this.responsiveWidth - 500}px`
+  },
   components: {
     // 'lingo-navbar': NavBar
   }
