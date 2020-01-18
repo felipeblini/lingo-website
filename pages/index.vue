@@ -33,7 +33,7 @@
       <CustomersTestimonials @ready="childrenReady++" />
     </section>
 
-    <section>
+    <section class="d-none">
       <OurPartners @ready="childrenReady++" />
     </section>
 
