@@ -29,7 +29,7 @@
       <OurServices />
     </section>
 
-    <section>
+    <section class="d-none">
       <CustomersTestimonials @ready="childrenReady++" />
     </section>
 
