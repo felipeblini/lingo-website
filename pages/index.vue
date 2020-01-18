@@ -1,16 +1,12 @@
 <template>
-  <div
-    ref="globalWrapper"
-    style="border: solid 6px red; height: 100%; max-width: 100%"
-  >
-    <h1>{{ responsiveWidth }}</h1>
-    <!-- <div v-if="isLoading" class="loading">
+  <div>
+    <div v-if="isLoading" class="loading">
       <div class="loading-spinner">
         <font-awesome-icon :icon="['fas', 'spinner']" spin />
       </div>
-    </div> -->
+    </div>
 
-    <section class="about-group-wrapper d-none">
+    <section class="about-group-wrapper">
       <section class="hero">
         <LingoHero @height-calculated="onHeroHeightCalculated" />
       </section>
@@ -93,8 +89,7 @@ export default {
       heroHeight: 0,
       isLoading: true,
       childrenReady: 0,
-      miniBioMgCalculated: false,
-      responsiveWidth: 0
+      miniBioMgCalculated: false
     }
   },
 
@@ -111,11 +106,6 @@ export default {
         this.isLoading = false
       }
     }
-  },
-
-  mounted() {
-    this.responsiveWidth = window.innerWidth
-    this.$refs.globalWrapper.style.width = `${this.responsiveWidth}px`
   },
 
   methods: {
