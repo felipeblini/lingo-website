@@ -11,7 +11,7 @@
         <LingoHero @height-calculated="onHeroHeightCalculated" />
       </section>
 
-      <section class="mini-bio">
+      <section class="mini-bio d-none">
         <MiniBio
           :hero-height="heroHeight"
           :ssrText="minibioDefaultText"
