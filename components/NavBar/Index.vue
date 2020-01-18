@@ -107,12 +107,12 @@
           <div class="mr-3 only-desktop">
             <SwitchLanguageButton @toggled="onLanguageToggled" />
           </div>
-          <WhatsappButton class="only-desktop" />
+          <WhatsappButton class="wpbtn-desktop" />
         </b-navbar-nav>
       </b-collapse>
     </div>
 
-    <WhatsappButton class="only-mobile" />
+    <WhatsappButton class="wpbtn-mobile" />
   </b-navbar>
 </template>
 
@@ -321,7 +321,7 @@ export default {
       a.nav-link {
         color: #fff;
 
-        @media (min-width: 1200px) and (pointer: coarse) {
+        @media (min-width: 1201px) and (pointer: coarse) {
           font-size: 11pt;
         }
 
@@ -361,7 +361,24 @@ export default {
     visibility: hidden !important;
     position: absolute;
   }
-  @media (min-width: 1200px) {
+
+  .wpbtn-mobile {
+    display: flex;
+
+    @media (min-width: 1201px) {
+      display: none;
+    }
+  }
+
+  .wpbtn-desktop {
+    display: none;
+
+    @media (min-width: 1201px) {
+      display: flex;
+    }
+  }
+
+  @media (min-width: 1201px) {
     .container {
       max-width: 1090px;
     }

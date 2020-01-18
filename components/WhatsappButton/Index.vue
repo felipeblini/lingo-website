@@ -65,7 +65,7 @@ a.whatsapp-component {
   transition-property: bottom;
   transition-duration: 0.25s;
 
-  @media (min-width: 1200px) {
+  @media (min-width: 1201px) {
     position: initial;
     right: initial;
   }
@@ -84,7 +84,7 @@ a.whatsapp-component {
       font-size: 48px;
     }
 
-    @media (min-width: 1200px) {
+    @media (min-width: 1201px) {
       width: 53px;
       height: 53px;
       font-size: 36px;
@@ -104,7 +104,7 @@ a.whatsapp-component {
   .rectangle {
     display: none;
 
-    @media (min-width: 1200px) {
+    @media (min-width: 1201px) {
       display: block;
     }
 
