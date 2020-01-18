@@ -1,18 +1,18 @@
 <template>
   <div>
     <a id="top" href="#" />
-    <lingo-navbar />
+    <!-- <lingo-navbar /> -->
 
     <nuxt />
   </div>
 </template>
 
 <script>
-import NavBar from '~/components/NavBar/Index.vue'
+// import NavBar from '~/components/NavBar/Index.vue'
 
 export default {
   components: {
-    'lingo-navbar': NavBar
+    // 'lingo-navbar': NavBar
   }
 }
 </script>
