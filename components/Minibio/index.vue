@@ -97,6 +97,14 @@ export default {
     padding-top: 120px;
   }
 
+  @media (min-width: 490px) and (max-width: 775px) {
+    padding-top: 164px;
+
+    @media (min-width: 640px) {
+      padding-top: 200px;
+    }
+  }
+
   @media (min-width: 576px) {
     padding-left: unset;
   }
@@ -108,15 +116,19 @@ export default {
   @media (min-width: 992px) {
     flex-direction: row;
     align-items: center;
-    padding-top: 30px;
+    padding-top: 96px;
     padding-left: 30px;
 
-    @media (pointer: fine) {
-      padding-top: 96px;
-    }
+    // @media (pointer: fine) {
+    //   padding-top: 96px;
+    // }
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1015px) {
+    padding-top: 120px;
+  }
+
+  @media (min-width: 1040px) {
     padding-top: 98px;
   }
 
@@ -232,7 +244,7 @@ export default {
     padding-left: 0px;
     font-size: 0.9rem;
     position: relative;
-    font-size: 18pt;
+    font-size: 16pt;
 
     @media (min-width: 768px) {
       padding-right: 27%;

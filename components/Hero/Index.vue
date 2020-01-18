@@ -271,6 +271,14 @@ export default {
     display: flex;
     justify-content: center;
 
+    @media (min-width: 500px) {
+      top: 15px;
+    }
+
+    @media (min-width: 500px) and (cursor: coarse) {
+      top: 25px;
+    }
+
     @media (min-width: 730px) {
       top: 35px;
     }
