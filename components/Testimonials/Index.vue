@@ -182,16 +182,16 @@ export default {
           {
             id: 1,
             text:
-              'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+              '1. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
             client: {
               name: 'Nome da Silva 1',
-              role: `Empresa - Cargo ${this.$store.state.language}`
+              role: `Empresa1 - Cargo1 ${this.$store.state.language}`
             }
           },
           {
             id: 2,
             text:
-              'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+              '2. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
             client: {
               name: 'Fulano de Souza 2',
               role: `Empresa2 - Cargo2 ${this.$store.state.language}`
@@ -200,37 +200,37 @@ export default {
           {
             id: 2,
             text:
-              'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+              '3. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
             client: {
               name: 'Fulano de Souza 3',
-              role: `Empresa2 - Cargo3 ${this.$store.state.language}`
+              role: `Empresa3 - Cargo3 ${this.$store.state.language}`
             }
           },
           {
             id: 2,
             text:
-              'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+              '4. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
             client: {
               name: 'Fulano de Souza 4',
-              role: `Empresa2 - Cargo4 ${this.$store.state.language}`
+              role: `Empresa4 - Cargo4 ${this.$store.state.language}`
             }
           },
           {
             id: 2,
             text:
-              'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+              '5. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
             client: {
               name: 'Fulano de Souza 5',
-              role: `Empresa2 - Cargo5 ${this.$store.state.language}`
+              role: `Empresa5 - Cargo5 ${this.$store.state.language}`
             }
           },
           {
             id: 2,
             text:
-              'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
+              '6. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
             client: {
               name: 'Fulano de Souza 6',
-              role: `Empresa2 - Cargo6 ${this.$store.state.language}`
+              role: `Empresa6 - Cargo6 ${this.$store.state.language}`
             }
           }
         ]
@@ -524,7 +524,7 @@ export default {
 
                 .role {
                   font-weight: bold;
-                  margin-top: -5px;
+                  margin-top: -12px;
                 }
               }
             }

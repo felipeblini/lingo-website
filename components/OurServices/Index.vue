@@ -326,6 +326,12 @@ $services-box-padding: 8px;
 
 .lingo-services-component {
   position: relative;
+  // background: rgb(239, 234, 228);
+  // background: linear-gradient(
+  //   180deg,
+  //   rgba(239, 234, 228, 1) 46%,
+  //   rgba(255, 255, 255, 1) 100%
+  // );
 
   &::before {
     content: '';

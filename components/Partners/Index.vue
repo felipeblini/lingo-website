@@ -20,14 +20,16 @@
                 v-if="showSlider"
               >
                 <div class="swiper-wrapper">
-                  <div
+                  <a
+                    target="_blank"
                     class="swiper-slide partner-item"
                     v-for="(partner, index) in list"
                     :key="index"
+                    :href="partner.url"
                     :style="{ backgroundImage: `url(${partner.logoUrl})` }"
                   >
-                    {{ partner.nome }}
-                  </div>
+                    {{ partner.name }}
+                  </a>
                 </div>
               </div>
 
@@ -57,23 +59,13 @@ export default {
       list: [],
       showSlider: false,
       swiperOption: {
-        slidesPerView: 4,
-        spaceBetween: 8,
+        slidesPerView: 3,
+        spaceBetween: 5,
         loop: true,
         breakpoints: {
           768: {
             slidesPerView: 2,
             spaceBetween: 10
-          },
-
-          819: {
-            slidesPerView: 3,
-            spaceBetween: 10
-          },
-
-          1200: {
-            slidesPerView: 3,
-            spaceBetween: 6
           }
         },
         autoplay: {
@@ -95,42 +87,33 @@ export default {
   mounted() {
     this.list = [
       {
-        nome: 'p1',
-        link: '',
-        logoUrl:
-          'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620062/logo1_1X_yaf1mg.jpg'
+        name: 'p1',
+        url: '',
+        logoUrl: '/logos_planetário01.jpg'
       },
       {
-        nome: 'p2',
-        link: '',
-        logoUrl:
-          'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620062/logo2_1X_lm12ww.jpg'
+        name: 'p2',
+        url: '',
+        logoUrl: '/logo_museu.jpg'
       },
       {
-        nome: 'p3',
-        link: '',
-        logoUrl:
-          'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620063/logo3_1X_xu2iqw.jpg'
+        name: 'p3',
+        url: '',
+        logoUrl: '/logo-ppp-20.png'
       },
       {
-        nome: 'p4',
-        link: '',
+        name: 'p4',
+        url: '',
         logoUrl:
           'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620063/logo4_1X_gnf3jk.jpg'
-      },
-      {
-        nome: 'p5',
-        link: '',
-        logoUrl:
-          'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620062/logo2_1X_lm12ww.jpg'
       }
     ]
 
     setTimeout(() => {
-      if (this.list.length < 5) {
+      if (window.innerWidth > 768 && this.list.length <= 3) {
         this.swiperOption.slidesPerView = this.list.length
         this.swiperOption.loop = false
-        this.swiperOption.spaceBetween = 0
+        this.swiperOption.spaceBetween = 5
 
         this.showSlider = true
 
@@ -148,7 +131,6 @@ export default {
       this.showSlider = true
     }, 500)
 
-    console.log('partners ready')
     this.$emit('ready')
   },
 
@@ -242,8 +224,10 @@ export default {
               width: 164px;
 
               .partner-item {
+                display: block;
                 min-height: 80px;
-                max-width: 200px;
+                // max-width: 200px;
+                // width: 133%;
 
                 background-size: contain;
                 background-repeat: no-repeat;

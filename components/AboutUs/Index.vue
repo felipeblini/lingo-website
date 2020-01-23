@@ -24,7 +24,11 @@
           </mask>
         </defs>
 
-        <image xlink:href="./img/equipe_xl.jpg" mask="url(#shape-mask-about)" />
+        <image
+          xlink:href="/equipe_xl.jpg"
+          mask="url(#shape-mask-about)"
+          style="width: 100%"
+        />
 
         />
       </svg>
@@ -121,12 +125,12 @@ export default {
             flag: 'eng'
           },
           {
-            name: 'Marcos Godoy',
+            name: 'Fernanda Garcia',
             minibio: `Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedit ea ullam saepe ${this.$store.state.language}`,
             flag: 'br'
           },
           {
-            name: 'Fernanda Garcia',
+            name: 'Marcos Godoy',
             minibio: `Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedit ea ullam saepe ${this.$store.state.language}`,
             flag: 'br'
           }
@@ -254,9 +258,9 @@ export default {
       display: block;
     }
 
-    @media (min-width: 1200px) {
-      margin-top: 250px;
-    }
+    // @media (min-width: 1200px) {
+    //   margin-top: 250px;
+    // }
   }
 
   .about-title {

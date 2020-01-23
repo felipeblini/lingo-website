@@ -140,7 +140,7 @@ export default {
 
 .about-group-wrapper {
   overflow: hidden;
-  background: #efeae4;
+  background-color: #efeae4;
   background-repeat: no-repeat;
 
   @media (min-width: 571px) {
