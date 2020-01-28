@@ -2,8 +2,8 @@
   <a
     :href="`https://wa.me/${$store.state.whatsappNumber}`"
     target="_blank"
-    class="whatsapp-component"
     ref="wp-button"
+    class="whatsapp-component"
   >
     <div class="circle-icon">
       <font-awesome-icon :icon="['fab', 'whatsapp']" />

@@ -265,7 +265,6 @@ export default {
 
     document.querySelectorAll('.service-box').forEach((el) => {
       const selectItem = () => {
-        console.log('select')
         clearInterval(interval)
 
         document.querySelectorAll('.service-box').forEach((el2) => {

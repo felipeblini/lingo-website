@@ -5,18 +5,11 @@
       <div class="row">
         <div class="col footer-items-wrapper">
           <div class="footer-logo"></div>
-          <address>
-            {{ contact.line1 }}<br />
-            <div class="d-flex">
-              <span class="d-block">{{ contact.line2 }}</span>
-              <span class="d-block">{{ contact.line3 }}</span>
-            </div>
-          </address>
+          <address v-html="address"></address>
           <div class="social-icons">
             <a
               target="_blank"
-              :href="`https://wa.me/${socialLinks.whatsapp}`"
-              v-if="socialLinks.whatsapp"
+              :href="`https://wa.me/${$store.state.whatsappNumber}`"
               class="whatsapp"
             >
               <font-awesome-icon :icon="['fab', 'whatsapp']" />
@@ -56,13 +49,8 @@
 export default {
   data() {
     return {
-      contact: {
-        line1: '',
-        line2: '',
-        line3: ''
-      },
+      address: '',
       socialLinks: {
-        whatsapp: '',
         instagram: '',
         facebook: '',
         youtube: ''
@@ -78,20 +66,22 @@ export default {
     }
   },
 
-  mounted() {
-    // TODO: fetch data on wordpress
-    this.contact.line1 = 'Endereço da Lingo, 000 - Cidade/UF'
-    this.contact.line2 = 'lingo@lingo.com.br'
-    this.contact.line3 = '00.000-000'
+  async mounted() {
+    const response = await this.$axios.get(`posts?slug=contato`)
+    this.address = response.data[0].content.rendered
 
-    this.socialLinks.whatsapp = '5521972627541'
-    this.socialLinks.instagram = 'https://instagram.com'
-    this.socialLinks.facebook = 'https://facebook.com'
-    this.socialLinks.youtube = 'https://youtube.com'
+    this.socialLinks.instagram = response.data[0].acf.instagram_url
+    this.socialLinks.facebook = response.data[0].acf.facebook_url
+    this.socialLinks.youtube = response.data[0].acf.youtube_url
 
-    this.$store.commit('storeWhatsappNumber', this.socialLinks.whatsapp)
+    for (const property in this.socialLinks) {
+      if (!this.socialLinks[property].includes('://')) {
+        const value = Array.from(this.socialLinks[property])
+        value.unshift('https://')
+        this.socialLinks[property] = value.join('')
+      }
+    }
 
-    console.log('footer ready')
     this.$emit('ready')
   }
 }

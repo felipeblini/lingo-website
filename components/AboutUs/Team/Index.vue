@@ -1,16 +1,20 @@
 <template>
   <div class="lingo-team row mt-3">
-    <div class="col member" v-for="(member, index) in list" :key="index">
+    <div class="col member" v-for="(member, index) in sortedList" :key="index">
       <div class="d-flex align-items-center member-header">
         <img
           class="member-flag"
-          :src="require(`./img/flag-${member.flag}.png`)"
+          :src="
+            require(`./img/flag-${member.acf.member_data.nacionalidade[0]}.png`)
+          "
           alt=""
         />
-        <h4 class="member-name black">{{ member.name }}</h4>
+        <h4 class="member-name black">
+          {{ member.title.rendered }}
+        </h4>
       </div>
       <p class="member-minibio">
-        {{ member.minibio }}
+        {{ member.acf.member_data[`descricao_${$store.state.language}`] }}
       </p>
     </div>
   </div>
@@ -19,9 +23,18 @@
 <script>
 export default {
   props: {
-    list: {
+    members: {
       type: Array,
       default: () => []
+    }
+  },
+
+  computed: {
+    sortedList() {
+      const list = [...this.members]
+      return list.sort(
+        (a, b) => a.acf.member_data.ordem - b.acf.member_data.ordem
+      )
     }
   }
 }

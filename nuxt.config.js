@@ -1,3 +1,5 @@
+import { API_URL } from './config'
+
 export default {
   mode: 'universal',
   /*
@@ -19,7 +21,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: '~/components/loading.vue',
   /*
    ** Global CSS
    */
@@ -39,7 +41,12 @@ export default {
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
+    [
+      '@nuxtjs/axios',
+      {
+        baseURL: API_URL
+      }
+    ],
     '@nuxtjs/eslint-module',
     [
       'nuxt-fontawesome',

@@ -55,7 +55,7 @@
         </div>
       </div>
 
-      <LingoTeam :list="listOfMembers[$store.state.language]" />
+      <LingoTeam :members="listOfMembers" />
     </div>
 
     <img
@@ -74,21 +74,23 @@ export default {
   components: {
     LingoTeam
   },
+  props: {
+    heroHeight: Number,
+    serverSideListOfMembers: {
+      type: Array,
+      default: (() => [])(),
+      description: 'Initial list of members comming from server side rendering'
+    }
+  },
   data() {
     return {
       title: {
         'pt-BR': 'Quem Somos',
         'en-US': 'Meet the Team'
       },
-      listOfMembers: {
-        'pt-BR': [],
-        'en-US': []
-      },
+      listOfMembers: [],
       isMobile: false
     }
-  },
-  props: {
-    heroHeight: Number
   },
   computed: {
     percentsOfHeroHeight() {
@@ -100,6 +102,21 @@ export default {
         .replace(' ', '-')}`
     }
   },
+
+  watch: {
+    '$store.state.language'(value) {
+      this.$emit('ready')
+    },
+
+    serverSideListOfMembers: {
+      handler: function(value) {
+        this.listOfMembers = value
+        this.$emit('ready')
+      },
+      immediate: true
+    }
+  },
+
   mounted() {
     const mobileBreakpoint = 1080
 
@@ -110,42 +127,33 @@ export default {
         this.isMobile = window.innerWidth < mobileBreakpoint
       }, 200)
     })
-
-    this.fetchList()
   },
 
   methods: {
-    fetchList() {
-      if (this.listOfMembers[this.$store.state.language].length === 0) {
-        // TODO: fetch list by language on wordPress
-        this.listOfMembers[this.$store.state.language] = [
-          {
-            name: 'Jan Onoszko',
-            minibio: `Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedit ea ullam saepe ${this.$store.state.language}`,
-            flag: 'eng'
-          },
-          {
-            name: 'Fernanda Garcia',
-            minibio: `Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedit ea ullam saepe ${this.$store.state.language}`,
-            flag: 'br'
-          },
-          {
-            name: 'Marcos Godoy',
-            minibio: `Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedit ea ullam saepe ${this.$store.state.language}`,
-            flag: 'br'
-          }
-        ]
-      }
-
-      console.log('about us ready')
-      this.$emit('ready')
-    }
-  },
-
-  watch: {
-    '$store.state.language'() {
-      this.fetchList()
-    }
+    // fetchList__(lang) {
+    //   if (this.listOfMembers[lang].length > 0) {
+    //     this.$emit('ready')
+    //   } else {
+    //     const response = await this.$axios.get('posts?categories=4')
+    //     this.listOfMembers[this.$store.state.language] = [
+    //       {
+    //         name: 'Jan Onoszko',
+    //         minibio: `Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedit ea ullam saepe ${this.$store.state.language}`,
+    //         flag: 'eng'
+    //       },
+    //       {
+    //         name: 'Fernanda Garcia',
+    //         minibio: `Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedit ea ullam saepe ${this.$store.state.language}`,
+    //         flag: 'br'
+    //       },
+    //       {
+    //         name: 'Marcos Godoy',
+    //         minibio: `Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedit ea ullam saepe ${this.$store.state.language}`,
+    //         flag: 'br'
+    //       }
+    //     ]
+    //   }
+    // }
   }
 }
 </script>

@@ -38,3 +38,10 @@ export const mutations = {
     state.whatsappNumber = payload
   }
 }
+
+export const actions = {
+  async nuxtServerInit({ commit }, { app }) {
+    const response = await app.$axios.get(`posts?slug=contato`)
+    commit('storeWhatsappNumber', response.data[0].acf.whatsapp_number)
+  }
+}

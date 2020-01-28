@@ -122,16 +122,9 @@ export default {
 
     this.responsiveWidth = this.maxWidth
 
-    console.log({
-      innerWidth: _pixelToPoint(window.innerWidth),
-      maxWidth: this.maxWidth
-    })
-
     if (_pixelToPoint(window.innerWidth) < this.maxWidth) {
       this.responsiveWidth = _pixelToPoint(window.innerWidth) - 50
     }
-
-    console.log({ responsiveWidth: this.responsiveWidth })
 
     this.wrapperWidth = this.$refs.listWrapper
       ? this.$refs.listWrapper.clientWidth

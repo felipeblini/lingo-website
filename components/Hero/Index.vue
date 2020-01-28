@@ -2,8 +2,8 @@
   <div class="hero-cmp" ref="hero-container">
     <div class="hero-text container">
       <div>
-        <h1>{{ title[$store.state.language] }}</h1>
-        <p>{{ text[$store.state.language] }} {{ viewportWidth }}</p>
+        <h1 v-html="title[$store.state.language]" />
+        <p v-html="text[$store.state.language]" />
       </div>
     </div>
 
@@ -139,15 +139,37 @@ export default {
       },
       viewportWidth: 0,
       title: {
-        'pt-BR': 'Lorem Ipsum pt',
-        'en-US': 'Lorem Ipsum en'
+        'pt-BR': '',
+        'en-US': ''
       },
       text: {
-        'pt-BR':
-          'lorem ipsum dolor sit amet consectetur adipisicing elit lorem ipsum dolor sit amet consectetur! pt',
-        'en-US':
-          'lorem ipsum dolor sit amet consectetur adipisicing elit lorem ipsum dolor sit amet consectetur! en'
+        'pt-BR': '',
+        'en-US': ''
       }
+    }
+  },
+
+  props: {
+    serverSideContent: {
+      type: Object,
+      default: (() => ({ title: '', text: '' }))(),
+      description:
+        'Initial pt-BR content (title and text) comming from server side rendering'
+    }
+  },
+
+  watch: {
+    '$store.state.language'(value) {
+      this.fetchContent(value)
+    },
+
+    serverSideContent: {
+      handler: function(value) {
+        this.title['pt-BR'] = value.title
+        this.text['pt-BR'] = value.text
+        this.$emit('ready')
+      },
+      immediate: true
     }
   },
 
@@ -173,6 +195,21 @@ export default {
         emitHeroHeight()
       }, 200)
     })
+  },
+
+  methods: {
+    async fetchContent(lang) {
+      if (this.title[lang] && this.text[lang]) {
+        this.$emit('ready')
+      } else {
+        const slug = `hero-${lang.replace('-', '').toLowerCase()}`
+        const response = await this.$axios.get(`posts?slug=${slug}`)
+
+        this.title[lang] = response.data[0].title.rendered
+        this.text[lang] = response.data[0].content.rendered
+        this.$emit('ready')
+      }
+    }
   }
 }
 </script>

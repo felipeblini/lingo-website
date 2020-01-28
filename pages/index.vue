@@ -1,27 +1,29 @@
 <template>
   <div>
-    <div v-if="isLoading" class="loading">
-      <div class="loading-spinner">
-        <font-awesome-icon :icon="['fas', 'spinner']" spin />
-      </div>
-    </div>
-
     <section class="about-group-wrapper">
       <section class="hero">
-        <LingoHero @height-calculated="onHeroHeightCalculated" />
+        <LingoHero
+          :server-side-content="heroSSRContent"
+          @height-calculated="onHeroHeightCalculated"
+          @ready="childrenReady++"
+        />
       </section>
 
       <section class="mini-bio">
         <MiniBio
           :hero-height="heroHeight"
-          :ssrText="minibioDefaultText"
+          :server-side-text="minibioSSRText"
           @minibio-margin-calculated="miniBioMgCalculated = true"
           @ready="childrenReady++"
         />
       </section>
 
       <section class="who-are-us">
-        <AboutUs :hero-height="heroHeight" @ready="childrenReady++" />
+        <AboutUs
+          :hero-height="heroHeight"
+          :server-side-list-of-members="aboutUsSSRMembersList"
+          @ready="childrenReady++"
+        />
       </section>
     </section>
 
@@ -57,18 +59,6 @@ import OurPartners from '~/components/Partners/Index.vue'
 import MapaMundi from '~/components/MapaMundi/Index.vue'
 import LingoFooter from '~/components/Footer/Index.vue'
 
-// TODO: fetch pt-BR text on wordPress for minibio
-const _getSSRMinibioText = () =>
-  new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        text: `Dolor corrupti facilis et nesciunt vel expedita eos sunt animi
-              sint dolores minus adipisicing elit. Maiores, officiis
-              Totam ea fugit distinctio ut a. assumenda magnam sit amet consectetur! pt-BR default-ssr`
-      })
-    }, 5000)
-  })
-
 export default {
   components: {
     LingoHero,
@@ -80,31 +70,54 @@ export default {
     MapaMundi,
     LingoFooter
   },
-  async asyncData() {
-    const data = await _getSSRMinibioText()
-    return { minibioDefaultText: data.text }
-  },
-  data() {
-    return {
-      heroHeight: 0,
-      isLoading: true,
-      childrenReady: 0,
-      miniBioMgCalculated: false
-    }
-  },
+
+  data: () => ({
+    heroHeight: 0,
+    childrenReady: 0,
+    miniBioMgCalculated: false
+  }),
 
   watch: {
     '$store.state.language'() {
-      this.isLoading = true
+      this.$nuxt.$loading.start()
       this.childrenReady = 2 // footer and partners are aready ready in this moment
     },
     childrenReady(ready) {
-      const dinamicChildren = this.$children.filter((el) => el.$listeners.ready)
-
-      if (ready === dinamicChildren.length) {
-        this.isLoading = false
+      if (ready === this.$children.filter((el) => el.$listeners.ready).length) {
+        this.$nextTick(() => {
+          this.$nuxt.$loading.finish()
+        })
       }
     }
+  },
+
+  async asyncData({ $axios }) {
+    const promises = []
+    // hero content
+    promises.push($axios.get(`posts?slug=hero-ptbr`))
+
+    // minibio content
+    promises.push($axios.get(`posts?slug=minibio-ptbr`))
+
+    // members list
+    promises.push($axios.get('posts?categories=4'))
+
+    const responses = await Promise.all(promises)
+
+    return {
+      heroSSRContent: {
+        title: responses[0].data[0].title.rendered,
+        text: responses[0].data[0].content.rendered
+      },
+      minibioSSRText: responses[1].data[0].content.rendered,
+      aboutUsSSRMembersList: responses[2].data
+    }
+  },
+
+  mounted() {
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start()
+    })
   },
 
   methods: {
@@ -116,28 +129,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.loading {
-  background: #ffffffdb;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-  z-index: 2;
-
-  .loading-spinner {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    height: 60px;
-    margin-top: -30px;
-    width: 60px;
-    margin-left: -30px;
-    font-size: 54px;
-  }
-}
-
 .about-group-wrapper {
   overflow: hidden;
   background-color: #efeae4;

@@ -226,8 +226,6 @@ export default {
               .partner-item {
                 display: block;
                 min-height: 80px;
-                // max-width: 200px;
-                // width: 133%;
 
                 background-size: contain;
                 background-repeat: no-repeat;

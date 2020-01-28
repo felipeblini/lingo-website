@@ -12,7 +12,11 @@
 export default {
   props: {
     heroHeight: Number,
-    ssrText: String
+    serverSideText: {
+      type: String,
+      default: '',
+      description: 'Initial pt-BR content comming from server side rendering'
+    }
   },
   data() {
     return {
@@ -36,28 +40,6 @@ export default {
         .replace(' ', '-')}`
     }
   },
-  mounted() {
-    this.text['pt-BR'] = this.ssrText
-    this.$emit('ready')
-  },
-  methods: {
-    fetchContent() {
-      if (!this.text[this.$store.state.language]) {
-        // TODO: fetch <language> text on wordPress
-        setTimeout(() => {
-          this.text[
-            this.$store.state.language
-          ] = `Dolor corrupti facilis et nesciunt vel expedita eos sunt animi
-              sint dolores minus adipisicing elit. Maiores, officiis
-              Totam ea fugit distinctio ut a. assumenda magnam sit amet consectetur! ${this.$store.state.language}`
-
-          this.$emit('ready')
-        }, 1000)
-      } else {
-        this.$emit('ready')
-      }
-    }
-  },
 
   watch: {
     miniBioMarginTop(value) {
@@ -67,12 +49,30 @@ export default {
       this.$emit('minibio-margin-calculated')
     },
 
-    '$store.state.language'() {
-      this.fetchContent()
+    '$store.state.language'(value) {
+      this.fetchContent(value)
     },
 
-    ssrText(value) {
-      console.log({ value })
+    serverSideText: {
+      handler: function(value) {
+        this.text['pt-BR'] = value
+        this.$emit('ready')
+      },
+      immediate: true
+    }
+  },
+
+  methods: {
+    async fetchContent(lang) {
+      if (this.text[lang]) {
+        this.$emit('ready')
+      } else {
+        const slug = `minibio-${lang.replace('-', '').toLowerCase()}`
+        const response = await this.$axios.get(`posts?slug=${slug}`)
+
+        this.text[lang] = response.data[0].content.rendered
+        this.$emit('ready')
+      }
     }
   }
 }
