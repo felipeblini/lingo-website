@@ -68,11 +68,15 @@ export default {
   }
 
   @media (min-width: 571px) {
-    padding-top: 43%;
+    padding-top: 68%;
+  }
+
+  @media (min-width: 767px) {
+    padding-top: 58%;
   }
 
   @media (min-width: 992px) {
-    padding-top: 38%;
+    padding-top: 48%;
   }
 
   @media (min-width: 1200px) {
@@ -80,7 +84,12 @@ export default {
     padding-left: 77px;
   }
 
+  @media (min-width: 1400px) {
+    padding-top: 58%;
+  }
+
   @media (min-width: 1800px) {
+    padding-top: 62%;
   }
 
   @media (min-width: 2500px) {
