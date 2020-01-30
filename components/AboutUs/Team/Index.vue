@@ -1,6 +1,17 @@
 <template>
   <div class="lingo-team row mt-3">
     <div class="col member" v-for="(member, index) in sortedList" :key="index">
+      <div class="member-photo">
+        <img class="photo-border" src="./img/circulo.svg" alt="" />
+        <img
+          class="photo"
+          :src="
+            require(`./img/${member.title.rendered
+              .toLowerCase()
+              .replace(' ', '-')}.jpg`)
+          "
+        />
+      </div>
       <div class="d-flex align-items-center member-header">
         <img
           class="member-flag"
@@ -94,6 +105,9 @@ export default {
   }
 
   .member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 19px;
     max-width: 255px;
 
@@ -103,6 +117,39 @@ export default {
 
     @media (min-width: 992px) {
       max-width: 315px;
+    }
+
+    .member-photo {
+      width: 156px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @media (min-width: 571px) {
+        display: none;
+      }
+
+      @media (min-width: 1080px) {
+        width: 222px;
+      }
+
+      img.photo-border {
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+      }
+
+      img.photo {
+        width: 146px;
+        clip-path: circle(49% at center);
+        margin-top: -2px;
+        position: absolute;
+        z-index: 1;
+
+        @media (min-width: 1080px) {
+          width: 212px;
+        }
+      }
     }
 
     .member-header {
