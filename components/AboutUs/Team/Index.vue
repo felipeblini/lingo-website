@@ -32,12 +32,7 @@
 </template>
 
 <script>
-// import MemberPhoto from './member-photo'
-
 export default {
-  components: {
-    // MemberPhoto
-  },
   props: {
     members: {
       type: Array,
@@ -84,10 +79,6 @@ export default {
     padding-right: 77px;
     padding-left: 77px;
   }
-
-  // @media (min-width: 1400px) {
-  //   padding-top: 58%;
-  // }
 
   @media (min-width: 1800px) {
   }

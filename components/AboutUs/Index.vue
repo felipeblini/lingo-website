@@ -127,33 +127,6 @@ export default {
         this.isMobile = window.innerWidth < mobileBreakpoint
       }, 200)
     })
-  },
-
-  methods: {
-    // fetchList__(lang) {
-    //   if (this.listOfMembers[lang].length > 0) {
-    //     this.$emit('ready')
-    //   } else {
-    //     const response = await this.$axios.get('posts?categories=4')
-    //     this.listOfMembers[this.$store.state.language] = [
-    //       {
-    //         name: 'Jan Onoszko',
-    //         minibio: `Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedit ea ullam saepe ${this.$store.state.language}`,
-    //         flag: 'eng'
-    //       },
-    //       {
-    //         name: 'Fernanda Garcia',
-    //         minibio: `Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedit ea ullam saepe ${this.$store.state.language}`,
-    //         flag: 'br'
-    //       },
-    //       {
-    //         name: 'Marcos Godoy',
-    //         minibio: `Lorem ipsum, dolor sit amet consectetur adipisicing elit labore expedit ea ullam saepe ${this.$store.state.language}`,
-    //         flag: 'br'
-    //       }
-    //     ]
-    //   }
-    // }
   }
 }
 </script>
@@ -265,10 +238,6 @@ export default {
     @media (min-width: 571px) {
       display: block;
     }
-
-    // @media (min-width: 1200px) {
-    //   margin-top: 250px;
-    // }
   }
 
   .about-title {
