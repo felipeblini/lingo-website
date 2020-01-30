@@ -267,6 +267,10 @@ export default {
     }
 
     @media (min-width: 1800px) {
+      margin-top: -300px;
+    }
+
+    @media (min-width: 2200px) {
       margin-top: -400px;
     }
   }
