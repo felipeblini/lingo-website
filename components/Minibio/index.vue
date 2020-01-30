@@ -80,6 +80,9 @@ export default {
 
 <style lang="scss" scoped>
 .lingo-minibio {
+  position: relative;
+  z-index: 1;
+
   visibility: hidden;
   display: flex;
   flex-direction: column;
