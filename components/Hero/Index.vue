@@ -217,7 +217,7 @@ export default {
 <style lang="scss" scoped>
 .hero-cmp {
   position: relative;
-  z-index: 0;
+  z-index: 1;
   padding-top: 60px;
 
   // ballon -->
