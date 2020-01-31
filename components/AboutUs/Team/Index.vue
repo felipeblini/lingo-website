@@ -125,9 +125,9 @@ export default {
       align-items: center;
       justify-content: center;
 
-      @media (min-width: 571px) {
-        display: none;
-      }
+      // @media (min-width: 571px) {
+      //   display: none;
+      // }
 
       @media (min-width: 1080px) {
         width: 222px;
