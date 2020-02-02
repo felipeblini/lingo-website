@@ -76,20 +76,21 @@ export default {
   }
 
   @media (min-width: 992px) {
-    padding-top: 48%;
+    padding-top: 40%;
   }
 
   @media (min-width: 1200px) {
+    padding-top: 35%;
     padding-right: 77px;
     padding-left: 77px;
   }
 
-  @media (min-width: 1400px) {
-    padding-top: 58%;
+  @media (min-width: 1600px) {
+    padding-top: 40%;
   }
 
   @media (min-width: 1800px) {
-    padding-top: 62%;
+    padding-top: 43%;
   }
 
   @media (min-width: 2500px) {
@@ -124,10 +125,6 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-
-      // @media (min-width: 571px) {
-      //   display: none;
-      // }
 
       @media (min-width: 1080px) {
         width: 222px;

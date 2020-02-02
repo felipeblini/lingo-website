@@ -95,7 +95,7 @@ export default {
   .footer-background {
     position: absolute;
     width: 200%;
-    height: 228px;
+    height: 235px;
     background-image: url('./img/curvarodape1.svg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -171,6 +171,12 @@ export default {
 
       address {
         margin-bottom: 0;
+
+        @media (min-width: 1024px) {
+          @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            font-size: 18pt;
+          }
+        }
 
         .d-flex {
           flex-direction: row;

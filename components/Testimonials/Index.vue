@@ -6,9 +6,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-xl-8 offset-xl-2 text-center">
-          <h2 class="gray">
-            {{ title[$store.state.language] }}
-          </h2>
+          <h2>{{ title[$store.state.language] }}</h2>
         </div>
       </div>
 
@@ -439,16 +437,23 @@ export default {
 
   .container {
     h2 {
-      // margin-bottom: 30px;
-      color: $light-gray;
+      color: $yellow;
       font-size: 32pt;
 
       @media (min-width: 768px) {
         font-size: 56pt;
       }
 
-      @media (min-width: 992px) {
-        color: $yellow;
+      @media (min-width: 1080px) {
+        margin-left: 175px;
+      }
+
+      @media (min-width: 1200px) {
+        margin-top: 17px;
+      }
+
+      @media (min-width: 1500px) {
+        margin-top: 150px;
       }
     }
 
@@ -459,12 +464,10 @@ export default {
       @media (min-width: 1080px) {
         justify-content: flex-end;
         margin-left: 177px;
-        margin-top: 63px;
       }
 
       @media (min-width: 1200px) {
-        margin-top: 0;
-        margin-left: 360px;
+        margin-left: 309px;
       }
 
       .testimonials-wrapper {

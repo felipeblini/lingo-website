@@ -196,7 +196,7 @@ export default {
 
   &.fixed {
     position: fixed;
-    background-color: rgba(198, 78, 97, 0.96078);
+    background-color: $pink;
   }
 
   .container {
@@ -266,13 +266,12 @@ export default {
         z-index: -1;
 
         width: 100%;
-        background: rgba(198, 78, 97, 0.96078);
+        background: $pink;
 
         ul.navbar-nav {
           align-items: center;
           height: 100vh;
           justify-content: center;
-          // padding: 105px 40px
           font-size: 26px;
           overflow: scroll;
 

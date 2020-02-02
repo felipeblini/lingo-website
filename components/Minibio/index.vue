@@ -246,11 +246,7 @@ export default {
     font-size: 16pt;
 
     @media (min-width: 768px) {
-      padding-right: 27%;
-    }
-
-    @media (min-width: 992px) {
-      padding-right: 27%;
+      padding-right: 28%;
     }
 
     @media (min-width: 1024px) {
@@ -266,7 +262,6 @@ export default {
     @media (min-width: 1800px) {
       padding-right: 26%;
       padding-left: 11px;
-      font-size: 1.1rem;
     }
   }
 }

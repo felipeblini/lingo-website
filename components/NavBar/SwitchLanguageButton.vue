@@ -83,11 +83,17 @@ $md: 60px;
   .swipper {
     cursor: pointer;
     transition: left 0.15s linear;
+    width: calc(#{$sm} + 6px);
+    height: calc(#{$sm} - 2px);
+    position: absolute;
+    background: $pink;
+
+    margin-top: 1px;
   }
 
   &.br {
     .swipper {
-      left: -2px;
+      left: 1px;
     }
 
     p.br {
@@ -97,19 +103,16 @@ $md: 60px;
 
   &.en {
     .swipper {
-      left: calc(#{$sm} + 5px);
+      @media (min-width: 1200px) {
+        left: calc(#{$sm} + 2px);
+      }
+      left: calc(#{$sm} + 3px);
     }
 
     p.en {
       @include lang-active;
     }
   }
-}
-
-.swipper {
-  width: calc(#{$sm} + 6px);
-  background: #ef4865;
-  position: absolute;
 }
 
 @media (min-width: 1024px) {
@@ -122,13 +125,18 @@ $md: 60px;
       width: calc(#{$md} * 2 + 10px);
       font-size: calc(#{$md} / 1.9);
 
+      .swipper {
+        width: calc(#{$md} + 6px);
+        height: calc(#{$md} - 2px);
+      }
+
       p {
         margin-top: calc(#{$md} / 10);
       }
 
       &.en {
         .swipper {
-          left: calc(#{$md} + 5px);
+          left: calc(#{$md} + 2px);
         }
       }
     }
