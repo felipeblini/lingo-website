@@ -53,11 +53,6 @@ export default {
 
 <style lang="scss" scoped>
 .lingo-team {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: space-between;
-
   @media (min-width: 442px) {
     flex-direction: row;
   }
@@ -69,6 +64,10 @@ export default {
 
   @media (min-width: 571px) {
     padding-top: 68%;
+    // display: flex;
+    // flex-direction: column;
+    // align-content: center;
+    // justify-content: space-between;
   }
 
   @media (min-width: 767px) {
@@ -110,9 +109,8 @@ export default {
     flex-direction: column;
     align-items: center;
     margin-bottom: 19px;
-    max-width: 255px;
 
-    @media (min-width: 442px) and (max-width: 554px) {
+    @media (min-width: 442px) {
       max-width: 224px;
     }
 
@@ -133,7 +131,7 @@ export default {
       img.photo-border {
         width: 100%;
         height: 100%;
-        z-index: 2;
+        z-index: 1;
       }
 
       img.photo {
@@ -141,7 +139,7 @@ export default {
         clip-path: circle(49% at center);
         margin-top: -2px;
         position: absolute;
-        z-index: 1;
+        z-index: 0;
 
         @media (min-width: 1080px) {
           width: 212px;
