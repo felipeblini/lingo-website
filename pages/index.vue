@@ -70,6 +70,7 @@ export default {
     MapaMundi,
     LingoFooter
   },
+  middleware: 'check-browser-support',
 
   data: () => ({
     heroHeight: 0,
@@ -91,16 +92,16 @@ export default {
     }
   },
 
-  async asyncData({ $axios }) {
+  async asyncData(context) {
     const promises = []
     // hero content
-    promises.push($axios.get(`posts?slug=hero-ptbr`))
+    promises.push(context.$axios.get(`posts?slug=hero-ptbr`))
 
     // minibio content
-    promises.push($axios.get(`posts?slug=minibio-ptbr`))
+    promises.push(context.$axios.get(`posts?slug=minibio-ptbr`))
 
     // members list
-    promises.push($axios.get('posts?categories=4'))
+    promises.push(context.$axios.get('posts?categories=4'))
 
     const responses = await Promise.all(promises)
 

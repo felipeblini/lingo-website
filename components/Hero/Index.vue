@@ -247,6 +247,10 @@ export default {
       z-index: 1;
 
       margin-left: -16%;
+
+      @supports (-ms-ime-align: auto) {
+        width: 115%;
+      }
     }
 
     svg.svg-border {

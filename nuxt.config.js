@@ -32,7 +32,8 @@ export default {
   plugins: [
     { src: '~/plugins/vue-touch', ssr: false },
     { src: '~/plugins/vue-smooth-scroll', ssr: false },
-    { src: '~/plugins/vue-awesome-swipper.js', ssr: false }
+    { src: '~/plugins/vue-awesome-swipper.js', ssr: false },
+    { src: '~/plugins/browser-check.js', ssr: false }
   ],
   /*
    ** Nuxt.js modules
@@ -63,7 +64,8 @@ export default {
         ]
       }
     ],
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    'nuxt-user-agent'
   ],
 
   styleResources: {

@@ -146,6 +146,10 @@ export default {
         @media (min-width: 1080px) {
           width: 212px;
         }
+
+        @supports (-ms-ime-align: auto) {
+          border-radius: 50%;
+        }
       }
     }
 
