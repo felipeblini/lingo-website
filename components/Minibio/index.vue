@@ -42,20 +42,20 @@ export default {
   },
 
   watch: {
-    miniBioMarginTop(value) {
-      this.$refs['lingo-minibio'].style.marginTop = `${value}px`
+    miniBioMarginTop(newValue) {
+      this.$refs['lingo-minibio'].style.marginTop = `${newValue}px`
       this.$refs['lingo-minibio'].style.visibility = 'visible'
 
       this.$emit('minibio-margin-calculated')
     },
 
-    '$store.state.language'(value) {
-      this.fetchContent(value)
+    '$store.state.language'(newValue) {
+      this.fetchContent(newValue)
     },
 
     serverSideText: {
-      handler: function(value) {
-        this.text['pt-BR'] = value
+      handler: function(newValue) {
+        this.text['pt-BR'] = newValue
         this.$emit('ready')
       },
       immediate: true

@@ -3,7 +3,7 @@
     <section class="about-group-wrapper">
       <section class="hero">
         <LingoHero
-          :server-side-content="heroSSRContent"
+          :server-side-content="ssrHeroContent"
           @height-calculated="onHeroHeightCalculated"
           @ready="childrenReady++"
         />
@@ -12,7 +12,7 @@
       <section class="mini-bio">
         <MiniBio
           :hero-height="heroHeight"
-          :server-side-text="minibioSSRText"
+          :server-side-text="ssrMinibioText"
           @minibio-margin-calculated="miniBioMgCalculated = true"
           @ready="childrenReady++"
         />
@@ -21,7 +21,7 @@
       <section class="who-are-us">
         <AboutUs
           :hero-height="heroHeight"
-          :server-side-list-of-members="aboutUsSSRMembersList"
+          :server-side-list-of-members="ssrMembersList"
           @ready="childrenReady++"
         />
       </section>
@@ -32,7 +32,10 @@
     </section>
 
     <section>
-      <CustomersTestimonials @ready="childrenReady++" />
+      <CustomersTestimonials
+        :testimonialsList="ssrTestimonialsList"
+        @ready="childrenReady++"
+      />
     </section>
 
     <section>
@@ -103,15 +106,19 @@ export default {
     // members list
     promises.push(context.$axios.get('posts?categories=4'))
 
+    // testimonials list
+    promises.push(context.$axios.get('posts?categories=5'))
+
     const responses = await Promise.all(promises)
 
     return {
-      heroSSRContent: {
+      ssrHeroContent: {
         title: responses[0].data[0].title.rendered,
         text: responses[0].data[0].content.rendered
       },
-      minibioSSRText: responses[1].data[0].content.rendered,
-      aboutUsSSRMembersList: responses[2].data
+      ssrMinibioText: responses[1].data[0].content.rendered,
+      ssrMembersList: responses[2].data,
+      ssrTestimonialsList: responses[3].data
     }
   },
 

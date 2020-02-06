@@ -3,14 +3,7 @@
     <div class="col member" v-for="(member, index) in sortedList" :key="index">
       <div class="member-photo">
         <img class="photo-border" src="./img/circulo.svg" alt="" />
-        <img
-          class="photo"
-          :src="
-            require(`./img/${member.title.rendered
-              .toLowerCase()
-              .replace(' ', '-')}.jpg`)
-          "
-        />
+        <img class="photo" :src="member.acf.member_data.foto" />
       </div>
       <div class="d-flex align-items-center member-header">
         <img

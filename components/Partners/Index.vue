@@ -84,30 +84,19 @@ export default {
     }
   },
 
-  mounted() {
-    this.list = [
-      {
-        name: 'p1',
-        url: '',
-        logoUrl: '/logos_planetário01.jpg'
-      },
-      {
-        name: 'p2',
-        url: '',
-        logoUrl: '/logo_museu.jpg'
-      },
-      {
-        name: 'p3',
-        url: '',
-        logoUrl: '/logo-ppp-20.png'
-      },
-      {
-        name: 'p4',
-        url: '',
-        logoUrl:
-          'https://res.cloudinary.com/dwtuxv53y/image/upload/v1576620063/logo4_1X_gnf3jk.jpg'
-      }
-    ]
+  async mounted() {
+    const logos = await this.$axios.get('posts?categories=6')
+    console.log({ logos })
+
+    const list = logos.data.map((logo) => ({
+      ordem: logo.acf.ordem,
+      name: logo.title.rendered,
+      logoUrl: logo.acf.logotipo_url
+    }))
+
+    this.list = list.sort((a, b) => a.ordem - b.ordem)
+
+    this.$emit('ready')
 
     setTimeout(() => {
       if (window.innerWidth > 768 && this.list.length <= 3) {
@@ -130,8 +119,6 @@ export default {
 
       this.showSlider = true
     }, 500)
-
-    this.$emit('ready')
   },
 
   methods: {

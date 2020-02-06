@@ -30,7 +30,7 @@
                   @click="restartInterval"
                   @mouseover="restartInterval"
                   class="testimonial"
-                  v-for="(testimonial, index) in list[$store.state.language]"
+                  v-for="(testimonial, index) in testimonialsList"
                   :key="index"
                   :id="`t-${index}`"
                   :style="{ minWidth: `${responsiveWidth}pt` }"
@@ -43,7 +43,9 @@
                       marginLeft: `${responsiveWidth}pt`
                     }"
                   >
-                    "{{ testimonial.text }}"
+                    "{{
+                      testimonial.acf[`depoimento_${$store.state.language}`]
+                    }}"
                   </div>
                   <div
                     class="client"
@@ -53,8 +55,10 @@
                       marginLeft: `${responsiveWidth}pt`
                     }"
                   >
-                    <div class="name">{{ testimonial.client.name }}</div>
-                    <div class="role">{{ testimonial.client.role }}</div>
+                    <div class="name">{{ testimonial.title.rendered }}</div>
+                    <div class="role">
+                      {{ testimonial.acf.empresa_e_cargo }}
+                    </div>
                   </div>
                 </li>
               </div>
@@ -84,6 +88,10 @@ export default {
       type: Number,
       default: 480,
       description: 'wrapper maxwidth in points'
+    },
+    testimonialsList: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -91,10 +99,6 @@ export default {
       title: {
         'pt-BR': 'Depoimentos',
         'en-US': 'Testimonials'
-      },
-      list: {
-        'pt-BR': [],
-        'en-US': []
       },
       active: 0,
       cloneRightIndex: 0,
@@ -111,6 +115,17 @@ export default {
       return `${this.$store.state.menu.testimonials[this.$store.state.language]
         .toLowerCase()
         .replace(' ', '-')}`
+    }
+  },
+
+  watch: {
+    testimonialsList: {
+      handler: function(newValue) {
+        console.log({ testimonialsList: newValue })
+        this.originalListlength = newValue.length
+        this.$emit('ready')
+      },
+      immediate: true
     }
   },
   mounted() {
@@ -164,74 +179,10 @@ export default {
     }
 
     window.addEventListener('scroll', handleScroll)
-    this.fetchList()
+    // this.fetchList()
   },
+
   methods: {
-    fetchList() {
-      if (this.list[this.$store.state.language].length === 0) {
-        this.list[this.$store.state.language] = [
-          {
-            id: 1,
-            text:
-              '1. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
-            client: {
-              name: 'Nome da Silva 1',
-              role: `Empresa1 - Cargo1 ${this.$store.state.language}`
-            }
-          },
-          {
-            id: 2,
-            text:
-              '2. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
-            client: {
-              name: 'Fulano de Souza 2',
-              role: `Empresa2 - Cargo2 ${this.$store.state.language}`
-            }
-          },
-          {
-            id: 2,
-            text:
-              '3. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
-            client: {
-              name: 'Fulano de Souza 3',
-              role: `Empresa3 - Cargo3 ${this.$store.state.language}`
-            }
-          },
-          {
-            id: 2,
-            text:
-              '4. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
-            client: {
-              name: 'Fulano de Souza 4',
-              role: `Empresa4 - Cargo4 ${this.$store.state.language}`
-            }
-          },
-          {
-            id: 2,
-            text:
-              '5. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
-            client: {
-              name: 'Fulano de Souza 5',
-              role: `Empresa5 - Cargo5 ${this.$store.state.language}`
-            }
-          },
-          {
-            id: 2,
-            text:
-              '6. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium error, est praesentium accusamus minima illo odio cumque, voluptates ut necessitatibus reprehenderit',
-            client: {
-              name: 'Fulano de Souza 6',
-              role: `Empresa6 - Cargo6 ${this.$store.state.language}`
-            }
-          }
-        ]
-
-        this.originalListlength = this.list[this.$store.state.language].length
-      }
-
-      this.$emit('ready')
-    },
-
     touchHandler(direction) {
       function _isTouchDevice() {
         try {
@@ -248,7 +199,7 @@ export default {
     },
 
     stepNext(active = ++this.active) {
-      if (active < this.list[this.$store.state.language].length) {
+      if (active < this.testimonialsList.length) {
         const width = this.$refs.listWrapper
           ? this.$refs.listWrapper.clientWidth
           : this.maxWidth
@@ -304,15 +255,13 @@ export default {
           this.stepNext()
         }, 6000)
       } else {
-        let clone = this.list[this.$store.state.language][this.cloneRightIndex]
+        let clone = this.testimonialsList[this.cloneRightIndex]
 
         if (!clone) {
-          clone = this.list[this.$store.state.language][
-            (this.cloneRightIndex = 0)
-          ]
+          clone = this.testimonialsList[(this.cloneRightIndex = 0)]
         }
 
-        this.list[this.$store.state.language].push(clone)
+        this.testimonialsList.push(clone)
         this.cloneRightIndex++
         this.$nextTick(() => this.stepNext(this.active))
       }
@@ -359,12 +308,10 @@ export default {
           }
         }
       } else {
-        const clone = this.list[this.$store.state.language][
-          this.originalListlength - 1
-        ]
+        const clone = this.testimonialsList[this.originalListlength - 1]
 
         setTimeout(() => {
-          this.list[this.$store.state.language].unshift(clone)
+          this.testimonialsList.unshift(clone)
 
           const activeItem = document.querySelector(`#t-0`)
 
@@ -405,12 +352,6 @@ export default {
       this.interval = setInterval(() => {
         this.stepNext()
       }, 6000)
-    }
-  },
-
-  watch: {
-    '$store.state.language'() {
-      this.fetchList()
     }
   }
 }
