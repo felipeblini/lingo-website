@@ -82,9 +82,15 @@ export default {
   }),
 
   watch: {
-    '$store.state.language'() {
+    '$store.state.language'(newValue) {
       this.$nuxt.$loading.start()
       this.childrenReady = 2 // footer and partners are aready ready in this moment
+
+      this.$ga.page({
+        page: '/',
+        title: `Home Page (${newValue})`,
+        location: window.location.href
+      })
     },
     childrenReady(ready) {
       if (ready === this.$children.filter((el) => el.$listeners.ready).length) {
@@ -126,6 +132,12 @@ export default {
     this.$nextTick(() => {
       this.$nuxt.$loading.start()
     })
+
+    // this.$ga.page({
+    //   page: '/',
+    //   title: `Home Page (${this.$store.state.language})`,
+    //   location: window.location.href
+    // })
   },
 
   methods: {

@@ -65,8 +65,19 @@ export default {
       }
     ],
     '@nuxtjs/style-resources',
-    'nuxt-user-agent'
+    'nuxt-user-agent',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots'
   ],
+
+  sitemap: {
+    exclude: ['/not-supported']
+  },
+
+  robots: {
+    UserAgent: '*',
+    Disallow: () => '/not-supported'
+  },
 
   styleResources: {
     scss: [
@@ -84,6 +95,14 @@ export default {
   /*
    ** Build configuration
    */
+  buildModules: [
+    [
+      '@nuxtjs/google-analytics',
+      {
+        id: 'UA-157949543-1'
+      }
+    ]
+  ],
   build: {
     /*
      ** You can extend webpack config here
