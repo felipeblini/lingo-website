@@ -64,6 +64,12 @@ export default {
         ]
       }
     ],
+    [
+      '@nuxtjs/google-analytics',
+      {
+        id: 'UA-157949543-1'
+      }
+    ],
     '@nuxtjs/style-resources',
     'nuxt-user-agent',
     '@nuxtjs/sitemap',
@@ -95,14 +101,6 @@ export default {
   /*
    ** Build configuration
    */
-  buildModules: [
-    [
-      '@nuxtjs/google-analytics',
-      {
-        id: 'UA-157949543-1'
-      }
-    ]
-  ],
   build: {
     /*
      ** You can extend webpack config here

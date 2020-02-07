@@ -133,11 +133,10 @@ export default {
       this.$nuxt.$loading.start()
     })
 
-    // this.$ga.page({
-    //   page: '/',
-    //   title: `Home Page (${this.$store.state.language})`,
-    //   location: window.location.href
-    // })
+    this.$ga.page({
+      page: '/',
+      title: `Home Page (${this.$store.state.language})`
+    })
   },
 
   methods: {
