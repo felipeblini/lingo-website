@@ -121,11 +121,14 @@ export default {
   watch: {
     testimonialsList: {
       handler: function(newValue) {
-        console.log({ testimonialsList: newValue })
         this.originalListlength = newValue.length
         this.$emit('ready')
       },
       immediate: true
+    },
+
+    '$store.state.language'(value) {
+      this.$emit('ready')
     }
   },
   mounted() {

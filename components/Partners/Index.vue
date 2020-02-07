@@ -84,6 +84,12 @@ export default {
     }
   },
 
+  watch: {
+    '$store.state.language'(value) {
+      this.$emit('ready')
+    }
+  },
+
   async mounted() {
     const logos = await this.$axios.get('posts?categories=6')
     console.log({ logos })
@@ -160,6 +166,7 @@ export default {
         background-image: url('./img/brackets.svg');
         background-repeat: no-repeat;
         background-size: contain;
+        background-position-y: center;
 
         text-indent: -9999px;
         overflow: hidden;

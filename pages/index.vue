@@ -84,7 +84,7 @@ export default {
   watch: {
     '$store.state.language'(newValue) {
       this.$nuxt.$loading.start()
-      this.childrenReady = 2 // footer and partners are aready ready in this moment
+      this.childrenReady = 0
 
       this.$ga.page({
         page: '/',
@@ -93,6 +93,7 @@ export default {
       })
     },
     childrenReady(ready) {
+      console.log({ ready })
       if (ready === this.$children.filter((el) => el.$listeners.ready).length) {
         this.$nextTick(() => {
           this.$nuxt.$loading.finish()
@@ -129,10 +130,6 @@ export default {
   },
 
   mounted() {
-    this.$nextTick(() => {
-      this.$nuxt.$loading.start()
-    })
-
     this.$ga.page({
       page: '/',
       title: `Home Page (${this.$store.state.language})`

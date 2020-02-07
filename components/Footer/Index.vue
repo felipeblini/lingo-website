@@ -66,6 +66,12 @@ export default {
     }
   },
 
+  watch: {
+    '$store.state.language'(value) {
+      this.$emit('ready')
+    }
+  },
+
   async mounted() {
     const response = await this.$axios.get(`posts?slug=contato`)
     this.address = response.data[0].content.rendered

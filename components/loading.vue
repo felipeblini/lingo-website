@@ -9,7 +9,7 @@
 <script>
 export default {
   data: () => ({
-    loading: false
+    loading: true
   }),
   methods: {
     start() {
