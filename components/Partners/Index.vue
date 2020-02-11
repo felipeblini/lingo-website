@@ -92,8 +92,6 @@ export default {
 
   async mounted() {
     const logos = await this.$axios.get('posts?categories=6')
-    console.log({ logos })
-
     const list = logos.data.map((logo) => ({
       ordem: logo.acf.ordem,
       name: logo.title.rendered,

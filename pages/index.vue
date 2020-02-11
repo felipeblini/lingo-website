@@ -28,7 +28,10 @@
     </section>
 
     <section>
-      <OurServices />
+      <OurServices
+        :server-side-text-content="ssrOurServiceTextContent"
+        @ready="childrenReady++"
+      />
     </section>
 
     <section>
@@ -93,7 +96,6 @@ export default {
       })
     },
     childrenReady(ready) {
-      console.log({ ready })
       if (ready === this.$children.filter((el) => el.$listeners.ready).length) {
         this.$nextTick(() => {
           this.$nuxt.$loading.finish()
@@ -104,19 +106,27 @@ export default {
 
   async asyncData(context) {
     const promises = []
-    // hero content
+    // 0. hero content
     promises.push(context.$axios.get(`posts?slug=hero-ptbr`))
 
-    // minibio content
+    // 1. minibio content
     promises.push(context.$axios.get(`posts?slug=minibio-ptbr`))
 
-    // members list
+    // 2. members list
     promises.push(context.$axios.get('posts?categories=4'))
 
-    // testimonials list
+    // 3. our services
+    promises.push(context.$axios.get(`posts?slug=nosso-trabalho-ptbr`))
+
+    // 4. testimonials list
     promises.push(context.$axios.get('posts?categories=5'))
 
     const responses = await Promise.all(promises)
+
+    console.log({
+      text: responses[3].data[0].content.rendered,
+      quotation: responses[3].data[0].acf.quotation
+    })
 
     return {
       ssrHeroContent: {
@@ -125,7 +135,11 @@ export default {
       },
       ssrMinibioText: responses[1].data[0].content.rendered,
       ssrMembersList: responses[2].data,
-      ssrTestimonialsList: responses[3].data
+      ssrOurServiceTextContent: {
+        text: responses[3].data[0].content.rendered,
+        quotation: responses[3].data[0].acf.quotation
+      },
+      ssrTestimonialsList: responses[4].data
     }
   },
 

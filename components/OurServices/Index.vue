@@ -150,9 +150,10 @@
               <h1 class="section-title white">
                 {{ title[$store.state.language] }}
               </h1>
-              <p class="section-description">
-                {{ text[$store.state.language] }}
-              </p>
+              <p
+                class="section-description"
+                v-html="text[$store.state.language]"
+              ></p>
             </div>
           </div>
 
@@ -182,6 +183,15 @@
 
 <script>
 export default {
+  props: {
+    serverSideTextContent: {
+      type: Object,
+      default: (() => ({ text: '', quotation: '' }))(),
+      description:
+        'Initial pt-BR object with text content comming from server side rendering'
+    }
+  },
+
   data() {
     return {
       title: {
@@ -189,10 +199,12 @@ export default {
         'en-US': 'Our Services'
       },
       text: {
-        'pt-BR':
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit impedit cupiditate fugit, voluptatum fuga blanditiis pt-BR',
-        'en-US':
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit impedit cupiditate fugit, voluptatum fuga blanditiis en-US'
+        'pt-BR': '',
+        'en-US': ''
+      },
+      quotation: {
+        'pt-BR': '',
+        'en-US': ''
       },
       services: {
         titles: {
@@ -217,12 +229,6 @@ export default {
             'en-US': 'Interpreting'
           }
         }
-      },
-      quotation: {
-        'pt-BR':
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit exercitationem distinctio earum eaque ab nisi pt-BR',
-        'en-US':
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit exercitationem distinctio earum eaque ab nisi en-US'
       }
     }
   },
@@ -233,6 +239,21 @@ export default {
         .toLowerCase()
         .replace(' ', '-')
         .replace('ç', 'c')}`
+    }
+  },
+
+  watch: {
+    '$store.state.language'(newValue) {
+      this.fetchContent(newValue)
+    },
+
+    serverSideTextContent: {
+      handler: function(newValue) {
+        this.text['pt-BR'] = newValue.text
+        this.quotation['pt-BR'] = newValue.quotation
+        this.$emit('ready')
+      },
+      immediate: true
     }
   },
 
@@ -277,6 +298,21 @@ export default {
       el.onmouseover = selectItem
       el.onclick = selectItem
     })
+  },
+
+  methods: {
+    async fetchContent(lang) {
+      if (this.text[lang] && this.quotation[lang]) {
+        this.$emit('ready')
+      } else {
+        const slug = `nosso-trabalho-${lang.replace('-', '').toLowerCase()}`
+        const response = await this.$axios.get(`posts?slug=${slug}`)
+
+        this.text[lang] = response.data[0].content.rendered
+        this.quotation[lang] = response.data[0].acf.quotation
+        this.$emit('ready')
+      }
+    }
   }
 }
 </script>
