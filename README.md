@@ -29,18 +29,10 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 # Api
 
-O conteúdo do site está sendo provido pelo Wordpress através de sua API REST (https://developer.wordpress.org/rest-api/) atualmente instalado e hospedado na Hostgator.
+O conteúdo do site está sendo provido pela API REST do Wordpress, atualmente instalado e hospedado na Hostgator.
 
 A url da API está armazenada na constante API_URL definida em /config/index.js
 
 # Como Publicar
 
-1. Gerar arquivos estáticos
-
-```
-yarn generate
-```
-Isso irá gerar o diretório `dist`
-
-2. Enviar TODAS as pastas e arquivos contidos na `dist` para o servidor da Hostgator na pasta `public_html`
-
+O deploy é feito de maneira automática no Netlify (netlify.com) enviando um commit na branch `master` deste repositório.

@@ -1,1 +1,1 @@
-export const API_URL = 'https://lingo-communication.com/wp-json/wp/v2'
+export const API_URL = 'http://lingotraducao.com.br//wp-json/wp/v2'
