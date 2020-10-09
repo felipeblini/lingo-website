@@ -123,11 +123,6 @@ export default {
 
     const responses = await Promise.all(promises)
 
-    console.log({
-      text: responses[3].data[0].content.rendered,
-      quotation: responses[3].data[0].acf.quotation
-    })
-
     return {
       ssrHeroContent: {
         title: responses[0].data[0].title.rendered,

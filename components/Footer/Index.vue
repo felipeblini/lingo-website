@@ -184,25 +184,12 @@ export default {
           }
         }
 
-        .d-flex {
-          flex-direction: row;
+        p {
           text-align: center;
 
-          span {
-            &:nth-last-child(1) {
-              margin-left: 10px;
-            }
-          }
-
           @media (min-width: 768px) {
-            flex-direction: column;
-            text-align: left;
-
-            span {
-              &:nth-last-child(1) {
-                margin-left: 0;
-              }
-            }
+            display: contents;
+            text-align: initial;
           }
         }
       }

@@ -152,7 +152,7 @@ export default {
   props: {
     serverSideContent: {
       type: Object,
-      default: (() => ({ title: '', text: '' }))(),
+      default: () => ({ title: '', text: '' }),
       description:
         'Initial pt-BR content (title and text) comming from server side rendering'
     }
@@ -204,7 +204,6 @@ export default {
       } else {
         const slug = `hero-${lang.replace('-', '').toLowerCase()}`
         const response = await this.$axios.get(`posts?slug=${slug}`)
-
         this.title[lang] = response.data[0].title.rendered
         this.text[lang] = response.data[0].content.rendered
         this.$emit('ready')

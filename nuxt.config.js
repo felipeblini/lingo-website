@@ -48,7 +48,6 @@ export default {
         baseURL: API_URL
       }
     ],
-    '@nuxtjs/eslint-module',
     [
       'nuxt-fontawesome',
       {
