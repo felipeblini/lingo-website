@@ -1,6 +1,7 @@
 export const state = () => ({
   language: 'pt-BR',
   whatsappNumber: '',
+  whatsappNumber2: '',
   menu: {
     company: {
       'pt-BR': 'Empresa',
@@ -35,13 +36,14 @@ export const mutations = {
   },
 
   storeWhatsappNumber(state, payload) {
-    state.whatsappNumber = payload
+    state.whatsappNumber = payload.wp1
+    state.whatsappNumber2 = payload.wp2
   }
 }
 
 export const actions = {
   async nuxtServerInit({ commit }, { app }) {
     const response = await app.$axios.get(`posts?slug=contato`)
-    commit('storeWhatsappNumber', response.data[0].acf.whatsapp_number)
+    commit('storeWhatsappNumber', { wp1: response.data[0].acf.whatsapp_number, wp2: response.data[0].acf.whatsapp_number_2 })
   }
 }

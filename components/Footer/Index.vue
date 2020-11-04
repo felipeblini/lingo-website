@@ -1,5 +1,6 @@
 <template>
   <div :id="anchorName" class="lingo-footer-cmp">
+    <WhatsappButtonMobile class="d-xl-none" />
     <div class="footer-background"></div>
     <div class="container footer-container">
       <div class="row">
@@ -7,18 +8,39 @@
           <div class="footer-logo"></div>
           <address v-html="address"></address>
           <div class="social-icons">
-            <a
-              target="_blank"
-              :href="`https://wa.me/${$store.state.whatsappNumber}`"
+            <WhatsappPopover
               class="whatsapp"
+              @hide="disableWatsApppTooltip = false"
             >
-              <font-awesome-icon :icon="['fab', 'whatsapp']" />
-            </a>
+              <template v-slot:button>
+                <a
+                  id="tooltip-button-1"
+                  href="#"
+                  @click.prevent="disableWatsApppTooltip = true"
+                  class="tooltip-target b3"
+                  v-b-tooltip.hover
+                  title=""
+                >
+                  <font-awesome-icon :icon="['fab', 'whatsapp']" />
+                </a>
+
+                <b-tooltip
+                  :disabled.sync="disableWatsApppTooltip"
+                  v-if="!disableWatsApppTooltip"
+                  target="tooltip-button-1"
+                  placement="top"
+                >
+                  Fale conosco pelo WhatsApp
+                </b-tooltip>
+              </template>
+            </WhatsappPopover>
 
             <a
               target="_blank"
               :href="socialLinks.instagram"
               v-if="socialLinks.instagram"
+              v-b-tooltip.hover
+              title="Siga-nos no Instagram"
             >
               <font-awesome-icon :icon="['fab', 'instagram']" />
             </a>
@@ -27,6 +49,8 @@
               target="_blank"
               :href="socialLinks.facebook"
               v-if="socialLinks.facebook"
+              v-b-tooltip.hover
+              title="Acompanhe-nos pelo Facebook"
             >
               <font-awesome-icon :icon="['fab', 'facebook-square']" />
             </a>
@@ -35,8 +59,20 @@
               target="_blank"
               :href="socialLinks.youtube"
               v-if="socialLinks.youtube"
+              v-b-tooltip.hover
+              title="Acompanhe nossos conteúdos no Youtube"
             >
               <font-awesome-icon :icon="['fab', 'youtube']" />
+            </a>
+
+            <a
+              target="_blank"
+              :href="socialLinks.linkedin"
+              v-if="socialLinks.linkedin"
+              v-b-tooltip.hover
+              title="Saiba mais sobre a gente no LinkedIn"
+            >
+              <font-awesome-icon :icon="['fab', 'linkedin']" />
             </a>
           </div>
         </div>
@@ -46,15 +82,24 @@
 </template>
 
 <script>
+import WhatsappPopover from '@/components/WhatsappButton/WhatsappPopover.vue'
+import WhatsappButtonMobile from '@/components/WhatsappButton/MobileFloatBtn.vue'
+
 export default {
+  components: {
+    WhatsappPopover,
+    WhatsappButtonMobile
+  },
   data() {
     return {
       address: '',
       socialLinks: {
         instagram: '',
         facebook: '',
-        youtube: ''
-      }
+        youtube: '',
+        linkedin: ''
+      },
+      disableWatsApppTooltip: false
     }
   },
 
@@ -74,11 +119,12 @@ export default {
 
   async mounted() {
     const response = await this.$axios.get(`posts?slug=contato`)
-    this.address = response.data[0].content.rendered
+    this.address = response.data[0].content.rendered.trim()
 
     this.socialLinks.instagram = response.data[0].acf.instagram_url
     this.socialLinks.facebook = response.data[0].acf.facebook_url
     this.socialLinks.youtube = response.data[0].acf.youtube_url
+    this.socialLinks.linkedin = response.data[0].acf.linkedin_url
 
     for (const property in this.socialLinks) {
       if (!this.socialLinks[property].includes('://')) {
@@ -93,7 +139,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .lingo-footer-cmp {
   position: relative;
   overflow: hidden;
@@ -177,6 +223,9 @@ export default {
 
       address {
         margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        padding-top: 16px;
 
         @media (min-width: 1024px) {
           @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
@@ -185,6 +234,7 @@ export default {
         }
 
         p {
+          margin: 0 !important;
           text-align: center;
 
           @media (min-width: 768px) {
@@ -221,5 +271,9 @@ export default {
       }
     }
   }
+}
+
+.whatsapp-popover-content {
+  display: flex;
 }
 </style>

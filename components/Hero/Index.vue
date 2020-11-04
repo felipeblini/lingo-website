@@ -346,7 +346,7 @@ export default {
     }
 
     @media (min-width: 1600px) {
-      top: 257px;
+      top: 200px;
     }
 
     > div {
@@ -426,13 +426,14 @@ export default {
 
     @media (min-width: 992px) {
       > div {
+        text-align: right;
+
         h1 {
           font-size: 102px;
         }
 
         p {
           width: 58%;
-          text-align: right;
           margin-right: 20px;
           font-size: 26px;
         }
@@ -459,13 +460,13 @@ export default {
       }
     }
 
-    @media (min-width: 1600px) {
-      > div {
-        h1 {
-          font-size: 141px;
-        }
-      }
-    }
+    // @media (min-width: 1600px) {
+    //   > div {
+    //     h1 {
+    //       font-size: 141px;
+    //     }
+    //   }
+    // }
   } // <-- hero-text
 }
 </style>

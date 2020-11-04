@@ -107,18 +107,16 @@
           <div class="mr-3 only-desktop">
             <SwitchLanguageButton @toggled="onLanguageToggled" />
           </div>
-          <WhatsappButton class="wpbtn-desktop" />
+          <WhatsappButtonDesktop class="d-none d-xl-block" />
         </b-navbar-nav>
       </b-collapse>
     </div>
-
-    <WhatsappButton class="wpbtn-mobile" />
   </b-navbar>
 </template>
 
 <script>
 import SwitchLanguageButton from './SwitchLanguageButton.vue'
-import WhatsappButton from '~/components/WhatsappButton/Index.vue'
+import WhatsappButtonDesktop from '~/components/WhatsappButton/DesktopBtn.vue'
 
 if (process.client) {
   window.addEventListener('scroll', () => {
@@ -139,7 +137,7 @@ if (process.client) {
 
 export default {
   components: {
-    WhatsappButton,
+    WhatsappButtonDesktop,
     SwitchLanguageButton
   },
   computed: {
@@ -366,21 +364,21 @@ export default {
     position: absolute;
   }
 
-  .wpbtn-mobile {
-    display: flex;
+  // .only-mobile {
+  //   display: flex;
 
-    @media (min-width: 1201px) {
-      display: none;
-    }
-  }
+  //   @media (min-width: 1201px) {
+  //     display: none;
+  //   }
+  // }
 
-  .wpbtn-desktop {
-    display: none;
+  // .wpbtn-desktop {
+  //   display: none;
 
-    @media (min-width: 1201px) {
-      display: flex;
-    }
-  }
+  //   @media (min-width: 1201px) {
+  //     display: flex;
+  //   }
+  // }
 
   @media (min-width: 1201px) {
     .container {

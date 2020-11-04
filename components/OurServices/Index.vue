@@ -577,14 +577,15 @@ $services-box-padding: 8px;
 
         .box-gradient {
           width: calc(#{$service-box-width * 2.5});
-          height: calc(#{$service-box-width * 3.5});
+          height: fit-content;
+          // height: calc(#{$service-box-width * 3.5});
           padding-top: 41px;
           padding-left: 24px;
+          padding-bottom: 10px;
           margin: 0 auto;
 
           @media (min-width: 760px) and (max-width: 1079px) {
             width: calc(#{$service-box-width * 5});
-            height: calc(#{$service-box-width * 3});
           }
 
           @media (min-width: 1080px) {
@@ -618,11 +619,11 @@ $services-box-padding: 8px;
 
           p.section-description {
             padding-right: 37px;
-            font-size: 14pt;
+            font-size: 13pt;
 
-            @media (min-width: 760px) {
-              font-size: 16pt;
-            }
+            // @media (min-width: 760px) {
+            //   font-size: 16pt;
+            // }
           }
         }
 

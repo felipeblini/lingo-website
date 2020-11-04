@@ -1,22 +1,26 @@
 <template>
-  <a
-    :href="`https://wa.me/${$store.state.whatsappNumber}`"
-    target="_blank"
-    ref="wp-button"
-    class="whatsapp-component"
-  >
-    <div class="circle-icon">
-      <font-awesome-icon :icon="['fab', 'whatsapp']" />
-    </div>
+  <WhatsappPopover>
+    <template v-slot:button>
+      <a style="cursor: pointer" class="tooltip-target b3 whatsapp-component">
+        <div class="circle-icon">
+          <font-awesome-icon :icon="['fab', 'whatsapp']" />
+        </div>
 
-    <div class="rectangle">
-      <p>{{ text[$store.state.language] }}</p>
-    </div>
-  </a>
+        <div class="rectangle">
+          <p>{{ text[$store.state.language] }}</p>
+        </div>
+      </a>
+    </template>
+  </WhatsappPopover>
 </template>
 
 <script>
+import WhatsappPopover from './WhatsappPopover.vue'
+
 export default {
+  components: {
+    WhatsappPopover
+  },
   data() {
     return {
       text: {
@@ -24,28 +28,6 @@ export default {
         'en-US': 'Please give us a call'
       }
     }
-  },
-  mounted() {
-    window.addEventListener('scroll', () => {
-      setTimeout(() => {
-        const scroll = window.pageYOffset
-        const height = document.body.clientHeight - 1100
-        const width = window.innerWidth
-
-        if (width > 768 && width < 1090) {
-          if (scroll >= height) {
-            this.$refs['wp-button'].style.bottom = '123px'
-            this.$refs['wp-button'].style.right = '36px'
-          } else {
-            this.$refs['wp-button'].style.bottom = '20px'
-            this.$refs['wp-button'].style.right = '17px'
-          }
-        } else {
-          this.$refs['wp-button'].style.bottom = '20px'
-          this.$refs['wp-button'].style.right = '17px'
-        }
-      }, 100)
-    })
   }
 }
 </script>
@@ -58,37 +40,13 @@ a.whatsapp-component {
   display: flex;
   align-items: center;
 
-  position: fixed;
-
-  bottom: 20px;
-  right: 17px;
-  transition-property: bottom;
-  transition-duration: 0.25s;
-
-  @media (min-width: 1201px) {
-    position: initial;
-    right: initial;
-  }
-
   .circle-icon {
     color: #fff;
     background: #4caf50;
 
-    width: 60px;
-    height: 60px;
-    font-size: 30px;
-
-    @media (min-width: 768px) {
-      width: 80px;
-      height: 80px;
-      font-size: 48px;
-    }
-
-    @media (min-width: 1201px) {
-      width: 53px;
-      height: 53px;
-      font-size: 36px;
-    }
+    width: 53px;
+    height: 53px;
+    font-size: 36px;
 
     border-radius: 50%;
 
@@ -102,12 +60,6 @@ a.whatsapp-component {
   }
 
   .rectangle {
-    display: none;
-
-    @media (min-width: 1201px) {
-      display: block;
-    }
-
     width: 153px;
     height: 46px;
 

@@ -1,7 +1,7 @@
 import { API_URL } from './config'
 
 export default {
-  mode: 'universal',
+  ssr: true,
   /*
    ** Headers of the page
    */
@@ -25,7 +25,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~assets/scss/app.scss', 'swiper/dist/css/swiper.css'],
+  css: ['~assets/scss/app.scss', 'swiper/dist/css/swiper.css', '~assets/scss/vendors/v-tooltip.scss'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -33,7 +33,8 @@ export default {
     { src: '~/plugins/vue-touch', ssr: false },
     { src: '~/plugins/vue-smooth-scroll', ssr: false },
     { src: '~/plugins/vue-awesome-swipper.js', ssr: false },
-    { src: '~/plugins/nuxt-ready.js', ssr: false }
+    { src: '~/plugins/nuxt-ready.js', ssr: false },
+    { src: '~/plugins/v-tooltip.js', ssr: false },
   ],
   /*
    ** Nuxt.js modules
