@@ -89,7 +89,7 @@ a.whatsapp-component {
       color: #fff;
       font-size: 12px;
       position: relative;
-      top: 6px;
+      top: 9px;
       left: 30px;
       -webkit-user-select: none;
       -moz-user-select: none;

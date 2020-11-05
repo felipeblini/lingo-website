@@ -1,5 +1,5 @@
 <template>
-  <v-popover @hide="$emit('hide')">
+  <v-popover @hide="$emit('hide')" class="d-none d-xl-block" ref="wp-popover">
     <slot name="button"></slot>
 
     <template slot="popover">
@@ -14,6 +14,13 @@ import WhatsappNumbersList from '@/components/WhatsappButton/WhatsappNumbersList
 export default {
   components: {
     WhatsappNumbersList
+  },
+  mounted() {
+    window.addEventListener('resize', () => {
+      setTimeout(() => {
+        this.$refs['wp-popover'].hide()
+      }, 200)
+    })
   }
 }
 </script>

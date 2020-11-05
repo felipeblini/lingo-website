@@ -14,6 +14,7 @@
           :hero-height="heroHeight"
           :server-side-text-excerpt="ssrMinibioTextExcerpt"
           :server-side-text-complete="ssrMinibioTextComplete"
+          :open-modal-by-default="ssrOpenMiniBioModalByDefault"
           @minibio-margin-calculated="miniBioMgCalculated = true"
           @ready="childrenReady++"
         />
@@ -67,6 +68,19 @@ import MapaMundi from '~/components/MapaMundi/Index.vue'
 import LingoFooter from '~/components/Footer/Index.vue'
 
 export default {
+  head() {
+    return {
+      title: `${this.ssrDefaultTitle} | Lingo- Interpretação, tradução simultânea, transcrição, revisão e media training`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'Lingo Interpretação, tradução simultânea, transcrição, revisão e media training'
+        }
+      ]
+    }
+  },
   components: {
     LingoHero,
     MiniBio,
@@ -105,32 +119,39 @@ export default {
     }
   },
 
-  async asyncData(context) {
+  async asyncData({ query, $axios }) {
     const promises = []
+
+    const lang = query.lang && query.lang === 'en-US' ? 'enus' : 'ptbr'
+
     // 0. hero content
-    promises.push(context.$axios.get(`posts?slug=hero-ptbr`))
+    promises.push($axios.get(`posts?slug=hero-${lang}`))
 
     // 1. minibio content
-    promises.push(context.$axios.get(`posts?slug=minibio-ptbr`))
+    promises.push($axios.get(`posts?slug=minibio-${lang}`))
 
     // 2. members list
-    promises.push(context.$axios.get('posts?categories=4'))
+    promises.push($axios.get('posts?categories=4'))
 
     // 3. our services
-    promises.push(context.$axios.get(`posts?slug=nosso-trabalho-ptbr`))
+    promises.push($axios.get(`posts?slug=nosso-trabalho-${lang}`))
 
     // 4. testimonials list
-    promises.push(context.$axios.get('posts?categories=5'))
+    promises.push($axios.get('posts?categories=5'))
 
     const responses = await Promise.all(promises)
 
     return {
+      ssrDefaultTitle: responses[0].data[0].title.rendered,
+
       ssrHeroContent: {
         title: responses[0].data[0].title.rendered,
         text: responses[0].data[0].content.rendered
       },
       ssrMinibioTextExcerpt: responses[1].data[0].excerpt.rendered,
       ssrMinibioTextComplete: responses[1].data[0].content.rendered,
+      ssrOpenMiniBioModalByDefault:
+        query.show === 'conheca-a-lingo' || query.show === 'about-lingo',
       ssrMembersList: responses[2].data,
       ssrOurServiceTextContent: {
         text: responses[3].data[0].content.rendered,
@@ -141,6 +162,16 @@ export default {
   },
 
   mounted() {
+    this.ssrDefaultTitle = this.decodeHTMLEntities(this.ssrDefaultTitle)
+
+    const lang = this.$route.query.lang
+
+    if (lang && ['pt-BR', 'en-US'].includes(lang)) {
+      this.$store.commit('toggleLanguage', lang)
+    }
+
+    this.$forceUpdate()
+
     this.$ga.page({
       page: '/',
       title: `Home Page (${this.$store.state.language})`
@@ -150,6 +181,22 @@ export default {
   methods: {
     onHeroHeightCalculated(height) {
       this.heroHeight = height
+    },
+
+    decodeHTMLEntities(str) {
+      // this prevents any overhead from creating the object each time
+      const element = document.createElement('div')
+
+      if (str && typeof str === 'string') {
+        // strip script/html tags
+        str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gim, '')
+        str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gim, '')
+        element.innerHTML = str
+        str = element.textContent
+        element.textContent = ''
+      }
+
+      return str
     }
   }
 }

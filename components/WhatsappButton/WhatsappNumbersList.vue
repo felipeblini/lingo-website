@@ -6,7 +6,6 @@
           target="_blank"
           :href="`https://wa.me/${$store.state.whatsappNumber}`"
           class="whatsapp"
-          title="Fale conosco pelo WhatsApp"
         >
           <span class="wp-icon">
             <font-awesome-icon :icon="['fab', 'whatsapp']" />
@@ -20,7 +19,6 @@
           target="_blank"
           :href="`https://wa.me/${$store.state.whatsappNumber2}`"
           class="whatsapp"
-          title="Fale conosco pelo WhatsApp"
         >
           <span class="wp-icon">
             <font-awesome-icon :icon="['fab', 'whatsapp']" />

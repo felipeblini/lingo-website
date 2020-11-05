@@ -32,6 +32,7 @@ export const state = () => ({
 
 export const mutations = {
   toggleLanguage(state, payload) {
+    console.log({ payload });
     state.language = payload
   },
 

@@ -9,28 +9,27 @@
           <address v-html="address"></address>
           <div class="social-icons">
             <WhatsappPopover
-              class="whatsapp"
-              @hide="disableWatsApppTooltip = false"
+              class="d-none d-xl-block"
+              @hide="disableWhatsApppTooltip = false"
             >
               <template v-slot:button>
                 <a
                   id="tooltip-button-1"
                   href="#"
-                  @click.prevent="disableWatsApppTooltip = true"
+                  @click.prevent="disableWhatsApppTooltip = true"
                   class="tooltip-target b3"
                   v-b-tooltip.hover
-                  title=""
                 >
                   <font-awesome-icon :icon="['fab', 'whatsapp']" />
                 </a>
 
                 <b-tooltip
-                  :disabled.sync="disableWatsApppTooltip"
-                  v-if="!disableWatsApppTooltip"
+                  :disabled.sync="disableWhatsApppTooltip"
+                  v-if="!disableWhatsApppTooltip"
                   target="tooltip-button-1"
                   placement="top"
                 >
-                  Fale conosco pelo WhatsApp
+                  {{ whatsappTitle[$store.state.language] }}
                 </b-tooltip>
               </template>
             </WhatsappPopover>
@@ -40,7 +39,7 @@
               :href="socialLinks.instagram"
               v-if="socialLinks.instagram"
               v-b-tooltip.hover
-              title="Siga-nos no Instagram"
+              :title="instagramTitle[$store.state.language]"
             >
               <font-awesome-icon :icon="['fab', 'instagram']" />
             </a>
@@ -50,7 +49,7 @@
               :href="socialLinks.facebook"
               v-if="socialLinks.facebook"
               v-b-tooltip.hover
-              title="Acompanhe-nos pelo Facebook"
+              :title="facebookTitle[$store.state.language]"
             >
               <font-awesome-icon :icon="['fab', 'facebook-square']" />
             </a>
@@ -60,7 +59,7 @@
               :href="socialLinks.youtube"
               v-if="socialLinks.youtube"
               v-b-tooltip.hover
-              title="Acompanhe nossos conteúdos no Youtube"
+              :title="youtubeTitle[$store.state.language]"
             >
               <font-awesome-icon :icon="['fab', 'youtube']" />
             </a>
@@ -70,7 +69,7 @@
               :href="socialLinks.linkedin"
               v-if="socialLinks.linkedin"
               v-b-tooltip.hover
-              title="Saiba mais sobre a gente no LinkedIn"
+              :title="linkedinTitle[$store.state.language]"
             >
               <font-awesome-icon :icon="['fab', 'linkedin']" />
             </a>
@@ -99,7 +98,27 @@ export default {
         youtube: '',
         linkedin: ''
       },
-      disableWatsApppTooltip: false
+      instagramTitle: {
+        'pt-BR': 'Siga-nos no Instagram',
+        'en-US': 'Follow us on Instagram'
+      },
+      facebookTitle: {
+        'pt-BR': 'Acompanhe-nos pelo Facebook',
+        'en-US': 'Follow us on Facebook'
+      },
+      youtubeTitle: {
+        'pt-BR': 'Acompanhe nossos conteúdos no Youtube',
+        'en-US': 'Subscribe on Youtube'
+      },
+      linkedinTitle: {
+        'pt-BR': 'Saiba mais sobre a gente no LinkedIn',
+        'en-US': 'Know more about us on LinkedIn'
+      },
+      whatsappTitle: {
+        'pt-BR': 'Fale conosco pelo WhatsApp',
+        'en-US': 'Contact us through WhatsApp'
+      },
+      disableWhatsApppTooltip: false
     }
   },
 
@@ -258,14 +277,6 @@ export default {
 
           &:hover {
             color: #fafafa;
-          }
-        }
-
-        .whatsapp {
-          display: none;
-
-          @media (min-width: 1200px) {
-            display: block;
           }
         }
       }

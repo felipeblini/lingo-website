@@ -50,6 +50,11 @@ export default {
       default: '',
       description:
         'Initial pt-BR artivcle content comming from server side rendering'
+    },
+    openModalByDefault: {
+      type: Boolean,
+      default: false,
+      description: 'When content modal shoud be opened by defaul'
     }
   },
   data() {
@@ -113,6 +118,10 @@ export default {
       },
       immediate: true
     }
+  },
+
+  mounted() {
+    if (this.openModalByDefault) this.$modal.show('text-complete-modal')
   },
 
   methods: {

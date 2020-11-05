@@ -6,15 +6,9 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: 'Lingo - Interpretação, tradução simultânea, transcrição, revisão e media training',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      {
-        hid: 'Lingo Interpretação, tradução simultânea, transcrição, revisão e media training',
-        name: 'description',
-        content: 'Lingo website'
-      }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
