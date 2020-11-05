@@ -435,7 +435,6 @@ $services-box-padding: 8px;
 
   .services-container {
     position: relative;
-    z-index: 1;
     display: flex;
     justify-content: center;
     margin-top: -67px;
@@ -460,6 +459,7 @@ $services-box-padding: 8px;
     .boxes-collumns-wrapper {
       display: flex;
       flex-direction: column-reverse;
+      z-index: 0;
 
       @media (min-width: 1080px) {
         flex-direction: row;

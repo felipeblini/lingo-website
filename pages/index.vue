@@ -12,7 +12,8 @@
       <section class="mini-bio">
         <MiniBio
           :hero-height="heroHeight"
-          :server-side-text="ssrMinibioText"
+          :server-side-text-excerpt="ssrMinibioTextExcerpt"
+          :server-side-text-complete="ssrMinibioTextComplete"
           @minibio-margin-calculated="miniBioMgCalculated = true"
           @ready="childrenReady++"
         />
@@ -128,7 +129,8 @@ export default {
         title: responses[0].data[0].title.rendered,
         text: responses[0].data[0].content.rendered
       },
-      ssrMinibioText: responses[1].data[0].content.rendered,
+      ssrMinibioTextExcerpt: responses[1].data[0].excerpt.rendered,
+      ssrMinibioTextComplete: responses[1].data[0].content.rendered,
       ssrMembersList: responses[2].data,
       ssrOurServiceTextContent: {
         text: responses[3].data[0].content.rendered,

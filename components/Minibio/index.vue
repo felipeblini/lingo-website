@@ -4,7 +4,34 @@
       <h3 class="gray minibio-title">{{ title[$store.state.language] }}</h3>
       <div class="minibio-brand"></div>
     </div>
-    <div class="minibio-text" v-html="text[$store.state.language]" />
+    <div class="minibio-content">
+      <div class="minibio-text" v-html="textExcerpt[$store.state.language]" />
+      <div class="minibio-button">
+        <b-button variant="outline-primary" size="sm" @click="showModal">
+          {{ buttonOpenModalText[$store.state.language] }}
+        </b-button>
+      </div>
+    </div>
+
+    <modal
+      name="text-complete-modal"
+      classes="minibio-modal"
+      :scrollable="true"
+      height="auto"
+      :adaptive="true"
+    >
+      <div v-html="textComplete[$store.state.language]" />
+
+      <div class="d-flex p-2 align-items-center justify-content-end">
+        <b-button
+          variant="outline-primary"
+          size="sm"
+          @click="$modal.hide('text-complete-modal')"
+        >
+          {{ buttonCloseModalText[$store.state.language] }}
+        </b-button>
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -12,10 +39,17 @@
 export default {
   props: {
     heroHeight: Number,
-    serverSideText: {
+    serverSideTextExcerpt: {
       type: String,
       default: '',
-      description: 'Initial pt-BR content comming from server side rendering'
+      description:
+        'Initial pt-BR article excerpt comming from server side rendering'
+    },
+    serverSideTextComplete: {
+      type: String,
+      default: '',
+      description:
+        'Initial pt-BR artivcle content comming from server side rendering'
     }
   },
   data() {
@@ -24,9 +58,21 @@ export default {
         'pt-BR': 'Conheça a',
         'en-US': 'About'
       },
-      text: {
+      textExcerpt: {
         'pt-BR': '',
         'en-US': ''
+      },
+      textComplete: {
+        'pt-BR': '',
+        'en-US': ''
+      },
+      buttonOpenModalText: {
+        'pt-BR': 'Leia mais',
+        'en-US': 'Read more'
+      },
+      buttonCloseModalText: {
+        'pt-BR': 'Fechar',
+        'en-US': 'Close'
       }
     }
   },
@@ -53,10 +99,17 @@ export default {
       this.fetchContent(newValue)
     },
 
-    serverSideText: {
+    serverSideTextExcerpt: {
       handler: function(newValue) {
-        this.text['pt-BR'] = newValue
+        this.textExcerpt['pt-BR'] = newValue
         this.$emit('ready')
+      },
+      immediate: true
+    },
+
+    serverSideTextComplete: {
+      handler: function(newValue) {
+        this.textComplete['pt-BR'] = newValue
       },
       immediate: true
     }
@@ -64,15 +117,20 @@ export default {
 
   methods: {
     async fetchContent(lang) {
-      if (this.text[lang]) {
+      if (this.textExcerpt[lang]) {
         this.$emit('ready')
       } else {
         const slug = `minibio-${lang.replace('-', '').toLowerCase()}`
         const response = await this.$axios.get(`posts?slug=${slug}`)
 
-        this.text[lang] = response.data[0].content.rendered
+        this.textExcerpt[lang] = response.data[0].excerpt.rendered
+        this.textComplete[lang] = response.data[0].content.rendered
         this.$emit('ready')
       }
+    },
+
+    showModal() {
+      this.$modal.show('text-complete-modal')
     }
   }
 }
@@ -239,7 +297,7 @@ export default {
     }
   }
 
-  .minibio-text {
+  .minibio-content {
     padding-left: 0px;
     font-size: 0.9rem;
     position: relative;
@@ -263,6 +321,21 @@ export default {
       padding-right: 26%;
       padding-left: 11px;
     }
+
+    .minibio-button {
+      a {
+        color: $pink;
+      }
+    }
   }
+}
+</style>
+
+<style lang="scss">
+.minibio-modal {
+  padding: 40px;
+  border: solid 1px $pink;
+  border-radius: 3px;
+  background: rgba($light-gray, 0.96);
 }
 </style>

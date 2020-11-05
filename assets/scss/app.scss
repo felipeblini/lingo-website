@@ -1,3 +1,5 @@
+@import "bootstrap";
+
 html {
   min-height: 100%;
   position: relative;
@@ -85,5 +87,13 @@ svg.title {
     text {
       fill: $pink;
     }
+  }
+}
+
+.btn-outline-primary {
+  @include button-outline-variant($pink, #222222, lighten($pink,5%), $pink);
+
+  &:hover {
+    color: #fff;
   }
 }

@@ -177,6 +177,7 @@ export default {
       &.content {
         height: 168px;
         border-radius: 44px;
+        z-index: 0;
 
         @media (min-width: 768px) {
           height: 217px;
