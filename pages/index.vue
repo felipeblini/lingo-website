@@ -12,6 +12,7 @@
       <section class="mini-bio">
         <MiniBio
           :hero-height="heroHeight"
+          :server-side-text-title="ssrMinibioTextTitle"
           :server-side-text-excerpt="ssrMinibioTextExcerpt"
           :server-side-text-complete="ssrMinibioTextComplete"
           :open-modal-by-default="ssrOpenMiniBioModalByDefault"
@@ -119,10 +120,17 @@ export default {
     }
   },
 
-  async asyncData({ query, $axios }) {
+  async asyncData({ query, $axios, store }) {
     const promises = []
-
     const lang = query.lang && query.lang === 'en-US' ? 'enus' : 'ptbr'
+    const openMiniBioModal =
+      query.show === 'conheca-a-lingo' || query.show === 'about-lingo'
+
+    store.commit('setModalOpen', openMiniBioModal)
+
+    if (query.lang && ['pt-BR', 'en-US'].includes(query.lang)) {
+      store.commit('toggleLanguage', query.lang)
+    }
 
     // 0. hero content
     promises.push($axios.get(`posts?slug=hero-${lang}`))
@@ -148,10 +156,12 @@ export default {
         title: responses[0].data[0].title.rendered,
         text: responses[0].data[0].content.rendered
       },
+
+      ssrMinibioTextTitle: responses[1].data[0].title.rendered,
       ssrMinibioTextExcerpt: responses[1].data[0].excerpt.rendered,
       ssrMinibioTextComplete: responses[1].data[0].content.rendered,
-      ssrOpenMiniBioModalByDefault:
-        query.show === 'conheca-a-lingo' || query.show === 'about-lingo',
+      ssrOpenMiniBioModalByDefault: openMiniBioModal,
+
       ssrMembersList: responses[2].data,
       ssrOurServiceTextContent: {
         text: responses[3].data[0].content.rendered,
@@ -162,15 +172,16 @@ export default {
   },
 
   mounted() {
-    this.ssrDefaultTitle = this.decodeHTMLEntities(this.ssrDefaultTitle)
+    setTimeout(() => {
+      this.ssrDefaultTitle = this.decodeHTMLEntities(this.ssrDefaultTitle)
+      this.$forceUpdate()
+    }, 200)
 
-    const lang = this.$route.query.lang
+    // const lang = this.$route.query.lang
 
-    if (lang && ['pt-BR', 'en-US'].includes(lang)) {
-      this.$store.commit('toggleLanguage', lang)
-    }
-
-    this.$forceUpdate()
+    // if (lang && ['pt-BR', 'en-US'].includes(lang)) {
+    //   this.$store.commit('toggleLanguage', lang)
+    // }
 
     this.$ga.page({
       page: '/',

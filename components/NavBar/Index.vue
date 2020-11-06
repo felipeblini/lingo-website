@@ -1,5 +1,13 @@
 <template>
-  <b-navbar toggleable="custom" type="light" variant="">
+  <b-navbar
+    toggleable="custom"
+    type="light"
+    variant=""
+    :class="{
+      fixed: $store.state.navbarFixed,
+      'd-none': $store.state.isModalOpen
+    }"
+  >
     <div class="container">
       <b-navbar-brand href="#top" v-smooth-scroll="{ duration: 2000 }">
         Lingo Interpretação, tradução simultânea, transcrição, revisão e media
@@ -118,23 +126,6 @@
 import SwitchLanguageButton from './SwitchLanguageButton.vue'
 import WhatsappButtonDesktop from '~/components/WhatsappButton/DesktopBtn.vue'
 
-if (process.client) {
-  window.addEventListener('scroll', () => {
-    setTimeout(() => {
-      const navbar = document.querySelectorAll('.navbar')[0]
-      const top = window.pageYOffset
-
-      if (top > 50) {
-        if (!navbar.classList.contains('fixed')) {
-          navbar.classList.add('fixed')
-        }
-      } else {
-        navbar.classList.remove('fixed')
-      }
-    }, 200)
-  })
-}
-
 export default {
   components: {
     WhatsappButtonDesktop,
@@ -176,6 +167,21 @@ export default {
       return -160
     }
   },
+  mounted() {
+    window.addEventListener('scroll', () => {
+      setTimeout(() => {
+        const navbar = document.querySelectorAll('.navbar')[0]
+        const top = window.pageYOffset
+
+        if (top > 50) {
+          this.$store.commit('setNavbarFixed', true)
+        } else {
+          this.$store.commit('setNavbarFixed', false)
+        }
+      }, 200)
+    })
+  },
+
   methods: {
     onLanguageToggled(value) {
       this.$store.commit('toggleLanguage', value)

@@ -27,13 +27,22 @@ export const state = () => ({
       'pt-BR': 'Contato',
       'en-US': 'Contact'
     }
-  }
+  },
+  navbarFixed: false,
+  isModalOpen: false
 })
 
 export const mutations = {
   toggleLanguage(state, payload) {
-    console.log({ payload });
     state.language = payload
+  },
+
+  setNavbarFixed(state, payload) {
+    state.navbarFixed = payload
+  },
+
+  setModalOpen(state, payload) {
+    state.isModalOpen = payload
   },
 
   storeWhatsappNumber(state, payload) {

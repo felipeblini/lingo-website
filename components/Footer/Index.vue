@@ -1,6 +1,11 @@
 <template>
   <div :id="anchorName" class="lingo-footer-cmp">
-    <WhatsappButtonMobile class="d-xl-none" />
+    <WhatsappButtonMobile
+      class="d-xl-none"
+      :class="{
+        'd-none': $store.state.isModalOpen
+      }"
+    />
     <div class="footer-background"></div>
     <div class="container footer-container">
       <div class="row">

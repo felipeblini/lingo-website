@@ -165,8 +165,8 @@ export default {
 
     serverSideContent: {
       handler: function(value) {
-        this.title['pt-BR'] = value.title
-        this.text['pt-BR'] = value.text
+        this.title[this.$store.state.language] = value.title
+        this.text[this.$store.state.language] = value.text
         this.$emit('ready')
       },
       immediate: true

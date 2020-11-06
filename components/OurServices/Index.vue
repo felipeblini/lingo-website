@@ -249,8 +249,8 @@ export default {
 
     serverSideTextContent: {
       handler: function(newValue) {
-        this.text['pt-BR'] = newValue.text
-        this.quotation['pt-BR'] = newValue.quotation
+        this.text[this.$store.state.language] = newValue.text
+        this.quotation[this.$store.state.language] = newValue.quotation
         this.$emit('ready')
       },
       immediate: true

@@ -18,11 +18,24 @@
       classes="minibio-modal"
       :scrollable="true"
       height="auto"
-      :adaptive="true"
+      :width="modalWidth"
+      @before-open="onModalOpened"
+      @before-close="onModalClosed"
     >
+      <div class="d-md-none close-modal-btn-mobile">
+        <b-button
+          variant="outline"
+          size="sm"
+          @click="$modal.hide('text-complete-modal')"
+        >
+          <font-awesome-icon :icon="['fas', 'arrow-left']" />
+        </b-button>
+      </div>
+
+      <h3 class="mb-4">{{ textTitle[$store.state.language] }}</h3>
       <div v-html="textComplete[$store.state.language]" />
 
-      <div class="d-flex p-2 align-items-center justify-content-end">
+      <div class="p-2 align-items-center justify-content-end d-none d-md-flex">
         <b-button
           variant="outline-primary"
           size="sm"
@@ -39,6 +52,12 @@
 export default {
   props: {
     heroHeight: Number,
+    serverSideTextTitle: {
+      type: String,
+      default: '',
+      description:
+        'Initial pt-BR article title comming from server side rendering'
+    },
     serverSideTextExcerpt: {
       type: String,
       default: '',
@@ -49,7 +68,7 @@ export default {
       type: String,
       default: '',
       description:
-        'Initial pt-BR artivcle content comming from server side rendering'
+        'Initial pt-BR article content comming from server side rendering'
     },
     openModalByDefault: {
       type: Boolean,
@@ -62,6 +81,10 @@ export default {
       title: {
         'pt-BR': 'Conheça a',
         'en-US': 'About'
+      },
+      textTitle: {
+        'pt-BR': '',
+        'en-US': ''
       },
       textExcerpt: {
         'pt-BR': '',
@@ -89,6 +112,16 @@ export default {
       return `${this.$store.state.menu.company[this.$store.state.language]
         .toLowerCase()
         .replace(' ', '-')}`
+    },
+    modalWidth() {
+      if (process.client) {
+        if (window.innerWidth <= 768) return '98%'
+        if (window.innerWidth <= 1024) return '80%'
+        if (window.innerWidth <= 1200) return '60%'
+        return 600
+      }
+
+      return 600
     }
   },
 
@@ -104,17 +137,24 @@ export default {
       this.fetchContent(newValue)
     },
 
+    serverSideTextTitle: {
+      handler: function(newValue) {
+        this.textTitle[this.$store.state.language] = newValue
+        this.$emit('ready')
+      },
+      immediate: true
+    },
+
     serverSideTextExcerpt: {
       handler: function(newValue) {
-        this.textExcerpt['pt-BR'] = newValue
-        this.$emit('ready')
+        this.textExcerpt[this.$store.state.language] = newValue
       },
       immediate: true
     },
 
     serverSideTextComplete: {
       handler: function(newValue) {
-        this.textComplete['pt-BR'] = newValue
+        this.textComplete[this.$store.state.language] = newValue
       },
       immediate: true
     }
@@ -132,6 +172,7 @@ export default {
         const slug = `minibio-${lang.replace('-', '').toLowerCase()}`
         const response = await this.$axios.get(`posts?slug=${slug}`)
 
+        this.textTitle[lang] = response.data[0].title.rendered
         this.textExcerpt[lang] = response.data[0].excerpt.rendered
         this.textComplete[lang] = response.data[0].content.rendered
         this.$emit('ready')
@@ -140,6 +181,14 @@ export default {
 
     showModal() {
       this.$modal.show('text-complete-modal')
+    },
+
+    onModalOpened() {
+      this.$store.commit('setModalOpen', true)
+    },
+
+    onModalClosed() {
+      this.$store.commit('setModalOpen', false)
     }
   }
 }
@@ -330,21 +379,28 @@ export default {
       padding-right: 26%;
       padding-left: 11px;
     }
-
-    .minibio-button {
-      a {
-        color: $pink;
-      }
-    }
   }
 }
 </style>
 
 <style lang="scss">
 .minibio-modal {
+  z-index: 9999;
   padding: 40px;
   border: solid 1px $pink;
   border-radius: 3px;
   background: rgba($light-gray, 0.96);
+  top: 4px !important;
+}
+
+.close-modal-btn-mobile {
+  position: absolute;
+  top: 5px;
+  left: 6px;
+
+  .btn {
+    color: $pink;
+    outline: none;
+  }
 }
 </style>
