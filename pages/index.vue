@@ -33,6 +33,8 @@
     <section>
       <OurServices
         :server-side-text-content="ssrOurServiceTextContent"
+        :server-side-list-of-services="ssrServicesList"
+        :default-service="ssrDefaultService"
         @ready="childrenReady++"
       />
     </section>
@@ -124,7 +126,7 @@ export default {
     const promises = []
     const lang = query.lang && query.lang === 'en-US' ? 'enus' : 'ptbr'
     const openMiniBioModal =
-      query.show === 'conheca-a-lingo' || query.show === 'about-lingo'
+      query.c === 'conheca-a-lingo' || query.c === 'about-lingo'
 
     store.commit('setModalOpen', openMiniBioModal)
 
@@ -141,13 +143,30 @@ export default {
     // 2. members list
     promises.push($axios.get('posts?categories=4'))
 
-    // 3. our services
+    // 3. our services text
     promises.push($axios.get(`posts?slug=nosso-trabalho-${lang}`))
 
-    // 4. testimonials list
+    // 4. services list
+    promises.push(
+      $axios.get(
+        `posts?categories=${query.lang && query.lang === 'en-US' ? '9' : '8'}`
+      )
+    )
+
+    // 5. testimonials list
     promises.push($axios.get('posts?categories=5'))
 
     const responses = await Promise.all(promises)
+
+    let ssrServicesList
+
+    try {
+      ssrServicesList = responses[4].data.sort(
+        (a, b) => a.acf.order - b.acf.order
+      )
+    } catch (e) {
+      ssrServicesList = responses[4].data
+    }
 
     return {
       ssrDefaultTitle: responses[0].data[0].title.rendered,
@@ -163,11 +182,16 @@ export default {
       ssrOpenMiniBioModalByDefault: openMiniBioModal,
 
       ssrMembersList: responses[2].data,
+
       ssrOurServiceTextContent: {
         text: responses[3].data[0].content.rendered,
         quotation: responses[3].data[0].acf.quotation
       },
-      ssrTestimonialsList: responses[4].data
+
+      ssrServicesList,
+      ssrDefaultService: ssrServicesList.filter((s) => s.slug === query.c)[0],
+
+      ssrTestimonialsList: responses[5].data
     }
   },
 
@@ -175,13 +199,13 @@ export default {
     setTimeout(() => {
       this.ssrDefaultTitle = this.decodeHTMLEntities(this.ssrDefaultTitle)
       this.$forceUpdate()
-    }, 200)
+    }, 1000)
 
-    // const lang = this.$route.query.lang
+    const lang = this.$route.query.lang
 
-    // if (lang && ['pt-BR', 'en-US'].includes(lang)) {
-    //   this.$store.commit('toggleLanguage', lang)
-    // }
+    if (lang && ['pt-BR', 'en-US'].includes(lang)) {
+      this.$store.commit('toggleLanguage', lang)
+    }
 
     this.$ga.page({
       page: '/',

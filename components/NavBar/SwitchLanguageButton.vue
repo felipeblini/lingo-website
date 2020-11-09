@@ -2,7 +2,11 @@
   <div>
     <div
       ref="switchlang-wrapper"
-      class="swl switchlang-wrapper br"
+      class="swl switchlang-wrapper"
+      :class="{
+        br: initialLang === 'pt-BR' || initialLang === '',
+        en: initialLang === 'en-US'
+      }"
       @click="toggle"
     >
       <p class="swl br">BR</p>
@@ -14,6 +18,13 @@
 
 <script>
 export default {
+  props: {
+    initialLang: {
+      type: String,
+      default: '',
+      description: 'When lang is passed in by query'
+    }
+  },
   methods: {
     toggle() {
       const switcher = this.$refs['switchlang-wrapper']
@@ -33,15 +44,17 @@ export default {
   },
 
   watch: {
-    '$store.state.language'(value) {
-      const switcher = this.$refs['switchlang-wrapper']
+    '$store.state.language': {
+      handler: function(value) {
+        const switcher = this.$refs['switchlang-wrapper']
 
-      if (value === 'pt-BR') {
-        switcher.classList.remove('en')
-        switcher.classList.add('br')
-      } else if (value === 'en-US') {
-        switcher.classList.remove('br')
-        switcher.classList.add('en')
+        if (value === 'pt-BR') {
+          switcher.classList.remove('en')
+          switcher.classList.add('br')
+        } else if (value === 'en-US') {
+          switcher.classList.remove('br')
+          switcher.classList.add('en')
+        }
       }
     }
   }

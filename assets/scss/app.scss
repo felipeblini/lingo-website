@@ -97,3 +97,32 @@ svg.title {
     color: #fff;
   }
 }
+
+.lingo-modal {
+  z-index: 9999;
+  padding: 40px;
+  border: solid 1px $pink;
+  border-radius: 3px;
+  background: rgba($light-gray, 0.96);
+  top: 4px !important;
+  @media(min-width: 1080px) {
+    top: 90px !important;
+  }
+}
+
+.close-modal-btn-mobile {
+  position: absolute;
+  top: 5px;
+  left: 6px;
+
+  .btn {
+    color: $pink;
+    outline: none;
+  }
+}
+
+.b-overlay {
+  .bg-light {
+    background-color: transparent !important;
+  }
+}

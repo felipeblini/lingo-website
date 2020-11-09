@@ -15,7 +15,10 @@
       </b-navbar-brand>
 
       <div class="only-mobile switch-lang-mobile">
-        <SwitchLanguageButton @toggled="onLanguageToggled" />
+        <SwitchLanguageButton
+          :initial-lang="$route.query.lang"
+          @toggled="onLanguageToggled"
+        />
       </div>
 
       <b-navbar-toggle target="nav-collapse">
@@ -113,7 +116,10 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <div class="mr-3 only-desktop">
-            <SwitchLanguageButton @toggled="onLanguageToggled" />
+            <SwitchLanguageButton
+              :initial-lang="$route.query.lang"
+              @toggled="onLanguageToggled"
+            />
           </div>
           <WhatsappButtonDesktop class="d-none d-xl-block" />
         </b-navbar-nav>

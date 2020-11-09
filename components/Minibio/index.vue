@@ -8,14 +8,14 @@
       <div class="minibio-text" v-html="textExcerpt[$store.state.language]" />
       <div class="minibio-button">
         <b-button variant="outline-primary" size="sm" @click="showModal">
-          {{ buttonOpenModalText[$store.state.language] }}
+          {{ $store.state.language === 'pt-BR' ? 'Leia mais' : 'Read more' }}
         </b-button>
       </div>
     </div>
 
     <modal
       name="text-complete-modal"
-      classes="minibio-modal"
+      classes="lingo-modal"
       :scrollable="true"
       height="auto"
       :width="modalWidth"
@@ -41,7 +41,7 @@
           size="sm"
           @click="$modal.hide('text-complete-modal')"
         >
-          {{ buttonCloseModalText[$store.state.language] }}
+          {{ $store.state.language === 'pt-BR' ? 'Fechar' : 'Close' }}
         </b-button>
       </div>
     </modal>
@@ -93,14 +93,6 @@ export default {
       textComplete: {
         'pt-BR': '',
         'en-US': ''
-      },
-      buttonOpenModalText: {
-        'pt-BR': 'Leia mais',
-        'en-US': 'Read more'
-      },
-      buttonCloseModalText: {
-        'pt-BR': 'Fechar',
-        'en-US': 'Close'
       }
     }
   },
@@ -379,28 +371,6 @@ export default {
       padding-right: 26%;
       padding-left: 11px;
     }
-  }
-}
-</style>
-
-<style lang="scss">
-.minibio-modal {
-  z-index: 9999;
-  padding: 40px;
-  border: solid 1px $pink;
-  border-radius: 3px;
-  background: rgba($light-gray, 0.96);
-  top: 4px !important;
-}
-
-.close-modal-btn-mobile {
-  position: absolute;
-  top: 5px;
-  left: 6px;
-
-  .btn {
-    color: $pink;
-    outline: none;
   }
 }
 </style>

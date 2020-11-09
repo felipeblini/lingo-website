@@ -84,7 +84,7 @@ export default {
     heroHeight: Number,
     serverSideListOfMembers: {
       type: Array,
-      default: (() => [])(),
+      default: () => [],
       description: 'Initial list of members comming from server side rendering'
     }
   },

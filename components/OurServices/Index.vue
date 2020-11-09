@@ -16,12 +16,12 @@
             </div>
 
             <div tabindex="0" class="service-box service-1 revisao">
-              <div class="service-info">
+              <div class="service-info" @click="showModal(1)">
                 <div class="service-icon">
                   <img class="icon" src="./img/box-icons/revisao.svg" alt="" />
                 </div>
                 <h4 class="service-title" :class="$store.state.language">
-                  {{ services.titles.revision[$store.state.language] }}
+                  {{ services.service1[$store.state.language].title }}
                 </h4>
               </div>
             </div>
@@ -33,7 +33,7 @@
                 tabindex="1"
                 class="service-box service-1 revisao only-mobile-flex"
               >
-                <div class="service-info">
+                <div class="service-info" @click="showModal(1)">
                   <div class="service-icon">
                     <img
                       class="icon"
@@ -42,13 +42,13 @@
                     />
                   </div>
                   <h4 class="service-title" :class="$store.state.language">
-                    {{ services.titles.revision[$store.state.language] }}
+                    {{ services.service1[$store.state.language].title }}
                   </h4>
                 </div>
               </div>
 
               <div tabindex="2" class="service-box service-2 transcricao">
-                <div class="service-info">
+                <div class="service-info" @click="showModal(2)">
                   <div class="service-icon">
                     <img
                       class="icon"
@@ -57,18 +57,18 @@
                     />
                   </div>
                   <h4 class="service-title" :class="$store.state.language">
-                    {{ services.titles.transcription[$store.state.language] }}
+                    {{ services.service2[$store.state.language].title }}
                   </h4>
                 </div>
               </div>
 
               <div tabindex="3" class="service-box service-3 media">
-                <div class="service-info">
+                <div class="service-info" @click="showModal(3)">
                   <div class="service-icon">
                     <img class="icon" src="./img/box-icons/media.svg" alt="" />
                   </div>
                   <h4 class="service-title" :class="$store.state.language">
-                    {{ services.titles.mediaTraining[$store.state.language] }}
+                    {{ services.service3[$store.state.language].title }}
                   </h4>
                 </div>
               </div>
@@ -77,7 +77,7 @@
                 tabindex="4"
                 class="service-box service-4 traducoes only-mobile-flex"
               >
-                <div class="service-info">
+                <div class="service-info" @click="showModal(4)">
                   <div class="service-icon">
                     <img
                       class="icon"
@@ -86,7 +86,7 @@
                     />
                   </div>
                   <h4 class="service-title" :class="$store.state.language">
-                    {{ services.titles.tranlations[$store.state.language] }}
+                    {{ services.service4[$store.state.language].title }}
                   </h4>
                 </div>
               </div>
@@ -95,7 +95,7 @@
                 tabindex="5"
                 class="service-box service-5 interpretacao only-mobile-flex"
               >
-                <div class="service-info">
+                <div class="service-info" @click="showModal(5)">
                   <div class="service-icon">
                     <img
                       class="icon"
@@ -104,7 +104,7 @@
                     />
                   </div>
                   <h4 class="service-title" :class="$store.state.language">
-                    {{ services.titles.interpreting[$store.state.language] }}
+                    {{ services.service5[$store.state.language].title }}
                   </h4>
                 </div>
               </div>
@@ -115,7 +115,7 @@
             <div class="ponto-virgula"></div>
 
             <div tabindex="6" class="service-box service-4 big traducoes">
-              <div class="service-info">
+              <div class="service-info" @click="showModal(4)">
                 <div class="service-icon">
                   <img
                     class="icon big"
@@ -124,7 +124,7 @@
                   />
                 </div>
                 <h4 class="service-title big" :class="$store.state.language">
-                  {{ services.titles.tranlations[$store.state.language] }}
+                  {{ services.service4[$store.state.language].title }}
                 </h4>
               </div>
             </div>
@@ -154,12 +154,23 @@
                 class="section-description"
                 v-html="text[$store.state.language]"
               ></p>
+              <p>
+                <font-awesome-icon
+                  v-if="arrowPosition === 'left'"
+                  :icon="['fas', 'arrow-left']"
+                />
+                {{ clickText[$store.state.language] }}
+                <font-awesome-icon
+                  v-if="arrowPosition === 'down'"
+                  :icon="['fas', 'arrow-down']"
+                />
+              </p>
             </div>
           </div>
 
           <div class="line only-desktop-flex">
             <div tabindex="7" class="service-box service-5 interpretacao">
-              <div class="service-info">
+              <div class="service-info" @click="showModal(5)">
                 <div class="service-icon">
                   <img
                     class="icon"
@@ -168,7 +179,7 @@
                   />
                 </div>
                 <h4 class="service-title" :class="$store.state.language">
-                  {{ services.titles.interpreting[$store.state.language] }}
+                  {{ services.service5[$store.state.language].title }}
                 </h4>
               </div>
             </div>
@@ -178,6 +189,40 @@
         </div>
       </div>
     </div>
+
+    <modal
+      name="service-description-modal"
+      classes="lingo-modal"
+      :scrollable="true"
+      height="auto"
+      :width="modalWidth"
+      @before-open="onModalOpened"
+      @before-close="onModalClosed"
+    >
+      <div class="d-md-none close-modal-btn-mobile">
+        <b-button
+          variant="outline"
+          size="sm"
+          @click="$modal.hide('service-description-modal')"
+        >
+          <font-awesome-icon :icon="['fas', 'arrow-left']" />
+        </b-button>
+      </div>
+
+      <b-overlay :show="isFetchingDescription">
+        <div style="min-height: 300px" v-html="serviceDescription"></div>
+      </b-overlay>
+
+      <div class="p-2 align-items-center justify-content-end d-none d-md-flex">
+        <b-button
+          variant="outline-primary"
+          size="sm"
+          @click="$modal.hide('service-description-modal')"
+        >
+          {{ $store.state.language === 'pt-BR' ? 'Fechar' : 'Close' }}
+        </b-button>
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -187,8 +232,17 @@ export default {
     serverSideTextContent: {
       type: Object,
       default: (() => ({ text: '', quotation: '' }))(),
-      description:
-        'Initial pt-BR object with text content comming from server side rendering'
+      description: 'Initial text content comming from server side rendering'
+    },
+    serverSideListOfServices: {
+      type: Array,
+      default: () => [],
+      description: 'Initial list of services comming from server side rendering'
+    },
+    defaultService: {
+      type: Object,
+      default: () => {},
+      description: 'Initial service comming from server selected by querystring'
     }
   },
 
@@ -207,29 +261,64 @@ export default {
         'en-US': ''
       },
       services: {
-        titles: {
-          revision: {
-            'pt-BR': 'Revisão',
-            'en-US': 'Revision'
+        service1: {
+          'pt-BR': {
+            id: '',
+            title: ''
           },
-          transcription: {
-            'pt-BR': 'Trancrições',
-            'en-US': 'Transcriptions'
+          'en-US': {
+            id: '',
+            title: ''
+          }
+        },
+        service2: {
+          'pt-BR': {
+            id: '',
+            title: ''
           },
-          mediaTraining: {
-            'pt-BR': 'Media Training',
-            'en-US': 'Media Training'
+          'en-US': {
+            id: '',
+            title: ''
+          }
+        },
+        service3: {
+          'pt-BR': {
+            id: '',
+            title: ''
           },
-          tranlations: {
-            'pt-BR': 'Traduções',
-            'en-US': 'Translations'
+          'en-US': {
+            id: '',
+            title: ''
+          }
+        },
+        service4: {
+          'pt-BR': {
+            id: '',
+            title: ''
           },
-          interpreting: {
-            'pt-BR': 'Interpretação',
-            'en-US': 'Interpreting'
+          'en-US': {
+            id: '',
+            title: ''
+          }
+        },
+        service5: {
+          'pt-BR': {
+            id: '',
+            title: ''
+          },
+          'en-US': {
+            id: '',
+            title: ''
           }
         }
-      }
+      },
+      clickText: {
+        'pt-BR': 'Clique nos boxes para saber mais sobre cada um dos serviços',
+        'en-US': 'Click on the boxes to learn more about each service'
+      },
+      arrowPosition: '',
+      serviceDescription: '',
+      isFetchingDescription: false
     }
   },
 
@@ -239,6 +328,17 @@ export default {
         .toLowerCase()
         .replace(' ', '-')
         .replace('ç', 'c')}`
+    },
+
+    modalWidth() {
+      if (process.client) {
+        if (window.innerWidth <= 768) return '98%'
+        if (window.innerWidth <= 1024) return '80%'
+        if (window.innerWidth <= 1200) return '60%'
+        return 600
+      }
+
+      return 600
     }
   },
 
@@ -248,9 +348,23 @@ export default {
     },
 
     serverSideTextContent: {
-      handler: function(newValue) {
-        this.text[this.$store.state.language] = newValue.text
-        this.quotation[this.$store.state.language] = newValue.quotation
+      handler: function(content) {
+        this.text[this.$store.state.language] = content.text
+        this.quotation[this.$store.state.language] = content.quotation
+      },
+      immediate: true
+    },
+
+    serverSideListOfServices: {
+      handler: function(list) {
+        list.forEach((service, i) => {
+          try {
+            this.services[`service${i + 1}`][this.$store.state.language] = {
+              title: service.title.rendered,
+              id: service.id
+            }
+          } catch (e) {}
+        })
         this.$emit('ready')
       },
       immediate: true
@@ -298,18 +412,77 @@ export default {
       el.onmouseover = selectItem
       el.onclick = selectItem
     })
+
+    this.arrowPosition = window.innerWidth < 1080 ? 'down' : 'left'
+
+    window.addEventListener('resize', () => {
+      setTimeout(() => {
+        this.arrowPosition = window.innerWidth < 1080 ? 'down' : 'left'
+      }, 200)
+    })
+
+    if (this.defaultService) {
+      this.$modal.show('service-description-modal')
+      this.serviceDescription = this.defaultService.content.rendered
+    }
   },
 
   methods: {
+    async showModal(i) {
+      this.$modal.show('service-description-modal')
+      this.isFetchingDescription = true
+
+      const id = this.services[`service${i}`][this.$store.state.language].id
+      const response = await this.$axios.get(`posts/${id}`)
+
+      this.serviceDescription = response.data.content.rendered
+      this.isFetchingDescription = false
+    },
+
+    onModalOpened() {
+      this.$store.commit('setModalOpen', true)
+    },
+
+    onModalClosed() {
+      this.$store.commit('setModalOpen', false)
+    },
     async fetchContent(lang) {
-      if (this.text[lang] && this.quotation[lang]) {
+      if (
+        this.text[lang] &&
+        this.quotation[lang] &&
+        this.services.titles.service1[lang]
+      ) {
         this.$emit('ready')
       } else {
+        // get text content
         const slug = `nosso-trabalho-${lang.replace('-', '').toLowerCase()}`
         const response = await this.$axios.get(`posts?slug=${slug}`)
 
         this.text[lang] = response.data[0].content.rendered
         this.quotation[lang] = response.data[0].acf.quotation
+
+        // get list of services
+        const services = await this.$axios.get(
+          `posts?categories=${lang === 'en-US' ? '9' : '8'}`
+        )
+
+        let servicesList
+
+        try {
+          servicesList = services.data.sort((a, b) => a.acf.order - b.acf.order)
+        } catch (e) {
+          servicesList = services.data
+        }
+
+        servicesList.forEach((service, i) => {
+          try {
+            this.services[`service${i + 1}`][lang] = {
+              title: service.title.rendered,
+              id: service.id
+            }
+          } catch (e) {}
+        })
+
         this.$emit('ready')
       }
     }
@@ -610,6 +783,7 @@ $services-box-padding: 8px;
           h1.section-title {
             font-size: 41px;
             line-height: 37px;
+            width: 308px;
 
             @media (min-width: 760px) {
               font-size: 58px;
@@ -699,6 +873,7 @@ $services-box-padding: 8px;
         }
 
         .service-info {
+          cursor: pointer;
           display: flex;
           width: 100%;
           height: 100%;
@@ -734,19 +909,27 @@ $services-box-padding: 8px;
             text-align: center;
             color: black;
 
-            font-size: 15px;
+            font-size: 13px;
 
-            &.en-US {
-              font-size: 13px;
-            }
+            // &.en-US {
+            //   font-size: 13px;
+            // }
 
             @media (min-width: 430px) {
-              font-size: 20px;
+              font-size: 16px;
               padding: 5px;
 
-              &.en-US {
-                font-size: 16px;
-              }
+              // &.en-US {
+              //   font-size: 16px;
+              // }
+            }
+
+            @media (min-width: 860px) {
+              font-size: 18px;
+
+              // &.en-US {
+              //   font-size: 18px;
+              // }
             }
 
             &.big {
