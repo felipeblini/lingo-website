@@ -116,6 +116,7 @@ export default {
     childrenReady(ready) {
       if (ready === this.$children.filter((el) => el.$listeners.ready).length) {
         this.$nextTick(() => {
+          console.log(this)
           this.$nuxt.$loading.finish()
         })
       }

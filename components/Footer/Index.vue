@@ -19,7 +19,7 @@
             >
               <template v-slot:button>
                 <a
-                  id="tooltip-button-1"
+                  id="wp-icon-tooltip"
                   href="#"
                   @click.prevent="disableWhatsApppTooltip = true"
                   class="tooltip-target b3"
@@ -31,7 +31,7 @@
                 <b-tooltip
                   :disabled.sync="disableWhatsApppTooltip"
                   v-if="!disableWhatsApppTooltip"
-                  target="tooltip-button-1"
+                  target="wp-icon-tooltip"
                   placement="top"
                 >
                   {{ whatsappTitle[$store.state.language] }}
