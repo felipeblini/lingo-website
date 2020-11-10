@@ -68,41 +68,41 @@ export default {
     ],
     '@nuxtjs/style-resources',
     'nuxt-user-agent',
-    '@nuxtjs/sitemap',
+    //'@nuxtjs/sitemap',
     '@nuxtjs/robots'
   ],
 
-  sitemap: {
-    hostname: 'http://lingotraducao.com.br',
-    exclude: ['/not-supported'],
-    routes: async () => {
-      const routes = [];
-      routes.push('?lang=en-US');
+  // sitemap: {
+  //   hostname: 'http://lingotraducao.com.br',
+  //   exclude: ['/not-supported'],
+  //   routes: async () => {
+  //     const routes = [];
+  //     routes.push('?lang=en-US');
 
-      const { data: servicesDataPTBR } = await axios.get(`${API_URL}/posts?categories=8`);
+  //     const { data: servicesDataPTBR } = await axios.get(`${API_URL}/posts?categories=8`);
 
-      servicesDataPTBR.forEach(service => {
-        routes.push({
-          url: `?lang=pt-BR&c=${service.slug}`,
-          lastmod: service.date
-        })
-      })
+  //     servicesDataPTBR.forEach(service => {
+  //       routes.push({
+  //         url: `?lang=pt-BR&c=${service.slug}`,
+  //         lastmod: service.date
+  //       })
+  //     })
 
-      const { data: servicesDataENUS } = await axios.get(`${API_URL}/posts?categories=9`);
+  //     const { data: servicesDataENUS } = await axios.get(`${API_URL}/posts?categories=9`);
 
-      servicesDataENUS.forEach(service => {
-        routes.push({
-          url: `?lang=en-US&c=${service.slug}`,
-          lastmod: service.date
-        })
-      })
+  //     servicesDataENUS.forEach(service => {
+  //       routes.push({
+  //         url: `?lang=en-US&c=${service.slug}`,
+  //         lastmod: service.date
+  //       })
+  //     })
 
-      routes.push('?lang=pt-BR&c=conheca-a-lingo');
-      routes.push('?lang=en-US&c=about-lingo');
+  //     routes.push('?lang=pt-BR&c=conheca-a-lingo');
+  //     routes.push('?lang=en-US&c=about-lingo');
 
-      return routes
-    }
-  },
+  //     return routes
+  //   }
+  // },
 
   robots: {
     UserAgent: '*',

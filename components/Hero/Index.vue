@@ -114,8 +114,6 @@ const imgTablet = require('./img/img_principal-tablet.jpg')
 const imgDektop = require('./img/img_principal-desktop.jpg')
 const imgDektopXl = require('./img/img_principal-desktop-xl.jpg')
 
-console.log({ imgDektop })
-
 export default {
   data() {
     return {
@@ -452,7 +450,7 @@ export default {
     @media (min-width: 1600px) {
       > div {
         h1 {
-          font-size: 141px;
+          font-size: 127px;
         }
       }
     }

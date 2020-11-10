@@ -116,15 +116,10 @@ export default {
     childrenReady(ready) {
       if (ready === this.$children.filter((el) => el.$listeners.ready).length) {
         this.$nextTick(() => {
-          console.log(this)
           this.$nuxt.$loading.finish()
         })
       }
     }
-  },
-
-  beforeCreate() {
-    console.log('before create')
   },
 
   async asyncData({ query, $axios, store }) {

@@ -225,7 +225,7 @@
                 class="section-description"
                 v-html="text[$store.state.language]"
               ></p>
-              <p>
+              <p v-if="arrowPosition">
                 <font-awesome-icon
                   v-if="arrowPosition === 'left'"
                   :icon="['fas', 'arrow-left']"
@@ -458,7 +458,6 @@ export default {
             }
           } catch (e) {}
         })
-        console.log({ services: this.services })
         this.$emit('ready')
       },
       immediate: true
