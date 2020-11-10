@@ -22,11 +22,16 @@
                     services.service1[$store.state.language].slug
                   }`
                 "
+                :title="services.service1[$store.state.language].title"
                 class="service-info"
                 @click="showModal(1, $event)"
               >
                 <div class="service-icon">
-                  <img class="icon" src="./img/box-icons/revisao.svg" alt="" />
+                  <img
+                    class="icon"
+                    src="./img/box-icons/revisao.svg"
+                    :alt="services.service1[$store.state.language].title"
+                  />
                 </div>
                 <h4 class="service-title" :class="$store.state.language">
                   {{ services.service1[$store.state.language].title }}
@@ -47,6 +52,7 @@
                       services.service1[$store.state.language].slug
                     }`
                   "
+                  :title="services.service1[$store.state.language].title"
                   class="service-info"
                   @click="showModal(1, $event)"
                 >
@@ -54,7 +60,7 @@
                     <img
                       class="icon"
                       src="./img/box-icons/revisao.svg"
-                      alt=""
+                      :alt="services.service1[$store.state.language].title"
                     />
                   </div>
                   <h4 class="service-title" :class="$store.state.language">
@@ -70,6 +76,7 @@
                       services.service2[$store.state.language].slug
                     }`
                   "
+                  :title="services.service2[$store.state.language].title"
                   class="service-info"
                   @click="showModal(2, $event)"
                 >
@@ -77,7 +84,7 @@
                     <img
                       class="icon"
                       src="./img/box-icons/transcricao.svg"
-                      alt=""
+                      :alt="services.service2[$store.state.language].title"
                     />
                   </div>
                   <h4 class="service-title" :class="$store.state.language">
@@ -93,11 +100,16 @@
                       services.service3[$store.state.language].slug
                     }`
                   "
+                  :title="services.service3[$store.state.language].title"
                   class="service-info"
                   @click="showModal(3, $event)"
                 >
                   <div class="service-icon">
-                    <img class="icon" src="./img/box-icons/media.svg" alt="" />
+                    <img
+                      class="icon"
+                      src="./img/box-icons/media.svg"
+                      :alt="services.service3[$store.state.language].title"
+                    />
                   </div>
                   <h4 class="service-title" :class="$store.state.language">
                     {{ services.service3[$store.state.language].title }}
@@ -115,6 +127,7 @@
                       services.service4[$store.state.language].slug
                     }`
                   "
+                  :title="services.service4[$store.state.language].title"
                   class="service-info"
                   @click="showModal(4, $event)"
                 >
@@ -122,7 +135,7 @@
                     <img
                       class="icon"
                       src="./img/box-icons/traducoes.svg"
-                      alt=""
+                      :alt="services.service4[$store.state.language].title"
                     />
                   </div>
                   <h4 class="service-title" :class="$store.state.language">
@@ -141,6 +154,7 @@
                       services.service5[$store.state.language].slug
                     }`
                   "
+                  :title="services.service5[$store.state.language].title"
                   class="service-info"
                   @click="showModal(5, $event)"
                 >
@@ -148,7 +162,7 @@
                     <img
                       class="icon"
                       src="./img/box-icons/interpretacao.svg"
-                      alt=""
+                      :alt="services.service5[$store.state.language].title"
                     />
                   </div>
                   <h4 class="service-title" :class="$store.state.language">
@@ -169,6 +183,7 @@
                     services.service4[$store.state.language].slug
                   }`
                 "
+                :title="services.service4[$store.state.language].title"
                 class="service-info"
                 @click="showModal(4, $event)"
               >
@@ -176,7 +191,7 @@
                   <img
                     class="icon big"
                     src="./img/box-icons/traducoes.svg"
-                    alt=""
+                    :alt="services.service4[$store.state.language].title"
                   />
                 </div>
                 <h4 class="service-title big" :class="$store.state.language">
@@ -232,6 +247,7 @@
                     services.service5[$store.state.language].slug
                   }`
                 "
+                :title="services.service5[$store.state.language].title"
                 class="service-info"
                 @click="showModal(5, $event)"
               >
@@ -239,7 +255,7 @@
                   <img
                     class="icon"
                     src="./img/box-icons/interpretacao.svg"
-                    alt=""
+                    :alt="services.service5[$store.state.language].title"
                   />
                 </div>
                 <h4 class="service-title" :class="$store.state.language">
@@ -529,7 +545,7 @@ export default {
       if (
         this.text[lang] &&
         this.quotation[lang] &&
-        this.services.titles.service1[lang]
+        this.services.service1[lang].title
       ) {
         this.$emit('ready')
       } else {
@@ -562,7 +578,9 @@ export default {
               id: service.id,
               slug: service.slug
             }
-          } catch (e) {}
+          } catch (e) {
+            console.log({ e })
+          }
         })
 
         this.$emit('ready')
