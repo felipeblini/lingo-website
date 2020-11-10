@@ -28,15 +28,10 @@
               <stop offset="0.92" stop-color="#fba91e" />
               <stop offset="1" stop-color="#fcb316" />
             </linearGradient>
-            <style>
-              .cls-1 {
-                fill: #e1a831;
-                opacity: 0.8;
-              }
-            </style>
             <mask id="shape-mask-hero">
               <path
-                class="cls-1"
+                fill="#e1a831"
+                opacity="0.8"
                 d="M154.8,0H2066V848.79c-171,256-763.38,476.29-763.38,476.29,240.4-202.2,173-413.39,173-413.39-76.38-200-469.55-121.32-469.55-121.32-170.75,40.44-285.33,47.18-285.33,47.18-474,2.25-593.44-716.69-593.44-716.69L109.56,0Z"
               />
             </mask>
@@ -99,18 +94,11 @@
       </figure>
       <figure>
         <svg class="svg-border" viewBox="0 0 2066.02 1378.36">
-          <defs>
-            <style>
-              .ballon-border {
-                fill: none;
-                stroke: #ef4865;
-                stroke-miterlimit: 10;
-                stroke-width: 5px;
-              }
-            </style>
-          </defs>
           <path
-            class="ballon-border"
+            fill="none"
+            stroke="#ef4865"
+            stroke-miterlimit="10"
+            stroke-width="5px"
             d="M2079.76,868.18c-147.28,268.26-843.8,495.9-843.8,495.9,277.48-277.32,222.45-439.66,222.45-439.66C1413,736.47,964.22,800.53,964.22,800.53c-179.7,41.3-300.29,48.18-300.29,48.18C165,851,39.36,116.86,39.36,116.86L16.56-15.56"
           />
         </svg>
@@ -125,6 +113,8 @@ const imgPhone = require('./img/img_principal-phone.jpg')
 const imgTablet = require('./img/img_principal-tablet.jpg')
 const imgDektop = require('./img/img_principal-desktop.jpg')
 const imgDektopXl = require('./img/img_principal-desktop-xl.jpg')
+
+console.log({ imgDektop })
 
 export default {
   data() {
@@ -165,8 +155,8 @@ export default {
 
     serverSideContent: {
       handler: function(value) {
-        this.title[this.$store.state.language] = value.title
-        this.text[this.$store.state.language] = value.text
+        this.title['pt-BR'] = value.title
+        this.text['pt-BR'] = value.text
         this.$emit('ready')
       },
       immediate: true
@@ -346,7 +336,7 @@ export default {
     }
 
     @media (min-width: 1600px) {
-      top: 200px;
+      top: 257px;
     }
 
     > div {
@@ -426,14 +416,13 @@ export default {
 
     @media (min-width: 992px) {
       > div {
-        text-align: right;
-
         h1 {
           font-size: 102px;
         }
 
         p {
           width: 58%;
+          text-align: right;
           margin-right: 20px;
           font-size: 26px;
         }
@@ -460,13 +449,13 @@ export default {
       }
     }
 
-    // @media (min-width: 1600px) {
-    //   > div {
-    //     h1 {
-    //       font-size: 141px;
-    //     }
-    //   }
-    // }
+    @media (min-width: 1600px) {
+      > div {
+        h1 {
+          font-size: 141px;
+        }
+      }
+    }
   } // <-- hero-text
 }
 </style>
