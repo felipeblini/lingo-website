@@ -351,6 +351,8 @@ export default {
       handler: function(content) {
         this.text[this.$store.state.language] = content.text
         this.quotation[this.$store.state.language] = content.quotation
+
+        this.serviceDescription = '<h1>Lingo</h1>' + content.text
       },
       immediate: true
     },
@@ -460,6 +462,8 @@ export default {
 
         this.text[lang] = response.data[0].content.rendered
         this.quotation[lang] = response.data[0].acf.quotation
+        this.serviceDescription =
+          '<h1>Lingo</h1>' + response.data[0].content.rendered
 
         // get list of services
         const services = await this.$axios.get(

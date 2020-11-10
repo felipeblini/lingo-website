@@ -158,21 +158,30 @@ export default {
 
     const responses = await Promise.all(promises)
 
-    let ssrServicesList
+    let ssrServicesList = responses[4].data
 
     try {
-      ssrServicesList = responses[4].data.sort(
+      ssrServicesList = ssrServicesList.sort(
         (a, b) => a.acf.order - b.acf.order
       )
-    } catch (e) {
-      ssrServicesList = responses[4].data
-    }
+    } catch (e) {}
+
+    const ssrDefaultService = ssrServicesList.filter(
+      (s) => s.slug === query.c
+    )[0]
+
+    const ssrHeroTitle = responses[0].data[0].title.rendered
+
+    const ssrDefaultTitle =
+      ssrDefaultService && ssrDefaultService.title.rendered
+        ? ssrDefaultService.title.rendered
+        : ssrHeroTitle
 
     return {
-      ssrDefaultTitle: responses[0].data[0].title.rendered,
+      ssrDefaultTitle,
 
       ssrHeroContent: {
-        title: responses[0].data[0].title.rendered,
+        title: ssrHeroTitle,
         text: responses[0].data[0].content.rendered
       },
 
@@ -189,7 +198,7 @@ export default {
       },
 
       ssrServicesList,
-      ssrDefaultService: ssrServicesList.filter((s) => s.slug === query.c)[0],
+      ssrDefaultService,
 
       ssrTestimonialsList: responses[5].data
     }
