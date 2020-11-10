@@ -123,6 +123,10 @@ export default {
     }
   },
 
+  beforeCreate() {
+    console.log('before create')
+  },
+
   async asyncData({ query, $axios, store }) {
     const promises = []
     const lang = query.lang && query.lang === 'en-US' ? 'enus' : 'ptbr'

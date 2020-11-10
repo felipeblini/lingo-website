@@ -185,6 +185,10 @@ export default {
     // this.fetchList()
   },
 
+  destroyed() {
+    clearInterval(this.interval)
+  },
+
   methods: {
     touchHandler(direction) {
       function _isTouchDevice() {
