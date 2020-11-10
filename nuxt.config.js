@@ -1,7 +1,7 @@
 import { API_URL } from './config'
 
 export default {
-  ssr: true,
+  target: 'static',
   /*
    ** Headers of the page
    */
