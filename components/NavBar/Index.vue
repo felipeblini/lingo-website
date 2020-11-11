@@ -9,7 +9,7 @@
     }"
   >
     <div class="container">
-      <b-navbar-brand href="#top" v-smooth-scroll="{ duration: 2000 }">
+      <b-navbar-brand href="#" @click.prevent="goToAnchor('top', 0)">
         Lingo Interpretação, tradução simultânea, transcrição, revisão e media
         training
       </b-navbar-brand>
@@ -33,86 +33,63 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              :href="
-                `#${$store.state.menu['company'][$store.state.language]
-                  .toLowerCase()
-                  .replace(' ', '-')}`
-              "
-              v-smooth-scroll="{ duration: 2000, offset: -30 }"
-              >{{ $store.state.menu['company'][$store.state.language] }}</a
+              href="#"
+              @click.prevent="goToAnchor('company', -30)"
             >
+              {{ $store.state.menu['company'][$store.state.language] }}
+            </a>
           </li>
 
           <li class="nav-item">
             <a
               class="nav-link"
-              :href="
-                `#${$store.state.menu['who-are-us'][$store.state.language]
-                  .toLowerCase()
-                  .replace(' ', '-')}`
-              "
-              v-smooth-scroll="{ duration: 2000, offset: whoAreUsScrollOffset }"
-              >{{ $store.state.menu['who-are-us'][$store.state.language] }}</a
+              href="#"
+              @click.prevent="goToAnchor('who-are-us', 0)"
             >
+              {{ $store.state.menu['who-are-us'][$store.state.language] }}
+            </a>
           </li>
 
           <li class="nav-item">
             <a
               class="nav-link"
-              :href="
-                `#${$store.state.menu['services'][$store.state.language]
-                  .toLowerCase()
-                  .replace(' ', '-')
-                  .replace('ç', 'c')}`
-              "
-              v-smooth-scroll="{
-                duration: 2000,
-                offset: ourServicesScrollOffset
-              }"
-              >{{ $store.state.menu['services'][$store.state.language] }}</a
+              href="#"
+              @click.prevent="goToAnchor('services', ourServicesScrollOffset)"
             >
+              {{ $store.state.menu['services'][$store.state.language] }}
+            </a>
           </li>
 
           <li class="nav-item">
             <a
               class="nav-link"
-              :href="
-                `#${$store.state.menu['testimonials'][$store.state.language]
-                  .toLowerCase()
-                  .replace(' ', '-')}`
+              href="#"
+              @click.prevent="
+                goToAnchor('testimonials', testimonialsScrollOffset)
               "
-              v-smooth-scroll="{
-                duration: 2000,
-                offset: testimonialsScrollOffset
-              }"
-              >{{ $store.state.menu['testimonials'][$store.state.language] }}</a
             >
+              {{ $store.state.menu['testimonials'][$store.state.language] }}
+            </a>
           </li>
 
           <li class="nav-item">
             <a
               class="nav-link"
-              :href="
-                `#${$store.state.menu['partners'][$store.state.language]
-                  .toLowerCase()
-                  .replace(' ', '-')}`
-              "
-              v-smooth-scroll="{ duration: 2000, offset: -30 }"
-              >{{ $store.state.menu['partners'][$store.state.language] }}</a
+              href="#"
+              @click.prevent="goToAnchor('partners', -30)"
             >
+              {{ $store.state.menu['partners'][$store.state.language] }}
+            </a>
           </li>
 
           <li class="nav-item">
             <a
               class="nav-link"
-              :href="
-                `#${$store.state.menu['contact'][$store.state.language]
-                  .toLowerCase()
-                  .replace(' ', '-')}`
-              "
-              v-smooth-scroll="{ duration: 2000 }"
-              >{{ $store.state.menu['contact'][$store.state.language] }}</a
+              href="#"
+              @click.prevent="goToAnchor('contact', 0)"
             >
+              {{ $store.state.menu['contact'][$store.state.language] }}
+            </a>
           </li>
         </b-navbar-nav>
 
@@ -195,6 +172,21 @@ export default {
   },
 
   methods: {
+    goToAnchor(menu, offset) {
+      const scrollTo = this.$store.state.menu[menu]
+        ? this.$store.state.menu[menu][this.$store.state.language]
+            .toLowerCase()
+            .replace(' ', '-')
+            .replace('ç', 'c')
+        : menu
+
+      this.$smoothScroll({
+        scrollTo: document.getElementById(scrollTo),
+        duration: 2000,
+        offset,
+        updateHistory: false
+      })
+    },
     onLanguageToggled(value) {
       this.$store.commit('toggleLanguage', value)
     },
