@@ -32,7 +32,7 @@
       @before-open="onModalOpened"
       @before-close="onModalClosed"
     >
-      <div class="d-md-none close-modal-btn-mobile">
+      <div class="close-modal-btn-mobile">
         <b-button
           variant="outline"
           size="sm"
@@ -45,7 +45,7 @@
       <h3 class="mb-4">{{ textTitle[$store.state.language] }}</h3>
       <div v-html="textComplete[$store.state.language]" />
 
-      <div class="p-2 align-items-center justify-content-end d-none d-md-flex">
+      <div class="p-2 align-items-center justify-content-end d-flex">
         <b-button
           variant="outline-primary"
           size="sm"

@@ -206,6 +206,7 @@ export default {
 
   &.fixed {
     position: fixed;
+    z-index: 2;
     background-color: $pink;
   }
 
