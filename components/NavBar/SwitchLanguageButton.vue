@@ -1,18 +1,24 @@
 <template>
   <div>
-    <div
+    <a
+      :href="`/?lang=${$store.state.language === 'pt-BR' ? 'en-US' : 'pt-BR'}`"
       ref="switchlang-wrapper"
       class="swl switchlang-wrapper"
+      :title="
+        $store.state.language === 'pt-BR'
+          ? 'Mudar para Inglês'
+          : 'Switch to Portuguese'
+      "
       :class="{
         br: initialLang === 'pt-BR' || initialLang === '',
         en: initialLang === 'en-US'
       }"
-      @click="toggle"
+      @click="toggle($event)"
     >
       <p class="swl br">BR</p>
       <p class="swl en">EN</p>
       <div class="swl swipper en"></div>
-    </div>
+    </a>
   </div>
 </template>
 
@@ -26,7 +32,8 @@ export default {
     }
   },
   methods: {
-    toggle() {
+    toggle(evt) {
+      evt.preventDefault()
       const switcher = this.$refs['switchlang-wrapper']
 
       if (switcher.classList.value.includes('en')) {
@@ -74,6 +81,11 @@ $md: 60px;
 .swl {
   border-radius: 30px;
   height: $sm;
+  color: #333;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .switchlang-wrapper {

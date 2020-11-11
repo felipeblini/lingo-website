@@ -7,9 +7,19 @@
     <div class="minibio-content">
       <div class="minibio-text" v-html="textExcerpt[$store.state.language]" />
       <div class="minibio-button">
-        <b-button variant="outline-primary" size="sm" @click="showModal">
+        <a
+          :href="
+            `?lang=${$store.state.language}&c=${
+              $store.state.language === 'pt-BR'
+                ? 'conheca-a-lingo'
+                : 'about-lingo'
+            }`
+          "
+          class="btn btn-sm btn-outline-primary"
+          @click="showModal($event)"
+        >
           {{ $store.state.language === 'pt-BR' ? 'Leia mais' : 'Read more' }}
-        </b-button>
+        </a>
       </div>
     </div>
 
@@ -171,7 +181,8 @@ export default {
       }
     },
 
-    showModal() {
+    showModal(evt) {
+      evt.preventDefault()
       this.$modal.show('text-complete-modal')
     },
 
@@ -371,6 +382,10 @@ export default {
       padding-right: 26%;
       padding-left: 11px;
     }
+  }
+
+  a.btn:hover {
+    text-decoration: none;
   }
 }
 </style>

@@ -16,14 +16,27 @@
             </div>
 
             <div tabindex="0" class="service-box service-1 revisao">
-              <div class="service-info" @click="showModal(1)">
+              <a
+                :href="
+                  `/?lang=${$store.state.language}&c=${
+                    services.service1[$store.state.language].slug
+                  }`
+                "
+                :title="services.service1[$store.state.language].title"
+                class="service-info"
+                @click="showModal(1, $event)"
+              >
                 <div class="service-icon">
-                  <img class="icon" src="./img/box-icons/revisao.svg" alt="" />
+                  <img
+                    class="icon"
+                    src="./img/box-icons/revisao.svg"
+                    :alt="services.service1[$store.state.language].title"
+                  />
                 </div>
                 <h4 class="service-title" :class="$store.state.language">
                   {{ services.service1[$store.state.language].title }}
                 </h4>
-              </div>
+              </a>
             </div>
           </div>
 
@@ -33,80 +46,129 @@
                 tabindex="1"
                 class="service-box service-1 revisao only-mobile-flex"
               >
-                <div class="service-info" @click="showModal(1)">
+                <a
+                  :href="
+                    `/?lang=${$store.state.language}&c=${
+                      services.service1[$store.state.language].slug
+                    }`
+                  "
+                  :title="services.service1[$store.state.language].title"
+                  class="service-info"
+                  @click="showModal(1, $event)"
+                >
                   <div class="service-icon">
                     <img
                       class="icon"
                       src="./img/box-icons/revisao.svg"
-                      alt=""
+                      :alt="services.service1[$store.state.language].title"
                     />
                   </div>
                   <h4 class="service-title" :class="$store.state.language">
                     {{ services.service1[$store.state.language].title }}
                   </h4>
-                </div>
+                </a>
               </div>
 
               <div tabindex="2" class="service-box service-2 transcricao">
-                <div class="service-info" @click="showModal(2)">
+                <a
+                  :href="
+                    `/?lang=${$store.state.language}&c=${
+                      services.service2[$store.state.language].slug
+                    }`
+                  "
+                  :title="services.service2[$store.state.language].title"
+                  class="service-info"
+                  @click="showModal(2, $event)"
+                >
                   <div class="service-icon">
                     <img
                       class="icon"
                       src="./img/box-icons/transcricao.svg"
-                      alt=""
+                      :alt="services.service2[$store.state.language].title"
                     />
                   </div>
                   <h4 class="service-title" :class="$store.state.language">
                     {{ services.service2[$store.state.language].title }}
                   </h4>
-                </div>
+                </a>
               </div>
 
               <div tabindex="3" class="service-box service-3 media">
-                <div class="service-info" @click="showModal(3)">
+                <a
+                  :href="
+                    `/?lang=${$store.state.language}&c=${
+                      services.service3[$store.state.language].slug
+                    }`
+                  "
+                  :title="services.service3[$store.state.language].title"
+                  class="service-info"
+                  @click="showModal(3, $event)"
+                >
                   <div class="service-icon">
-                    <img class="icon" src="./img/box-icons/media.svg" alt="" />
+                    <img
+                      class="icon"
+                      src="./img/box-icons/media.svg"
+                      :alt="services.service3[$store.state.language].title"
+                    />
                   </div>
                   <h4 class="service-title" :class="$store.state.language">
                     {{ services.service3[$store.state.language].title }}
                   </h4>
-                </div>
+                </a>
               </div>
 
               <div
                 tabindex="4"
                 class="service-box service-4 traducoes only-mobile-flex"
               >
-                <div class="service-info" @click="showModal(4)">
+                <a
+                  :href="
+                    `/?lang=${$store.state.language}&c=${
+                      services.service4[$store.state.language].slug
+                    }`
+                  "
+                  :title="services.service4[$store.state.language].title"
+                  class="service-info"
+                  @click="showModal(4, $event)"
+                >
                   <div class="service-icon">
                     <img
                       class="icon"
                       src="./img/box-icons/traducoes.svg"
-                      alt=""
+                      :alt="services.service4[$store.state.language].title"
                     />
                   </div>
                   <h4 class="service-title" :class="$store.state.language">
                     {{ services.service4[$store.state.language].title }}
                   </h4>
-                </div>
+                </a>
               </div>
 
               <div
                 tabindex="5"
                 class="service-box service-5 interpretacao only-mobile-flex"
               >
-                <div class="service-info" @click="showModal(5)">
+                <a
+                  :href="
+                    `/?lang=${$store.state.language}&c=${
+                      services.service5[$store.state.language].slug
+                    }`
+                  "
+                  :title="services.service5[$store.state.language].title"
+                  class="service-info"
+                  @click="showModal(5, $event)"
+                >
                   <div class="service-icon">
                     <img
                       class="icon"
                       src="./img/box-icons/interpretacao.svg"
-                      alt=""
+                      :alt="services.service5[$store.state.language].title"
                     />
                   </div>
                   <h4 class="service-title" :class="$store.state.language">
                     {{ services.service5[$store.state.language].title }}
                   </h4>
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -115,18 +177,27 @@
             <div class="ponto-virgula"></div>
 
             <div tabindex="6" class="service-box service-4 big traducoes">
-              <div class="service-info" @click="showModal(4)">
+              <a
+                :href="
+                  `/?lang=${$store.state.language}&c=${
+                    services.service4[$store.state.language].slug
+                  }`
+                "
+                :title="services.service4[$store.state.language].title"
+                class="service-info"
+                @click="showModal(4, $event)"
+              >
                 <div class="service-icon">
                   <img
                     class="icon big"
                     src="./img/box-icons/traducoes.svg"
-                    alt=""
+                    :alt="services.service4[$store.state.language].title"
                   />
                 </div>
                 <h4 class="service-title big" :class="$store.state.language">
                   {{ services.service4[$store.state.language].title }}
                 </h4>
-              </div>
+              </a>
             </div>
           </div>
 
@@ -154,7 +225,7 @@
                 class="section-description"
                 v-html="text[$store.state.language]"
               ></p>
-              <p>
+              <p v-if="arrowPosition">
                 <font-awesome-icon
                   v-if="arrowPosition === 'left'"
                   :icon="['fas', 'arrow-left']"
@@ -170,18 +241,27 @@
 
           <div class="line only-desktop-flex">
             <div tabindex="7" class="service-box service-5 interpretacao">
-              <div class="service-info" @click="showModal(5)">
+              <a
+                :href="
+                  `/?lang=${$store.state.language}&c=${
+                    services.service5[$store.state.language].slug
+                  }`
+                "
+                :title="services.service5[$store.state.language].title"
+                class="service-info"
+                @click="showModal(5, $event)"
+              >
                 <div class="service-icon">
                   <img
                     class="icon"
                     src="./img/box-icons/interpretacao.svg"
-                    alt=""
+                    :alt="services.service5[$store.state.language].title"
                   />
                 </div>
                 <h4 class="service-title" :class="$store.state.language">
                   {{ services.service5[$store.state.language].title }}
                 </h4>
-              </div>
+              </a>
             </div>
 
             <div class="paragrafo-icon"></div>
@@ -209,7 +289,7 @@
         </b-button>
       </div>
 
-      <b-overlay :show="isFetchingDescription">
+      <b-overlay :show="isFetchingDescription" variant="transparent">
         <div style="min-height: 300px" v-html="serviceDescription"></div>
       </b-overlay>
 
@@ -264,51 +344,61 @@ export default {
         service1: {
           'pt-BR': {
             id: '',
-            title: ''
+            title: '',
+            slug: ''
           },
           'en-US': {
             id: '',
-            title: ''
+            title: '',
+            slug: ''
           }
         },
         service2: {
           'pt-BR': {
             id: '',
-            title: ''
+            title: '',
+            slug: ''
           },
           'en-US': {
             id: '',
-            title: ''
+            title: '',
+            slug: ''
           }
         },
         service3: {
           'pt-BR': {
             id: '',
-            title: ''
+            title: '',
+            slug: ''
           },
           'en-US': {
             id: '',
-            title: ''
+            title: '',
+            slug: ''
           }
         },
         service4: {
           'pt-BR': {
             id: '',
-            title: ''
+            title: '',
+            slug: ''
           },
           'en-US': {
             id: '',
-            title: ''
+            title: '',
+            slug: ''
           }
         },
         service5: {
           'pt-BR': {
             id: '',
-            title: ''
+            title: '',
+            slug: ''
           },
           'en-US': {
             id: '',
-            title: ''
+            title: '',
+            slug: ''
           }
         }
       },
@@ -363,7 +453,8 @@ export default {
           try {
             this.services[`service${i + 1}`][this.$store.state.language] = {
               title: service.title.rendered,
-              id: service.id
+              id: service.id,
+              slug: service.slug
             }
           } catch (e) {}
         })
@@ -430,7 +521,8 @@ export default {
   },
 
   methods: {
-    async showModal(i) {
+    async showModal(i, evt) {
+      evt.preventDefault()
       this.$modal.show('service-description-modal')
       this.isFetchingDescription = true
 
@@ -452,7 +544,7 @@ export default {
       if (
         this.text[lang] &&
         this.quotation[lang] &&
-        this.services.titles.service1[lang]
+        this.services.service1[lang].title
       ) {
         this.$emit('ready')
       } else {
@@ -482,9 +574,12 @@ export default {
           try {
             this.services[`service${i + 1}`][lang] = {
               title: service.title.rendered,
-              id: service.id
+              id: service.id,
+              slug: service.slug
             }
-          } catch (e) {}
+          } catch (e) {
+            console.log({ e })
+          }
         })
 
         this.$emit('ready')
@@ -888,6 +983,10 @@ $services-box-padding: 8px;
           opacity: 0;
           -webkit-transition: opacity 0.5s;
           transition-property: opacity 0.5s;
+
+          &:hover {
+            text-decoration: none;
+          }
 
           .service-icon {
             text-align: center;
