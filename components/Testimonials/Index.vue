@@ -369,6 +369,7 @@ export default {
   position: relative;
 
   .quotations-image-wrapper {
+    z-index: 0;
     margin-top: -20%;
     margin-bottom: 8px;
     padding-left: 67px;

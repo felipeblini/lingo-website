@@ -279,7 +279,7 @@
       @before-open="onModalOpened"
       @before-close="onModalClosed"
     >
-      <div class="d-md-none close-modal-btn-mobile">
+      <div class="close-modal-btn-mobile">
         <b-button
           variant="outline"
           size="sm"
@@ -293,7 +293,7 @@
         <div style="min-height: 300px" v-html="serviceDescription"></div>
       </b-overlay>
 
-      <div class="p-2 align-items-center justify-content-end d-none d-md-flex">
+      <div class="p-2 align-items-center justify-content-end d-flex">
         <b-button
           variant="outline-primary"
           size="sm"
@@ -675,6 +675,7 @@ $services-box-padding: 8px;
     width: 204px;
     height: 608px;
     top: 65%;
+    z-index: 0;
 
     @media (min-width: 992px) {
       width: 242px;
@@ -707,6 +708,7 @@ $services-box-padding: 8px;
 
   .services-container {
     position: relative;
+    z-index: 1;
     display: flex;
     justify-content: center;
     margin-top: -67px;
@@ -882,7 +884,8 @@ $services-box-padding: 8px;
           h1.section-title {
             font-size: 41px;
             line-height: 37px;
-            width: 308px;
+            width: 94%;
+            max-width: 303px;
 
             @media (min-width: 760px) {
               font-size: 58px;
