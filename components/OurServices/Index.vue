@@ -523,6 +523,7 @@ export default {
   methods: {
     async showModal(i, evt) {
       evt.preventDefault()
+      this.serviceDescription = ''
       this.$modal.show('service-description-modal')
       this.isFetchingDescription = true
 
