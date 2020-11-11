@@ -32,7 +32,7 @@ export default {
       setTimeout(() => {
         const width = window.innerWidth
 
-        if (width > 768 && width < 1090) {
+        if (width < 1090) {
           const bottomDistanceFromTop =
             document.documentElement.scrollTop + window.innerHeight
 

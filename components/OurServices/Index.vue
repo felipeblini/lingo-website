@@ -225,7 +225,7 @@
                 class="section-description"
                 v-html="text[$store.state.language]"
               ></p>
-              <p v-if="arrowPosition">
+              <p v-if="arrowPosition" class="call-to-click">
                 <font-awesome-icon
                   v-if="arrowPosition === 'left'"
                   :icon="['fas', 'arrow-left']"
@@ -1082,7 +1082,7 @@ $services-box-padding: 8px;
 
   .box-gradient {
     width: calc(#{$service-box-width * 7}) !important;
-    height: calc(#{$service-box-width * 4.3}) !important;
+    // height: calc(#{$service-box-width * 4.3}) !important;
     padding-left: 44px !important;
 
     h1.section-title {
@@ -1092,6 +1092,10 @@ $services-box-padding: 8px;
 
     p.section-description {
       font-size: 26px !important;
+    }
+
+    p.call-to-click {
+      font-size: 22px;
     }
   }
 

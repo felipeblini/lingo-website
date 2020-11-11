@@ -15,7 +15,7 @@
                 : 'about-lingo'
             }`
           "
-          class="btn btn-sm btn-outline-primary"
+          class="btn btn-lg btn-outline-primary"
           @click="showModal($event)"
         >
           {{ $store.state.language === 'pt-BR' ? 'Leia mais' : 'Read more' }}

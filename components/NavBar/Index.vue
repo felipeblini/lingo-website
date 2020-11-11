@@ -4,7 +4,7 @@
     type="light"
     variant=""
     :class="{
-      fixed: $store.state.navbarFixed,
+      fixed: $store.state.navbarFixed || collapsed,
       'd-none': $store.state.isModalOpen
     }"
   >
@@ -21,7 +21,10 @@
         />
       </div>
 
-      <b-navbar-toggle target="nav-collapse">
+      <b-navbar-toggle
+        target="nav-collapse"
+        @click="onNavBarTogglerClick($event)"
+      >
         <font-awesome-icon :icon="['fas', 'ellipsis-v']" />
       </b-navbar-toggle>
 
@@ -137,6 +140,9 @@ export default {
     WhatsappButtonDesktop,
     SwitchLanguageButton
   },
+  data: () => ({
+    collapsed: false
+  }),
   computed: {
     whoAreUsScrollOffset() {
       if (process.client) {
@@ -191,6 +197,9 @@ export default {
   methods: {
     onLanguageToggled(value) {
       this.$store.commit('toggleLanguage', value)
+    },
+    onNavBarTogglerClick(evt) {
+      this.collapsed = !this.collapsed
     }
   }
 }
@@ -206,7 +215,7 @@ export default {
 
   &.fixed {
     position: fixed;
-    z-index: 2;
+    z-index: 4;
     background-color: $pink;
   }
 
