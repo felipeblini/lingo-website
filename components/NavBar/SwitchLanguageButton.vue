@@ -36,17 +36,30 @@ export default {
       evt.preventDefault()
       const switcher = this.$refs['switchlang-wrapper']
 
+      const currentPath = this.$route.path
+      const query = this.$route.query
+
       if (switcher.classList.value.includes('en')) {
         switcher.classList.remove('en')
         switcher.classList.add('br')
+
+        if (query.lang) {
+          this.$router.push({ path: currentPath, query: { lang: 'pt-BR' } })
+        }
 
         this.$emit('toggled', 'pt-BR')
       } else if (switcher.classList.value.includes('br')) {
         switcher.classList.remove('br')
         switcher.classList.add('en')
 
+        if (query.lang) {
+          this.$router.push({ path: currentPath, query: { lang: 'en-US' } })
+        }
+
         this.$emit('toggled', 'en-US')
       }
+
+      console.log(this.$route)
     }
   },
 

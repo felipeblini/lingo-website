@@ -311,7 +311,7 @@ export default {
   props: {
     serverSideTextContent: {
       type: Object,
-      default: (() => ({ text: '', quotation: '' }))(),
+      default: () => ({ text: '', quotation: '' }),
       description: 'Initial text content comming from server side rendering'
     },
     serverSideListOfServices: {
