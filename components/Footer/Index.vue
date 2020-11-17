@@ -241,7 +241,7 @@ export default {
       }
 
       .footer-logo {
-        width: 200px;
+        width: 183px;
         height: 74px;
         margin-right: 30px;
 
@@ -256,11 +256,15 @@ export default {
 
         @media (min-width: 768px) {
           height: 100%;
+
+          @media (max-width: 992px) {
+            margin-left: -15px;
+          }
         }
 
         @media (min-width: 1024px) {
           @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-            font-size: 19pt;
+            font-size: 18pt;
           }
         }
 
