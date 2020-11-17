@@ -167,8 +167,10 @@ export default {
 .lingo-footer-cmp {
   position: relative;
   overflow: hidden;
+  border: solid 2px red;
 
   .footer-background {
+    border: solid 4px darkgreen;
     position: absolute;
     width: 200%;
     height: 235px;
@@ -202,6 +204,7 @@ export default {
 
   .footer-container {
     padding-top: 30px;
+    border: solid 2px #000;
 
     @media (min-width: 768px) {
       padding-top: 90px;
@@ -249,11 +252,15 @@ export default {
         margin-bottom: 0;
         display: flex;
         align-items: center;
-        padding-top: 16px;
+        font-size: 17px;
+
+        @media (min-width: 768px) {
+          height: 100%;
+        }
 
         @media (min-width: 1024px) {
           @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-            font-size: 18pt;
+            font-size: 19pt;
           }
         }
 
@@ -265,6 +272,10 @@ export default {
             display: contents;
             text-align: initial;
           }
+        }
+
+        a {
+          color: white;
         }
       }
 
