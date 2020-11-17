@@ -5,7 +5,7 @@
   "author": "Felipe blini",
   "private": true,
   "engines": {
-    "node": "12.x"
+    "node": "14.x"
   },
   "scripts": {
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
