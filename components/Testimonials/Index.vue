@@ -438,6 +438,7 @@ export default {
           .items-wrapper {
             width: 100%;
             display: flex;
+            border-bottom: solid 4px transparent;
 
             transition-property: none;
 
