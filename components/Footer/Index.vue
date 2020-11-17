@@ -249,7 +249,7 @@ export default {
       }
 
       address {
-        margin-bottom: 0;
+        margin: 0;
         display: flex;
         align-items: center;
         font-size: 17px;
