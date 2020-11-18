@@ -458,6 +458,7 @@ export default {
             }
           } catch (e) {}
         })
+        this.$forceUpdate()
         this.$emit('ready')
       },
       immediate: true
@@ -922,6 +923,7 @@ $services-box-padding: 8px;
       }
 
       .service-box {
+        border: solid 2px orange;
         cursor: pointer;
         display: flex;
         align-items: center;

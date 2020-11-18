@@ -29,7 +29,8 @@ export const state = () => ({
     }
   },
   navbarFixed: false,
-  isModalOpen: false
+  isModalOpen: false,
+  isLoading: true,
 })
 
 export const mutations = {
@@ -48,7 +49,11 @@ export const mutations = {
   storeWhatsappNumber(state, payload) {
     state.whatsappNumber = payload.wp1
     state.whatsappNumber2 = payload.wp2
-  }
+  },
+
+  setLoading(state, payload) {
+    state.isLoading = payload
+  },
 }
 
 export const actions = {

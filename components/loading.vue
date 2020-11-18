@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading" class="loading">
+  <div v-if="$store.state.isLoading" class="loading">
     <div class="loading-spinner">
       <font-awesome-icon :icon="['fas', 'spinner']" spin />
     </div>
@@ -8,15 +8,12 @@
 
 <script>
 export default {
-  data: () => ({
-    loading: true
-  }),
   methods: {
     start() {
-      this.loading = true
+      this.$store.commit('setLoading', true)
     },
     finish() {
-      this.loading = false
+      this.$store.commit('setLoading', false)
     }
   }
 }
