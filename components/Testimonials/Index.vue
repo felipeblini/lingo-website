@@ -20,15 +20,19 @@
             :style="{ width: `${responsiveWidth}pt` }"
             v-touch:swipe="touchHandler"
           >
-            <ul class="testimonialsList">
+            <ul
+              class="testimonialsList"
+              @click="stopInterval"
+              @mouseover="stopInterval"
+              @mouseout="restartInterval"
+            >
               <div
                 class="items-wrapper"
                 ref="itemsWrapper"
-                :style="{ marginLeft: `${responsiveWidth}pt` }"
+                :style="`transform: translateX(${responsiveWidth}px)`"
               >
+                <!-- :style="{ marginLeft: `${responsiveWidth}pt` }" -->
                 <li
-                  @click="restartInterval"
-                  @mouseover="restartInterval"
                   class="testimonial"
                   v-for="(testimonial, index) in testimonialsList"
                   :key="index"
@@ -40,7 +44,8 @@
                     :style="{
                       minWidth: `${responsiveWidth}pt`,
                       maxWidth: `${responsiveWidth}pt`,
-                      marginLeft: `${responsiveWidth}pt`
+                      // marginLeft: `${responsiveWidth}pt`
+                      transform: `translateX(${responsiveWidth}px)`
                     }"
                   >
                     "{{
@@ -52,7 +57,8 @@
                     :style="{
                       minWidth: `${responsiveWidth}pt`,
                       maxWidth: `${responsiveWidth}pt`,
-                      marginLeft: `${responsiveWidth}pt`
+                      // marginLeft: `${responsiveWidth}pt`
+                      transform: `translateX(${responsiveWidth}px)`
                     }"
                   >
                     <div class="name">{{ testimonial.title.rendered }}</div>
@@ -64,12 +70,16 @@
               </div>
             </ul>
             <div class="navigation">
-              <button class="testimonial-navigator tn-left" @click="stepPrev()">
+              <button
+                class="testimonial-navigator tn-left"
+                @click="navigate('prev')"
+              >
                 left
               </button>
               <button
                 class="testimonial-navigator tn-right"
-                @click="stepNext()"
+                v-if="!$store.state.isLoading"
+                @click="navigate('next')"
               >
                 right
               </button>
@@ -82,6 +92,9 @@
 </template>
 
 <script>
+const _transitionProp = 'transform'
+const _transitionTime = 6000
+
 export default {
   props: {
     maxWidth: {
@@ -103,7 +116,7 @@ export default {
       active: 0,
       cloneRightIndex: 0,
       cloneLeftIndex: 1,
-      interval: 0,
+      interval: null,
       wrapperWidth: 0,
       originalListlength: 0,
       responsiveWidth: 0
@@ -149,7 +162,7 @@ export default {
     window.addEventListener('resize', () => {
       setTimeout(() => {
         if (_pixelToPoint(window.innerWidth) < this.maxWidth) {
-          this.responsiveWidth = _pixelToPoint(window.innerWidth) - 50
+          this.responsiveWidth = _pixelToPoint(window.innerWidth) - 40
           this.stepNext()
         }
 
@@ -165,18 +178,16 @@ export default {
           document
             .querySelectorAll('.testimonial > .text')[0]
             .getBoundingClientRect().top <=
-          window.innerHeight - 100
+            window.innerHeight - 100 &&
+          !this.interval
         ) {
+          console.log('initialized testimonials swiper')
           this.stepNext(0)
 
           window.removeEventListener('scroll', handleScroll)
           this.active = 0
 
-          if (!this.interval) {
-            this.interval = setInterval(() => {
-              this.stepNext()
-            }, 6000)
-          }
+          this.restartInterval()
         }
       }, 100)
     }
@@ -190,6 +201,11 @@ export default {
   },
 
   methods: {
+    navigate(to) {
+      this.restartInterval(3000)
+      console.log({ to })
+      to === 'next' ? this.stepNext() : this.stepPrev()
+    },
     touchHandler(direction) {
       function _isTouchDevice() {
         try {
@@ -215,8 +231,10 @@ export default {
 
         if (wrapper) {
           wrapper.style.transitionDelay = '0s'
-          wrapper.style.transitionProperty = 'margin-left'
-          wrapper.style.marginLeft = `${active * width * -1}px`
+          wrapper.style.transitionProperty = _transitionProp
+
+          // wrapper.style.marginLeft = `${active * width * -1}px`
+          wrapper.style.transform = `translateX(${active * width * -1}px)`
 
           document.querySelectorAll('.testimonial').forEach((el) => {
             el.classList.remove('active')
@@ -227,40 +245,46 @@ export default {
 
           activeItem.classList.add('active')
 
-          activeItem.children[0].style.transitionProperty = 'margin-left'
-          activeItem.children[0].style.marginLeft = 0
+          activeItem.children[0].style.transitionProperty = _transitionProp
+          // activeItem.children[0].style.marginLeft = 0
+          activeItem.children[0].style.transform = `translateX(0)`
 
-          activeItem.children[1].style.transitionProperty = 'margin-left'
-          activeItem.children[1].style.marginLeft = 0
+          activeItem.children[1].style.transitionProperty = _transitionProp
+          // activeItem.children[1].style.marginLeft = 0
+          activeItem.children[1].style.transform = `translateX(0)`
 
           activeItem.children[0].style.visibility = 'visible'
           activeItem.children[1].style.visibility = 'visible'
 
-          if (prevItem) {
-            prevItem.children[0].style.transitionProperty = 'margin-left'
-            prevItem.children[0].style.marginLeft = `${width * -1}px`
+          activeItem.children[1].style.opacity = '0'
+          setTimeout(() => {
+            activeItem.children[1].style.opacity = '1'
+          }, 300)
 
-            prevItem.children[1].style.transitionProperty = 'margin-left'
-            prevItem.children[1].style.marginLeft = `${width * -1}px`
+          if (prevItem) {
+            prevItem.children[0].style.transitionProperty = _transitionProp
+            // prevItem.children[0].style.marginLeft = `${width * -1}px`
+            prevItem.children[0].style.transform = `translateX(${width * -1}px)`
+
+            prevItem.children[1].style.transitionProperty = _transitionProp
+            // prevItem.children[1].style.marginLeft = `${width * -1}px`
+            prevItem.children[1].style.marginLeft = `translateX(${width *
+              -1}px)`
 
             setTimeout(() => {
               prevItem.children[0].style.transitionProperty = 'none'
               prevItem.children[1].style.transitionProperty = 'none'
-            }, 1000)
+            }, 500)
           }
 
           setTimeout(() => {
             wrapper.style.transitionProperty = 'none'
             activeItem.children[0].style.transitionProperty = 'none'
             activeItem.children[1].style.transitionProperty = 'none'
-          }, 1000)
+          }, 500)
         }
 
-        clearInterval(this.interval)
-
-        this.interval = setInterval(() => {
-          this.stepNext()
-        }, 6000)
+        this.restartInterval()
       } else {
         let clone = this.testimonialsList[this.cloneRightIndex]
 
@@ -283,34 +307,45 @@ export default {
         const wrapper = this.$refs.itemsWrapper
 
         if (wrapper) {
-          const wrapperMgLeft = Number(
-            wrapper.style.marginLeft.replace('px', '')
-          )
-          const activeItem = document.querySelector(`#t-${active}`)
+          // const wrapperMgLeft = Number(
+          //   wrapper.style.marginLeft.replace('px', '')
+          // )
 
+          const transfProp = wrapper.style.transform
+          const wrpTransfX = Number(transfProp.split('(')[1].replace('px)', ''))
+
+          const activeItem = document.querySelector(`#t-${active}`)
           const prevItem = document.querySelector(`#t-${active - 1}`)
 
           if (prevItem) {
             activeItem.classList.remove('active')
             prevItem.classList.add('active')
 
-            wrapper.style.transitionProperty = 'margin-left'
-            prevItem.children[0].style.transitionProperty = 'margin-left'
-            prevItem.children[1].style.transitionProperty = 'margin-left'
+            wrapper.style.transitionProperty = _transitionProp
 
-            wrapper.style.marginLeft = `${wrapperMgLeft + width}px`
-            prevItem.children[0].style.marginLeft = 0
-            prevItem.children[1].style.marginLeft = 0
+            prevItem.children[0].style.transitionProperty = _transitionProp
+            prevItem.children[1].style.transitionProperty = _transitionProp
 
-            activeItem.children[0].style.marginLeft = `${width}px`
-            activeItem.children[1].style.marginLeft = `${width}px`
+            // wrapper.style.marginLeft = `${wrapperMgLeft + width}px`
+            wrapper.style.transform = `translateX(${wrpTransfX + width}px)`
+
+            // prevItem.children[0].style.marginLeft = 0
+            prevItem.children[0].style.transform = `translateX(0)`
+            // prevItem.children[1].style.marginLeft = 0
+            prevItem.children[1].style.transform = `translateX(0)`
+
+            // activeItem.children[0].style.marginLeft = `${width}px`
+            activeItem.children[0].style.transform = `translateX(${width}px)`
+            // activeItem.children[1].style.marginLeft = `${width}px`
+            activeItem.children[1].style.transform = `translateX(${width}px)`
 
             this.active--
 
             setTimeout(() => {
               wrapper.style.transitionProperty = 'none'
+
               prevItem.children[0].style.transitionProperty = 'none'
-              prevItem.children[0].style.transitionProperty = 'none'
+              prevItem.children[1].style.transitionProperty = 'none'
             }, 1000)
           }
         }
@@ -328,16 +363,23 @@ export default {
 
           activeItem.classList.add('active')
 
-          activeItem.children[0].style.marginLeft = `${width * -1}px`
-          activeItem.children[1].style.marginLeft = `${width * -1}px`
+          // activeItem.children[0].style.marginLeft = `${width * -1}px`
+          activeItem.children[0].style.transform = `translateX(${width * -1}px)`
+
+          // activeItem.children[1].style.marginLeft = `${width * -1}px`
+          activeItem.children[1].style.transform = `translateX(${width * -1}px)`
+
           activeItem.children[0].style.visibility = 'visible'
           activeItem.children[1].style.visibility = 'visible'
 
           setTimeout(() => {
-            activeItem.children[0].style.transitionProperty = 'margin-left'
-            activeItem.children[1].style.transitionProperty = 'margin-left'
-            activeItem.children[0].style.marginLeft = 0
-            activeItem.children[1].style.marginLeft = 0
+            activeItem.children[0].style.transitionProperty = _transitionProp
+            activeItem.children[1].style.transitionProperty = _transitionProp
+
+            // activeItem.children[0].style.marginLeft = 0
+            activeItem.children[0].style.transform = `translateX(0)`
+            // activeItem.children[1].style.marginLeft = 0
+            activeItem.children[1].style.transform = `translateX(0)`
           }, 200)
 
           setTimeout(() => {
@@ -347,18 +389,21 @@ export default {
         }, 0)
       }
 
-      clearInterval(this.interval)
-
-      this.interval = setInterval(() => {
-        this.stepNext()
-      }, 6000)
+      this.restartInterval()
     },
 
-    restartInterval() {
+    stopInterval() {
       clearInterval(this.interval)
+    },
+
+    restartInterval(prostponeTime) {
+      clearInterval(this.interval)
+
       this.interval = setInterval(() => {
-        this.stepNext()
-      }, 6000)
+        setTimeout(() => {
+          this.stepNext()
+        }, prostponeTime || 0)
+      }, _transitionTime)
     }
   }
 }
@@ -503,6 +548,7 @@ export default {
 
             &.tn-right {
               @include flip-horizontal-and-vertical;
+              z-index: 4;
             }
           }
         }

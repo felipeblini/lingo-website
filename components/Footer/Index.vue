@@ -159,6 +159,7 @@ export default {
     }
 
     this.$emit('ready')
+    this.$forceUpdate()
   }
 }
 </script>
