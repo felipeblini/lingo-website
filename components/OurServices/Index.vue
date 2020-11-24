@@ -923,7 +923,7 @@ $services-box-padding: 8px;
       }
 
       .service-box {
-        border: solid 2px orange;
+        border: solid 1px transparent;
         cursor: pointer;
         display: flex;
         align-items: center;

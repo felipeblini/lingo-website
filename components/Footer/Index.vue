@@ -168,10 +168,8 @@ export default {
 .lingo-footer-cmp {
   position: relative;
   overflow: hidden;
-  border: solid 2px red;
 
   .footer-background {
-    border: solid 4px darkgreen;
     position: absolute;
     width: 200%;
     height: 235px;
@@ -205,7 +203,6 @@ export default {
 
   .footer-container {
     padding-top: 30px;
-    border: solid 2px #000;
 
     @media (min-width: 768px) {
       padding-top: 90px;
