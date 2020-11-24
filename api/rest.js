@@ -21,9 +21,6 @@ function mountXML(routes, domain) {
 }
 
 app.get('/sitemap.xml', async function (req, res, next) {
-  console.log('/', new Date().getTime());
-  console.log('sitemap');
-
   const routes = await getUrls()
 
   const xml = mountXML(routes, 'https://lingotraducao.com.br')
@@ -44,27 +41,22 @@ async function getUrls() {
     }]
 
   for (let lang of ['ptbr', 'enus']) {
-    console.log({ lang })
     const { data } = await axios.get(`https://wordpress.lingotraducao.com.br/wp-json/wp/v2/posts?slug=minibio-${lang}`)
 
     lang = lang.substring(0, 2) + '-' + lang.substring(2, 4).toUpperCase()
     const content = lang === 'pt-BR' ? 'conheca-a-lingo' : 'about-lingo'
 
-    console.log({ lang, post: data[0].slug });
-
     data.forEach(post => routes.push({
       url: `lang=${lang}&amp;c=${content}`,
-      lastMod: post.modified
+      lastMod: post.modified.substring(0, 10)
     }))
   }
 
   const { data: services } = await axios.get('https://wordpress.lingotraducao.com.br/wp-json/wp/v2/posts?categories=8,9')
 
-  console.log({ service: services[0].slug });
-
   services.forEach(service => routes.push({
     url: `?lang=${service.categories.includes(8) ? 'pt-BR' : 'en-US'}&amp;c=${service.slug}`,
-    lastMod: service.modified,
+    lastMod: service.modified.substring(0, 10)
   }))
 
   return routes
