@@ -2,7 +2,6 @@ const axios = require('axios')
 import { API_URL } from './config'
 
 export default {
-  ssr: true,
   /*
    ** Headers of the page
    */
@@ -68,13 +67,8 @@ export default {
     ],
     '@nuxtjs/style-resources',
     'nuxt-user-agent',
-    '@nuxtjs/robots'
+    '@nuxtjs/robots',
   ],
-
-  robots: {
-    UserAgent: '*',
-    Disallow: () => '/not-supported'
-  },
 
   styleResources: {
     scss: [
@@ -84,11 +78,17 @@ export default {
     ]
   },
 
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
   axios: {},
+
+  robots: {
+    UserAgent: '*',
+    Disallow: () => '/not-supported',
+    Sitemap: 'https://www.lingotraducao.com/sitemap.xml'
+  },
+
+  serverMiddleware: [
+    { path: "/", handler: "~/api/rest.js" },
+  ],
   /*
    ** Build configuration
    */

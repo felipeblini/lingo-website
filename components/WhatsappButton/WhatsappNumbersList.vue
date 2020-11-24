@@ -64,7 +64,7 @@ ul {
       padding-top: 12px;
       display: flex;
       align-items: center;
-      justify-content: end;
+      justify-content: flex-end;
       text-decoration: none;
       font-size: 18px;
       color: $gray;
