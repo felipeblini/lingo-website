@@ -6,7 +6,7 @@
         'd-none': $store.state.isModalOpen
       }"
     />
-    <div class="footer-background"></div>
+    <div class="footer-background" v-if="showBkgImage"></div>
     <div class="container footer-container">
       <div class="row">
         <div class="col footer-items-wrapper">
@@ -123,7 +123,8 @@ export default {
         'pt-BR': 'Fale conosco pelo WhatsApp',
         'en-US': 'Contact us through WhatsApp'
       },
-      disableWhatsApppTooltip: false
+      disableWhatsApppTooltip: false,
+      showBkgImage: false
     }
   },
 
@@ -159,7 +160,29 @@ export default {
     }
 
     this.$emit('ready')
-    this.$forceUpdate()
+
+    const showBkgImage = () => {
+      const bottomDistanceFromTop =
+        document.documentElement.scrollTop + window.innerHeight
+
+      const hasReachedTheDistanceFromBottom =
+        Math.floor(bottomDistanceFromTop) >
+        document.documentElement.scrollHeight - 500
+
+      if (!this.showBkgImage && hasReachedTheDistanceFromBottom) {
+        console.log({ showBkgImage: this.showBkgImage })
+        this.$nextTick(() => {
+          this.showBkgImage = true
+          this.$forceUpdate()
+        })
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      setTimeout(() => {
+        showBkgImage()
+      }, 100)
+    })
   }
 }
 </script>

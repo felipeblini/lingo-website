@@ -73,7 +73,7 @@ import LingoFooter from '~/components/Footer/Index.vue'
 export default {
   head() {
     return {
-      title: `${this.ssrDefaultTitle} | Lingo- Interpretação, tradução simultânea, transcrição, revisão e media training`,
+      title: `${this.ssrDefaultTitle} | Lingo - Interpretação, tradução simultânea, transcrição, revisão e media training`,
       meta: [
         {
           hid: 'description',
