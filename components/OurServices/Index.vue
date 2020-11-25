@@ -15,7 +15,11 @@
               <div class="logo">Lingo</div>
             </div>
 
-            <div tabindex="0" class="service-box service-1 revisao">
+            <div
+              tabindex="0"
+              class="service-box service-1 revisao"
+              :class="{ showBkgImage: showServicesBkgImage }"
+            >
               <a
                 :href="
                   `/?lang=${$store.state.language}&c=${
@@ -45,6 +49,7 @@
               <div
                 tabindex="1"
                 class="service-box service-1 revisao only-mobile-flex"
+                :class="{ showBkgImage: showServicesBkgImage }"
               >
                 <a
                   :href="
@@ -69,7 +74,11 @@
                 </a>
               </div>
 
-              <div tabindex="2" class="service-box service-2 transcricao">
+              <div
+                tabindex="2"
+                class="service-box service-2 transcricao"
+                :class="{ showBkgImage: showServicesBkgImage }"
+              >
                 <a
                   :href="
                     `/?lang=${$store.state.language}&c=${
@@ -93,7 +102,11 @@
                 </a>
               </div>
 
-              <div tabindex="3" class="service-box service-3 media">
+              <div
+                tabindex="3"
+                class="service-box service-3 media"
+                :class="{ showBkgImage: showServicesBkgImage }"
+              >
                 <a
                   :href="
                     `/?lang=${$store.state.language}&c=${
@@ -120,6 +133,7 @@
               <div
                 tabindex="4"
                 class="service-box service-4 traducoes only-mobile-flex"
+                :class="{ showBkgImage: showServicesBkgImage }"
               >
                 <a
                   :href="
@@ -147,6 +161,7 @@
               <div
                 tabindex="5"
                 class="service-box service-5 interpretacao only-mobile-flex"
+                :class="{ showBkgImage: showServicesBkgImage }"
               >
                 <a
                   :href="
@@ -176,7 +191,11 @@
           <div class="line only-desktop-flex">
             <div class="ponto-virgula"></div>
 
-            <div tabindex="6" class="service-box service-4 big traducoes">
+            <div
+              tabindex="6"
+              class="service-box service-4 big traducoes"
+              :class="{ showBkgImage: showServicesBkgImage }"
+            >
               <a
                 :href="
                   `/?lang=${$store.state.language}&c=${
@@ -240,7 +259,11 @@
           </div>
 
           <div class="line only-desktop-flex">
-            <div tabindex="7" class="service-box service-5 interpretacao">
+            <div
+              tabindex="7"
+              class="service-box service-5 interpretacao"
+              :class="{ showBkgImage: showServicesBkgImage }"
+            >
               <a
                 :href="
                   `/?lang=${$store.state.language}&c=${
@@ -408,7 +431,8 @@ export default {
       },
       arrowPosition: '',
       serviceDescription: '',
-      isFetchingDescription: false
+      isFetchingDescription: false,
+      showServicesBkgImage: false
     }
   },
 
@@ -466,62 +490,95 @@ export default {
   },
 
   mounted() {
-    let active = 1
+    this.initializeAnimation()
+    this.setArrowPosition()
 
-    document
-      .querySelectorAll('.service-box')
-      .forEach((el) =>
-        el.classList.contains('service-1')
-          ? el.classList.add('active')
-          : el.classList.remove('active')
-      )
+    if (this.defaultService) {
+      this.$modal.show('service-description-modal')
+      this.serviceDescription = this.defaultService.content.rendered
+    }
 
-    active++
+    this.showItemsBkgImage()
+  },
 
-    const interval = setInterval(() => {
+  methods: {
+    initializeAnimation() {
+      let active = 1
+
       document
         .querySelectorAll('.service-box')
         .forEach((el) =>
-          el.classList.contains(`service-${active}`)
+          el.classList.contains('service-1')
             ? el.classList.add('active')
             : el.classList.remove('active')
         )
 
       active++
 
-      if (active > 5) active = 1
-    }, 3000)
+      const interval = setInterval(() => {
+        document
+          .querySelectorAll('.service-box')
+          .forEach((el) =>
+            el.classList.contains(`service-${active}`)
+              ? el.classList.add('active')
+              : el.classList.remove('active')
+          )
 
-    document.querySelectorAll('.service-box').forEach((el) => {
-      const selectItem = () => {
-        clearInterval(interval)
+        active++
 
-        document.querySelectorAll('.service-box').forEach((el2) => {
-          el2.classList.remove('active')
-        })
+        if (active > 5) active = 1
+      }, 3000)
 
-        el.classList.add('active')
+      document.querySelectorAll('.service-box').forEach((el) => {
+        const selectItem = () => {
+          clearInterval(interval)
+
+          document.querySelectorAll('.service-box').forEach((el2) => {
+            el2.classList.remove('active')
+          })
+
+          el.classList.add('active')
+        }
+
+        el.onmouseover = selectItem
+        el.onclick = selectItem
+      })
+    },
+    setArrowPosition() {
+      this.arrowPosition = window.innerWidth < 1080 ? 'down' : 'left'
+
+      window.addEventListener('resize', () => {
+        setTimeout(() => {
+          this.arrowPosition = window.innerWidth < 1080 ? 'down' : 'left'
+        }, 200)
+      })
+    },
+    showItemsBkgImage() {
+      const componentWrapper = document.querySelector(`#${this.anchorName}`)
+
+      const showBkgImage = () => {
+        const viewportHeight =
+          window.innerHeight || document.documentElement.clientHeight
+
+        const componentBounding = componentWrapper.getBoundingClientRect()
+
+        if (componentBounding.top <= 1100 && !this.showServicesBkgImage) {
+          console.log('show services images')
+          this.$nextTick(() => {
+            this.showServicesBkgImage = true
+            this.$forceUpdate()
+          })
+        }
       }
 
-      el.onmouseover = selectItem
-      el.onclick = selectItem
-    })
+      showBkgImage()
 
-    this.arrowPosition = window.innerWidth < 1080 ? 'down' : 'left'
-
-    window.addEventListener('resize', () => {
-      setTimeout(() => {
-        this.arrowPosition = window.innerWidth < 1080 ? 'down' : 'left'
-      }, 200)
-    })
-
-    if (this.defaultService) {
-      this.$modal.show('service-description-modal')
-      this.serviceDescription = this.defaultService.content.rendered
-    }
-  },
-
-  methods: {
+      window.addEventListener('scroll', () => {
+        setTimeout(() => {
+          showBkgImage()
+        }, 100)
+      })
+    },
     async showModal(i, evt) {
       evt.preventDefault()
       this.serviceDescription = ''
@@ -952,27 +1009,27 @@ $services-box-padding: 8px;
 
         background-size: contain;
 
-        &.revisao {
+        &.revisao.showBkgImage {
           background-image: url('./img/box-images/revisao.jpg');
           background-repeat: no-repeat;
         }
 
-        &.media {
+        &.media.showBkgImage {
           background-image: url('./img/box-images/media.jpg');
           background-repeat: no-repeat;
         }
 
-        &.interpretacao {
+        &.interpretacao.showBkgImage {
           background-image: url('./img/box-images/interpretacao.jpg');
           background-repeat: no-repeat;
         }
 
-        &.traducoes {
+        &.traducoes.showBkgImage {
           background-image: url('./img/box-images/traducoes.jpg');
           background-repeat: no-repeat;
         }
 
-        &.transcricao {
+        &.transcricao.showBkgImage {
           background-image: url('./img/box-images/transcricao.jpg');
           background-repeat: no-repeat;
         }

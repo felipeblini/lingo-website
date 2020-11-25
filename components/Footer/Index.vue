@@ -170,13 +170,14 @@ export default {
         document.documentElement.scrollHeight - 500
 
       if (!this.showBkgImage && hasReachedTheDistanceFromBottom) {
-        console.log({ showBkgImage: this.showBkgImage })
         this.$nextTick(() => {
           this.showBkgImage = true
           this.$forceUpdate()
         })
       }
     }
+
+    showBkgImage()
 
     window.addEventListener('scroll', () => {
       setTimeout(() => {
