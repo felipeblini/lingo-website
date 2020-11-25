@@ -36,7 +36,7 @@ async function getUrls() {
       lastMod: '2020-11-24',
     },
     {
-      url: 'lang=en-US',
+      url: '?lang=en-US',
       lastMod: '2020-11-24',
     }]
 
@@ -47,7 +47,7 @@ async function getUrls() {
     const content = lang === 'pt-BR' ? 'conheca-a-lingo' : 'about-lingo'
 
     data.forEach(post => routes.push({
-      url: `lang=${lang}&amp;c=${content}`,
+      url: `?lang=${lang}&amp;c=${content}`,
       lastMod: post.modified.substring(0, 10)
     }))
   }
