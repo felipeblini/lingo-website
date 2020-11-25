@@ -52,10 +52,26 @@ export default {
   },
   methods: {
     toggleNumbers() {
-      this.$refs['numbers-list'].classList.toggle('show-numbers')
+      const classListArray = Array.from(this.$refs['numbers-list'].classList)
+      if (classListArray.find((x) => x === 'show-numbers')) {
+        this.hideNumbers()
+      } else {
+        this.showNumbers()
+      }
+    },
+    showNumbers() {
+      this.$refs['numbers-list'].classList.toggle('d-block')
+
+      setTimeout(() => {
+        this.$refs['numbers-list'].classList.toggle('show-numbers')
+      }, 200)
     },
     hideNumbers() {
       this.$refs['numbers-list'].classList.remove('show-numbers')
+
+      setTimeout(() => {
+        this.$refs['numbers-list'].classList.remove('d-block')
+      }, 200)
     }
   }
 }
@@ -82,6 +98,7 @@ export default {
     transition: opacity 0.5s linear;
     position: relative;
     z-index: 1000;
+    display: none;
 
     &.show-numbers {
       visibility: visible;

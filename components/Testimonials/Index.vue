@@ -12,7 +12,8 @@
 
       <div class="row">
         <div
-          class="col-12 col-sm-10 offset-sm-1 col-xl-8 offset-xl-2 testimonials-line "
+          class="col-12 col-sm-10 offset-sm-1 col-xl-8 offset-xl-2 testimonials-line"
+          v-if="!$store.state.isLoading"
         >
           <div
             class="testimonials-wrapper"
@@ -78,7 +79,7 @@
               </button>
               <button
                 class="testimonial-navigator tn-right"
-                v-if="!$store.state.isLoading"
+                ref="tn-right"
                 @click="navigate('next')"
               >
                 right
@@ -136,6 +137,10 @@ export default {
       handler: function(newValue) {
         this.originalListlength = newValue.length
         this.$emit('ready')
+
+        if (process.client && !this.interval) {
+          setTimeout(this.initializeAnimation, 2500)
+        }
       },
       immediate: true
     },
@@ -174,26 +179,11 @@ export default {
 
     const handleScroll = () => {
       setTimeout(() => {
-        if (
-          document
-            .querySelectorAll('.testimonial > .text')[0]
-            .getBoundingClientRect().top <=
-            window.innerHeight - 100 &&
-          !this.interval
-        ) {
-          console.log('initialized testimonials swiper')
-          this.stepNext(0)
-
-          window.removeEventListener('scroll', handleScroll)
-          this.active = 0
-
-          this.restartInterval()
-        }
+        if (!this.interval) this.initializeAnimation(true)
       }, 100)
     }
 
     window.addEventListener('scroll', handleScroll)
-    // this.fetchList()
   },
 
   destroyed() {
@@ -201,9 +191,29 @@ export default {
   },
 
   methods: {
+    initializeAnimation(fromScroll) {
+      setTimeout(() => {
+        try {
+          const firstTestimonial = document.querySelectorAll(
+            '.testimonial > .text'
+          )[0]
+
+          if (
+            firstTestimonial.getBoundingClientRect().top <=
+            window.innerHeight - 100
+          ) {
+            this.stepNext(0)
+            this.active = 0
+
+            if (fromScroll) window.removeEventListener('scroll', handleScroll)
+
+            this.restartInterval()
+          }
+        } catch (e) {}
+      }, 100)
+    },
     navigate(to) {
       this.restartInterval(3000)
-      console.log({ to })
       to === 'next' ? this.stepNext() : this.stepPrev()
     },
     touchHandler(direction) {
@@ -548,7 +558,6 @@ export default {
 
             &.tn-right {
               @include flip-horizontal-and-vertical;
-              z-index: 4;
             }
           }
         }
