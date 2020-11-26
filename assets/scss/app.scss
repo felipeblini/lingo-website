@@ -100,13 +100,21 @@ svg.title {
 
 .lingo-modal {
   z-index: 9999;
-  padding: 40px;
+  padding: 30px;
   border: solid 1px $pink;
   border-radius: 3px;
   background: rgba($light-gray, 0.96);
   top: 4px !important;
   @media(min-width: 1080px) {
     top: 90px !important;
+  }
+
+  .b-overlay-wrap > div {
+    padding: 20px;
+    margin-bottom: 20px;
+    min-height: 300px;
+    max-height: 64vh;
+    height: auto;
   }
 }
 

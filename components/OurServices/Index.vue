@@ -313,7 +313,9 @@
       </div>
 
       <b-overlay :show="isFetchingDescription" variant="transparent">
-        <div style="min-height: 300px" v-html="serviceDescription"></div>
+        <perfect-scrollbar>
+          <div v-html="serviceDescription"></div>
+        </perfect-scrollbar>
       </b-overlay>
 
       <div class="p-2 align-items-center justify-content-end d-flex">

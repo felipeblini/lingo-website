@@ -29,7 +29,8 @@ export default {
     { src: '~/plugins/vue-awesome-swipper.js', ssr: false },
     { src: '~/plugins/nuxt-ready.js', ssr: false },
     { src: '~/plugins/v-tooltip.js', ssr: false },
-    '~/plugins/vue-js-modal.js'
+    '~/plugins/vue-js-modal.js',
+    '~/plugins/vue2-perfect-scrollbar.client.js'
   ],
   /*
    ** Nuxt.js modules

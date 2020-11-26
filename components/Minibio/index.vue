@@ -42,8 +42,12 @@
         </b-button>
       </div>
 
-      <h3 class="mb-4">{{ textTitle[$store.state.language] }}</h3>
-      <div v-html="textComplete[$store.state.language]" />
+      <b-overlay :show="showModalOverlay" variant="transparent">
+        <perfect-scrollbar>
+          <h3 class="mb-4">{{ textTitle[$store.state.language] }}</h3>
+          <div v-html="textComplete[$store.state.language]" />
+        </perfect-scrollbar>
+      </b-overlay>
 
       <div class="p-2 align-items-center justify-content-end d-flex">
         <b-button
@@ -103,7 +107,8 @@ export default {
       textComplete: {
         'pt-BR': '',
         'en-US': ''
-      }
+      },
+      showModalOverlay: true
     }
   },
   computed: {
@@ -184,6 +189,10 @@ export default {
     showModal(evt) {
       evt.preventDefault()
       this.$modal.show('text-complete-modal')
+
+      setTimeout(() => {
+        this.showModalOverlay = false
+      }, 1000)
     },
 
     onModalOpened() {
