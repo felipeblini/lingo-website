@@ -30,7 +30,7 @@ export default {
     { src: '~/plugins/nuxt-ready.js', ssr: false },
     { src: '~/plugins/v-tooltip.js', ssr: false },
     '~/plugins/vue-js-modal.js',
-    '~/plugins/vue2-perfect-scrollbar.client.js'
+    '~/plugins/vue2-perfect-scrollbar.client',
   ],
   /*
    ** Nuxt.js modules

@@ -6,40 +6,48 @@
           <div class="brackets">{</div>
           <div class="content">
             <h1 class="yellow">{{ title[$store.state.language] }}</h1>
-            <div class="swipper-partners-container">
-              <button
-                @click.prevent.stop="slidePrev"
-                class="partners-navigator pn-left"
-              >
-                left
-              </button>
-
+            <b-overlay
+              :show="!showSwiper || !$store.state.testimonialsSwiperReady"
+              variant="transparent"
+            >
               <div
-                v-swiper:mySwiper="swiperOption"
-                class="partners-list"
-                v-if="showSlider"
+                class="swipper-partners-container"
+                v-if="showSwiper && $store.state.testimonialsSwiperReady"
               >
-                <div class="swiper-wrapper">
-                  <a
-                    target="_blank"
-                    class="swiper-slide partner-item"
-                    v-for="(partner, index) in list"
-                    :key="index"
-                    :href="partner.url"
-                    :style="{ backgroundImage: `url(${partner.logoUrl})` }"
-                  >
-                    {{ partner.name }}
-                  </a>
-                </div>
-              </div>
+                <button
+                  @click.prevent.stop="slidePrev"
+                  class="partners-navigator pn-left"
+                >
+                  left
+                </button>
 
-              <button
-                @click.prevent.stop="slideNext"
-                class="partners-navigator pn-right"
-              >
-                right
-              </button>
-            </div>
+                <div
+                  v-swiper:partnersSwiper="partnerSwiperOptions"
+                  class="partners-list"
+                >
+                  <div class="swiper-wrapper partners-swiper-wrapper">
+                    <a
+                      target="_blank"
+                      class="swiper-slide partner-item"
+                      v-for="(partner, index) in list"
+                      :key="index"
+                      :href="partner.url"
+                      :title="partner.name"
+                      :style="{ backgroundImage: `url(${partner.logoUrl})` }"
+                    >
+                      {{ partner.name }}
+                    </a>
+                  </div>
+                </div>
+
+                <button
+                  @click.prevent.stop="slideNext"
+                  class="partners-navigator pn-right"
+                >
+                  right
+                </button>
+              </div>
+            </b-overlay>
           </div>
           <div class="brackets">}</div>
         </div>
@@ -57,11 +65,15 @@ export default {
         'en-US': 'Partners'
       },
       list: [],
-      showSlider: false,
-      swiperOption: {
+      showSwiper: false,
+      partnerSwiperOptions: {
         slidesPerView: 3,
         spaceBetween: 5,
         loop: true,
+        autoplay: {
+          delay: 2000,
+          disableOnInteraction: true
+        },
         breakpoints: {
           768: {
             slidesPerView: 2,
@@ -104,33 +116,35 @@ export default {
 
     setTimeout(() => {
       if (window.innerWidth > 768 && this.list.length <= 3) {
-        this.swiperOption.slidesPerView = this.list.length
-        this.swiperOption.loop = false
-        this.swiperOption.spaceBetween = 5
-
-        this.showSlider = true
+        this.partnerSwiperOptions.slidesPerView = this.list.length
+        this.partnerSwiperOptions.loop = false
+        this.partnerSwiperOptions.spaceBetween = 5
 
         setTimeout(() => {
           const list = document.querySelectorAll('.partners-list')[0]
+
           list.classList.add('d-flex')
           list.classList.add('justify-content-center')
 
-          const swiperWrapper = document.querySelectorAll('.swiper-wrapper')[0]
+          const swiperWrapper = document.querySelectorAll(
+            '.partners-swiper-wrapper'
+          )[0]
+
           swiperWrapper.classList.add('d-flex')
           swiperWrapper.classList.add('justify-content-center')
         }, 500)
       }
 
-      this.showSlider = true
+      this.showSwiper = true
     }, 500)
   },
 
   methods: {
     slideNext() {
-      this.mySwiper.slideNext()
+      this.partnersSwiper.slideNext()
     },
     slidePrev() {
-      this.mySwiper.slidePrev()
+      this.partnersSwiper.slidePrev()
     }
   }
 }
@@ -210,11 +224,18 @@ export default {
             flex-grow: 1;
             margin: 0;
             padding: 0;
+            width: 265px;
 
-            width: 100%;
+            @media (min-width: 768px) {
+              width: 402px;
+            }
 
-            .swiper-wrapper {
+            .swiper-wrapper.partners-swiper-wrapper {
               width: 164px;
+
+              @media (min-width: 768px) {
+                width: auto;
+              }
 
               .partner-item {
                 display: block;
