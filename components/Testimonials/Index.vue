@@ -18,9 +18,12 @@
           <div class="testimonials-wrapper">
             <div
               class="swiper testimonials-swiper"
+              ref="testimonialsSwiper"
               v-swiper:testimonialsSwiper="testimonialsSwiperOptions"
-              @slide-next-transition-end="onSwiperSlideNext"
-              @slide-prev-transition-start="onSwiperSlidePrev"
+              @slide-next-transition-start="onSwiperSlideNextStart"
+              @slide-next-transition-end="onSwiperSlideNextEnd"
+              @slide-prev-transition-start="onSwiperSlidePrevStart"
+              @slide-prev-transition-end="onSwiperSlidePrevEnd"
             >
               <div class="swiper-wrapper">
                 <div
@@ -96,7 +99,7 @@ export default {
         'en-US': 'Testimonials'
       },
       testimonialsSwiperOptions: {
-        autoHeight: false,
+        autoHeight: true,
         slidesPerView: 1,
         centeredSlides: true,
         spaceBetween: 20,
@@ -112,8 +115,6 @@ export default {
         spaceBetween: 20,
         loop: true
       }
-      // showSwipper: true,
-      // isShowSwipperSettle: false
     }
   },
 
@@ -139,16 +140,38 @@ export default {
     }
   },
   methods: {
-    onSwiperSlideNext() {
-      console.log('testimonial swipper Next', {
-        swiper: this.$refs.personsSwiper.swiper
-      })
-
-      this.$refs.personsSwiper.swiper.slideNext()
+    onSwiperSlideNextStart() {
+      this.$refs.personsSwiper.style.opacity = 0
+      this.$refs.personsSwiper.style.visibility = 'hidden'
     },
-    onSwiperSlidePrev() {
-      console.log('testimonial swipper Prev')
+    onSwiperSlideNextEnd() {
+      this.$refs.personsSwiper.swiper.slideNext()
+      this.$refs.personsSwiper.style.visibility = 'visible'
+
+      setTimeout(() => {
+        this.$refs.personsSwiper.style.opacity = 1
+      }, 200)
+    },
+
+    onSwiperSlidePrevStart() {
+      this.$refs.personsSwiper.style.opacity = 0
+      this.$refs.personsSwiper.style.visibility = 'hidden'
+    },
+
+    onSwiperSlidePrevEnd() {
       this.$refs.personsSwiper.swiper.slidePrev()
+
+      this.$refs.personsSwiper.style.visibility = 'visible'
+
+      setTimeout(() => {
+        this.$refs.personsSwiper.style.opacity = 1
+      }, 200)
+    },
+
+    navigate(direction) {
+      direction === 'next'
+        ? this.$refs.testimonialsSwiper.swiper.slideNext()
+        : this.$refs.testimonialsSwiper.swiper.slidePrev()
     }
   },
   mounted() {
@@ -220,11 +243,19 @@ export default {
       border: solid 3px red;
       justify-content: space-between;
 
-      // min-height: 483px;
+      @media (min-width: 577px) {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
 
-      // @media (min-width: 1080px) {
-      //   min-height: 259px;
-      // }
+      @media (min-width: 1080px) {
+        padding-left: 210px;
+        min-height: 258px;
+      }
+
+      @media (min-width: 1200px) {
+        padding-left: 150px;
+      }
 
       // @media (min-width: 1080px) {
       //   justify-content: flex-end;
@@ -256,6 +287,7 @@ export default {
 
           &.persons-swiper {
             margin-top: 15px;
+            transition: opacity 0.25s;
 
             span {
               display: block;
@@ -288,11 +320,10 @@ export default {
       .navigation {
         border: solid 1px orangered;
 
-        // @media (min-width: 1080px) {
-        //   width: 269px;
-        // }
+        @media (min-width: 1080px) {
+          width: 269px;
+        }
 
-        // height: 57px;
         padding-top: 18px;
         display: flex;
         justify-content: space-between;
