@@ -61,14 +61,18 @@ export default {
       list: [],
       showSwiper: false,
       partnerSwiperOptions: {
-        slidesPerView: 2,
-        spaceBetween: 15,
+        slidesPerView: 1,
+        spaceBetween: 10,
         loop: true,
         autoplay: {
           delay: 2000,
           disableOnInteraction: false
         },
         breakpoints: {
+          400: {
+            slidesPerView: 2,
+            spaceBetween: 15
+          },
           768: {
             slidesPerView: 3,
             spaceBetween: 25
@@ -228,8 +232,13 @@ export default {
           .partners-list {
             flex-grow: 1;
             margin: 0;
-            padding: 0;
-            width: 265px;
+            padding: 10px;
+            width: 180px;
+
+            @media (min-width: 400px) {
+              padding: 0;
+              width: 265px;
+            }
 
             @media (min-width: 768px) {
               width: 402px;

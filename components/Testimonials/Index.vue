@@ -12,48 +12,63 @@
       </div>
 
       <div class="row">
-        <div class="col-12 testimonials-line">
-          <div class="testimonials-wrapper" v-if="false">
+        <div
+          class="col-12 col-sm-10 offset-sm-1 col-xl-8 offset-xl-2 testimonials-line"
+        >
+          <div class="testimonials-wrapper">
             <div
-              class="swipper testimonials-swiper"
+              class="swiper testimonials-swiper"
               v-swiper:testimonialsSwiper="testimonialsSwiperOptions"
-              @ready="onSwiperSlideChange"
-              @click-slide="onSwiperSlideChange"
-              @slide-change-transition-start="onSwiperSlideChange"
-              @slide-next-transition-end="onSwiperSlideChange"
-              @slide-prev-transition-start="onSwiperSlideChange"
+              @slide-next-transition-end="onSwiperSlideNext"
+              @slide-prev-transition-start="onSwiperSlidePrev"
             >
               <div class="swiper-wrapper">
                 <div
-                  class="swiper-slide testimonial-swiper-slide"
+                  class="swiper-slide testimonial-slide"
                   v-for="(testimonial, index) in testimonialsList"
                   :key="index"
                 >
-                  <span>{{
-                    testimonial.acf[`depoimento_${$store.state.language}`]
+                  <span>
+                    {{ testimonial.acf[`depoimento_${$store.state.language}`] }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="swiper persons-swiper"
+              v-swiper:personsSwiper="personsSwiperOptions"
+              ref="personsSwiper"
+            >
+              <div class="swiper-wrapper">
+                <div
+                  class="swiper-slide person-slide"
+                  v-for="(testimonial, index) in testimonialsList"
+                  :key="index"
+                >
+                  <span class="name">{{ testimonial.title.rendered }}</span>
+                  <span class="role">{{
+                    testimonial.acf.empresa_e_cargo
                   }}</span>
                 </div>
               </div>
-
-              <div class="swiper-pagination swiper-pagination-bullets"></div>
             </div>
           </div>
 
-          <div
-            v-swiper:personSwiper="swiperPersonOption"
-            style="border: solid 3px green"
-            class="mt-3"
-          >
-            <div class="swiper-wrapper">
-              <div
-                class="swiper-slide"
-                v-for="(testimonial, index) in testimonialsList"
-                :key="index"
-              >
-                {{ testimonial.title.rendered }} -
-                {{ testimonial.acf.empresa_e_cargo }}
-              </div>
-            </div>
+          <div class="navigation">
+            <button
+              class="testimonial-navigator tn-left"
+              @click="navigate('prev')"
+            >
+              left
+            </button>
+            <button
+              class="testimonial-navigator tn-right"
+              ref="tn-right"
+              @click="navigate('next')"
+            >
+              right
+            </button>
           </div>
         </div>
       </div>
@@ -81,7 +96,7 @@ export default {
         'en-US': 'Testimonials'
       },
       testimonialsSwiperOptions: {
-        autoHeight: true,
+        autoHeight: false,
         slidesPerView: 1,
         centeredSlides: true,
         spaceBetween: 20,
@@ -91,7 +106,7 @@ export default {
           disableOnInteraction: true
         }
       },
-      swiperPersonOption: {
+      personsSwiperOptions: {
         slidesPerView: 1,
         centeredSlides: true,
         spaceBetween: 20,
@@ -124,8 +139,16 @@ export default {
     }
   },
   methods: {
-    onSwiperSlideChange() {
-      this.$emit('testimonial swipper changed')
+    onSwiperSlideNext() {
+      console.log('testimonial swipper Next', {
+        swiper: this.$refs.personsSwiper.swiper
+      })
+
+      this.$refs.personsSwiper.swiper.slideNext()
+    },
+    onSwiperSlidePrev() {
+      console.log('testimonial swipper Prev')
+      this.$refs.personsSwiper.swiper.slidePrev()
     }
   },
   mounted() {
@@ -195,21 +218,99 @@ export default {
 
     .testimonials-line {
       border: solid 3px red;
-      min-height: 300px;
+      justify-content: space-between;
+
+      // min-height: 483px;
+
+      // @media (min-width: 1080px) {
+      //   min-height: 259px;
+      // }
+
+      // @media (min-width: 1080px) {
+      //   justify-content: flex-end;
+      //   margin-left: 177px;
+      // }
+      // @media (min-width: 1200px) {
+      //   margin-left: 309px;
+      // }
+
+      display: flex;
+      flex-direction: column;
 
       .testimonials-wrapper {
-        .swiper {
-          &.testimonials-swiper {
-            border: solid 3px blue;
+        border: solid;
+        font-size: 14pt;
+
+        @media (min-width: 1024px) {
+          @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            font-size: 18pt;
           }
         }
 
-        .swiper-slide {
-        }
+        .swiper {
+          //border: solid;
 
-        .swiper-pagination {
-          > .swiper-pagination-bullet {
-            background-color: red;
+          &.testimonials-swiper {
+            // border: solid 3px blue;
+          }
+
+          &.persons-swiper {
+            margin-top: 15px;
+
+            span {
+              display: block;
+              line-height: 14pt;
+
+              &.name {
+                text-transform: uppercase;
+                font-weight: bold;
+                color: #000;
+              }
+              &.role {
+                font-weight: bold;
+                margin-top: 5px;
+              }
+            }
+          }
+
+          .swiper-slide {
+            &.testimonial-slide {
+              // border: solid 3px orangered;
+            }
+
+            &.person-slide {
+              // border: solid 3px orangered;
+            }
+          }
+        }
+      }
+
+      .navigation {
+        border: solid 1px orangered;
+
+        // @media (min-width: 1080px) {
+        //   width: 269px;
+        // }
+
+        // height: 57px;
+        padding-top: 18px;
+        display: flex;
+        justify-content: space-between;
+
+        button.testimonial-navigator {
+          background-color: transparent;
+          background-repeat: no-repeat;
+          background-size: cover;
+          width: 30px;
+          height: 30px;
+          outline: none;
+          text-indent: -999px;
+          overflow: hidden;
+          border: none;
+          background-image: url('./img/left-arrow.svg');
+
+          &.tn-right {
+            @include flip-horizontal-and-vertical;
           }
         }
       }
