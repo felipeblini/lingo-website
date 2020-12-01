@@ -13,21 +13,29 @@
 
       <div class="row">
         <div class="col-12 testimonials-line">
-          <div class="testimonials-wrapper">
+          <div class="testimonials-wrapper" v-if="false">
             <div
+              class="swipper testimonials-swiper"
               v-swiper:testimonialsSwiper="testimonialsSwiperOptions"
-              style="border: solid 3px blue"
-              @ready="onSwiperRedied"
+              @ready="onSwiperSlideChange"
+              @click-slide="onSwiperSlideChange"
+              @slide-change-transition-start="onSwiperSlideChange"
+              @slide-next-transition-end="onSwiperSlideChange"
+              @slide-prev-transition-start="onSwiperSlideChange"
             >
               <div class="swiper-wrapper">
                 <div
-                  class="swiper-slide"
+                  class="swiper-slide testimonial-swiper-slide"
                   v-for="(testimonial, index) in testimonialsList"
                   :key="index"
                 >
-                  {{ testimonial.acf[`depoimento_${$store.state.language}`] }}
+                  <span>{{
+                    testimonial.acf[`depoimento_${$store.state.language}`]
+                  }}</span>
                 </div>
               </div>
+
+              <div class="swiper-pagination swiper-pagination-bullets"></div>
             </div>
           </div>
 
@@ -35,7 +43,6 @@
             v-swiper:personSwiper="swiperPersonOption"
             style="border: solid 3px green"
             class="mt-3"
-            @ready="onSwiperRedied"
           >
             <div class="swiper-wrapper">
               <div
@@ -107,6 +114,7 @@ export default {
     testimonialsList: {
       handler: function(newValue) {
         this.originalListlength = newValue.length
+        this.$emit('ready')
       },
       immediate: true
     },
@@ -116,9 +124,8 @@ export default {
     }
   },
   methods: {
-    onSwiperRedied() {
-      this.$emit('ready')
-      this.$store.commit('setTestimonialsSwiperReady', true)
+    onSwiperSlideChange() {
+      this.$emit('testimonial swipper changed')
     }
   },
   mounted() {
@@ -153,6 +160,7 @@ export default {
 <style lang="scss">
 .lingo-testimonials-component {
   position: relative;
+
   .quotations-image-wrapper {
     z-index: 0;
     margin-top: -20%;
@@ -166,6 +174,7 @@ export default {
       display: none;
     }
   }
+
   .container {
     h2 {
       color: $yellow;
@@ -183,9 +192,27 @@ export default {
         margin-top: 150px;
       }
     }
+
     .testimonials-line {
       border: solid 3px red;
       min-height: 300px;
+
+      .testimonials-wrapper {
+        .swiper {
+          &.testimonials-swiper {
+            border: solid 3px blue;
+          }
+        }
+
+        .swiper-slide {
+        }
+
+        .swiper-pagination {
+          > .swiper-pagination-bullet {
+            background-color: red;
+          }
+        }
+      }
     }
   }
 }

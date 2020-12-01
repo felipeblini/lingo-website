@@ -30,8 +30,7 @@ export const state = () => ({
   },
   navbarFixed: false,
   isModalOpen: false,
-  isLoading: true,
-  testimonialsSwiperReady: false
+  isLoading: true
 })
 
 export const mutations = {
@@ -54,10 +53,6 @@ export const mutations = {
 
   setLoading(state, payload) {
     state.isLoading = payload
-  },
-
-  setTestimonialsSwiperReady(state, payload) {
-    state.testimonialsSwiperReady = payload
   },
 }
 

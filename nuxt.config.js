@@ -19,16 +19,19 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~assets/scss/app.scss', 'swiper/dist/css/swiper.css', '~assets/scss/vendors/v-tooltip.scss'],
+  css: ['~assets/scss/app.scss',
+    // 'swiper/dist/css/swiper.css',
+    'swiper/css/swiper.css',
+    '~assets/scss/vendors/v-tooltip.scss'],
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
     { src: '~/plugins/vue-touch', ssr: false },
     { src: '~/plugins/vue-smooth-scroll', ssr: false },
-    { src: '~/plugins/vue-awesome-swipper.js', ssr: false },
     { src: '~/plugins/nuxt-ready.js', ssr: false },
     { src: '~/plugins/v-tooltip.js', ssr: false },
+    { src: '@/plugins/nuxt-swiper-plugin.js', mode: 'client' },
     '~/plugins/vue-js-modal.js',
     '~/plugins/vue2-perfect-scrollbar.client',
   ],

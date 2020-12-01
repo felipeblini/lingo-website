@@ -6,14 +6,8 @@
           <div class="brackets">{</div>
           <div class="content">
             <h1 class="yellow">{{ title[$store.state.language] }}</h1>
-            <b-overlay
-              :show="!showSwiper || !$store.state.testimonialsSwiperReady"
-              variant="transparent"
-            >
-              <div
-                class="swipper-partners-container"
-                v-if="showSwiper && $store.state.testimonialsSwiperReady"
-              >
+            <b-overlay :show="!showSwiper" variant="transparent">
+              <div class="swipper-partners-container" v-if="showSwiper">
                 <button
                   @click.prevent.stop="slidePrev"
                   class="partners-navigator pn-left"
@@ -67,17 +61,17 @@ export default {
       list: [],
       showSwiper: false,
       partnerSwiperOptions: {
-        slidesPerView: 3,
-        spaceBetween: 5,
+        slidesPerView: 2,
+        spaceBetween: 15,
         loop: true,
         autoplay: {
           delay: 2000,
-          disableOnInteraction: true
+          disableOnInteraction: false
         },
         breakpoints: {
           768: {
-            slidesPerView: 2,
-            spaceBetween: 10
+            slidesPerView: 3,
+            spaceBetween: 25
           }
         },
         autoplay: {
@@ -115,25 +109,25 @@ export default {
     this.$emit('ready')
 
     setTimeout(() => {
-      if (window.innerWidth > 768 && this.list.length <= 3) {
-        this.partnerSwiperOptions.slidesPerView = this.list.length
-        this.partnerSwiperOptions.loop = false
-        this.partnerSwiperOptions.spaceBetween = 5
+      // if (window.innerWidth > 768 && this.list.length <= 3) {
+      //   this.partnerSwiperOptions.slidesPerView = this.list.length
+      //   this.partnerSwiperOptions.loop = false
+      //   this.partnerSwiperOptions.spaceBetween = 5
 
-        setTimeout(() => {
-          const list = document.querySelectorAll('.partners-list')[0]
+      //   setTimeout(() => {
+      //     const list = document.querySelectorAll('.partners-list')[0]
 
-          list.classList.add('d-flex')
-          list.classList.add('justify-content-center')
+      //     list.classList.add('d-flex')
+      //     list.classList.add('justify-content-center')
 
-          const swiperWrapper = document.querySelectorAll(
-            '.partners-swiper-wrapper'
-          )[0]
+      //     const swiperWrapper = document.querySelectorAll(
+      //       '.partners-swiper-wrapper'
+      //     )[0]
 
-          swiperWrapper.classList.add('d-flex')
-          swiperWrapper.classList.add('justify-content-center')
-        }, 500)
-      }
+      //     swiperWrapper.classList.add('d-flex')
+      //     swiperWrapper.classList.add('justify-content-center')
+      //   }, 500)
+      // }
 
       this.showSwiper = true
     }, 500)
@@ -167,11 +161,22 @@ export default {
 
     & > div {
       &.brackets {
-        width: 50px;
+        min-width: 50px;
         height: 138px;
+        display: none;
+
+        @media (min-width: 557px) {
+          display: block;
+          min-width: 35px;
+        }
+
+        @media (min-width: 650px) {
+          display: block;
+          min-width: 45px;
+        }
 
         @media (min-width: 768px) {
-          width: 62px;
+          min-width: 55px;
           height: 171px;
         }
 
