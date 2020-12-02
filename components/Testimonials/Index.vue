@@ -24,7 +24,8 @@
               @slide-next-transition-end="onSwiperSlideNextEnd"
               @slide-prev-transition-start="onSwiperSlidePrevStart"
               @slide-prev-transition-end="onSwiperSlidePrevEnd"
-              @slideChange="onTouchEnd"
+              @touchStart="onTouchStart"
+              @touchEnd="onTouchEnd"
             >
               <div class="swiper-wrapper">
                 <!-- <div class="swiper-slide"></div> -->
@@ -121,7 +122,8 @@ export default {
         spaceBetween: 20,
         loop: true
       },
-      list: []
+      list: [],
+      touched: false
     }
   },
 
@@ -153,24 +155,30 @@ export default {
       const gap = (wrapper.clientHeight - slideActive.clientHeight) * -1
       const personsSwiper = document.querySelector('.persons-swiper')
 
-      console.log({ gap })
-
       personsSwiper.style.top = `${gap + 59}px`
       personsSwiper.style.position = 'relative'
     },
+
     onSwiperSlideNextStart() {
       this.$refs.personsSwiper.style.opacity = 0
       this.$refs.personsSwiper.style.visibility = 'hidden'
     },
+
     onSwiperSlideNextEnd() {
-      this.$refs.personsSwiper.swiper.slideNext()
-      // this.$refs.personsSwiper.swiper.slideTo(i, 0)
+      if (this.touched) {
+        const swiperIndex = this.$refs.testimonialsSwiper.swiper.activeIndex
+        this.$refs.personsSwiper.swiper.slideTo(swiperIndex, 0)
+        this.thouched = false
+      } else {
+        this.$refs.personsSwiper.swiper.slideNext()
+      }
+
       this.$refs.personsSwiper.style.visibility = 'visible'
       this.calculateGap()
 
       setTimeout(() => {
         this.$refs.personsSwiper.style.opacity = 1
-      }, 200)
+      }, 100)
 
       if (this.list.length > this.testimonialsList.length)
         this.list = this.list.slice(1)
@@ -181,19 +189,32 @@ export default {
       this.$refs.personsSwiper.style.visibility = 'hidden'
     },
 
+    onTouchStart() {
+      this.$refs.personsSwiper.style.opacity = 0
+    },
+
+    onTouchEnd() {
+      this.touched = true
+      console.log('touched')
+      this.$refs.personsSwiper.style.opacity = 1
+    },
+
     onSwiperSlidePrevEnd() {
-      this.$refs.personsSwiper.swiper.slidePrev()
+      if (this.touched) {
+        const swiperIndex = this.$refs.testimonialsSwiper.swiper.activeIndex
+        this.$refs.personsSwiper.swiper.slideTo(swiperIndex, 0)
+        this.thouched = false
+      } else {
+        this.$refs.personsSwiper.swiper.slidePrev()
+      }
+
       this.$refs.personsSwiper.style.visibility = 'visible'
 
       this.calculateGap()
 
       setTimeout(() => {
         this.$refs.personsSwiper.style.opacity = 1
-      }, 200)
-    },
-
-    onTouchEnd(e) {
-      console.log({ e })
+      }, 100)
     },
 
     navigate(direction) {
@@ -214,8 +235,11 @@ export default {
 
       console.log({ top: componentBounding.top })
       if (componentBounding.top <= 400) {
-        console.log('show testimonials swiper')
-        this.$refs.testimonialsSwiper.swiper.init()
+        setTimeout(() => {
+          this.calculateGap()
+          console.log('show testimonials swiper')
+          this.$refs.testimonialsSwiper.swiper.init()
+        }, 3000)
       }
     }
 
@@ -267,7 +291,6 @@ export default {
     }
 
     .testimonials-line {
-      border: solid 3px red;
       justify-content: space-between;
 
       @media (min-width: 577px) {
@@ -276,12 +299,12 @@ export default {
       }
 
       @media (min-width: 1080px) {
-        padding-left: 210px;
-        min-height: 258px;
+        padding-left: 240px;
+        // min-height: 258px;
       }
 
       @media (min-width: 1200px) {
-        padding-left: 150px;
+        padding-left: 190px;
       }
 
       // @media (min-width: 1080px) {
@@ -296,7 +319,6 @@ export default {
       flex-direction: column;
 
       .testimonials-wrapper {
-        border: solid;
         font-size: 14pt;
 
         @media (min-width: 1024px) {
@@ -306,8 +328,6 @@ export default {
         }
 
         .swiper {
-          //border: solid;
-
           &.testimonials-swiper {
             // border: solid 3px blue;
           }
@@ -347,8 +367,6 @@ export default {
       }
 
       .navigation {
-        border: solid 1px orangered;
-
         @media (min-width: 1080px) {
           width: 269px;
         }
