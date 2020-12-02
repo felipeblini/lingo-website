@@ -24,14 +24,16 @@
               @slide-next-transition-end="onSwiperSlideNextEnd"
               @slide-prev-transition-start="onSwiperSlidePrevStart"
               @slide-prev-transition-end="onSwiperSlidePrevEnd"
+              @slideChange="onTouchEnd"
             >
               <div class="swiper-wrapper">
+                <!-- <div class="swiper-slide"></div> -->
                 <div
                   class="swiper-slide testimonial-slide"
-                  v-for="(testimonial, index) in testimonialsList"
+                  v-for="(testimonial, index) in list"
                   :key="index"
                 >
-                  <span>
+                  <span v-if="testimonial.acf">
                     {{ testimonial.acf[`depoimento_${$store.state.language}`] }}
                   </span>
                 </div>
@@ -44,13 +46,16 @@
               ref="personsSwiper"
             >
               <div class="swiper-wrapper">
+                <!-- <div class="swiper-slide"></div> -->
                 <div
                   class="swiper-slide person-slide"
-                  v-for="(testimonial, index) in testimonialsList"
+                  v-for="(testimonial, index) in list"
                   :key="index"
                 >
-                  <span class="name">{{ testimonial.title.rendered }}</span>
-                  <span class="role">{{
+                  <span class="name" v-if="testimonial.title">{{
+                    testimonial.title.rendered
+                  }}</span>
+                  <span class="role" v-if="testimonial.acf">{{
                     testimonial.acf.empresa_e_cargo
                   }}</span>
                 </div>
@@ -99,13 +104,14 @@ export default {
         'en-US': 'Testimonials'
       },
       testimonialsSwiperOptions: {
-        autoHeight: true,
+        init: false,
+        autoHeight: false,
         slidesPerView: 1,
         centeredSlides: true,
         spaceBetween: 20,
         loop: true,
         autoplay: {
-          delay: 2000,
+          delay: 5000,
           disableOnInteraction: true
         }
       },
@@ -114,7 +120,8 @@ export default {
         centeredSlides: true,
         spaceBetween: 20,
         loop: true
-      }
+      },
+      list: []
     }
   },
 
@@ -128,8 +135,8 @@ export default {
 
   watch: {
     testimonialsList: {
-      handler: function(newValue) {
-        this.originalListlength = newValue.length
+      handler: function(list) {
+        this.list = [{}, ...list]
         this.$emit('ready')
       },
       immediate: true
@@ -140,17 +147,33 @@ export default {
     }
   },
   methods: {
+    calculateGap() {
+      const slideActive = document.querySelector('.swiper-slide-active')
+      const wrapper = document.querySelector('.testimonials-wrapper')
+      const gap = (wrapper.clientHeight - slideActive.clientHeight) * -1
+      const personsSwiper = document.querySelector('.persons-swiper')
+
+      console.log({ gap })
+
+      personsSwiper.style.top = `${gap + 59}px`
+      personsSwiper.style.position = 'relative'
+    },
     onSwiperSlideNextStart() {
       this.$refs.personsSwiper.style.opacity = 0
       this.$refs.personsSwiper.style.visibility = 'hidden'
     },
     onSwiperSlideNextEnd() {
       this.$refs.personsSwiper.swiper.slideNext()
+      // this.$refs.personsSwiper.swiper.slideTo(i, 0)
       this.$refs.personsSwiper.style.visibility = 'visible'
+      this.calculateGap()
 
       setTimeout(() => {
         this.$refs.personsSwiper.style.opacity = 1
       }, 200)
+
+      if (this.list.length > this.testimonialsList.length)
+        this.list = this.list.slice(1)
     },
 
     onSwiperSlidePrevStart() {
@@ -160,12 +183,17 @@ export default {
 
     onSwiperSlidePrevEnd() {
       this.$refs.personsSwiper.swiper.slidePrev()
-
       this.$refs.personsSwiper.style.visibility = 'visible'
+
+      this.calculateGap()
 
       setTimeout(() => {
         this.$refs.personsSwiper.style.opacity = 1
       }, 200)
+    },
+
+    onTouchEnd(e) {
+      console.log({ e })
     },
 
     navigate(direction) {
@@ -175,30 +203,29 @@ export default {
     }
   },
   mounted() {
-    // this.showSwipper = false
-    // const componentWrapper = document.querySelector(`#${this.anchorName}`)
-    // const showSwiper = () => {
-    //   const viewportHeight =
-    //     window.innerHeight || document.documentElement.clientHeight
-    //   const componentBounding = componentWrapper.getBoundingClientRect()
-    //   console.log({ top: componentBounding.top })
-    //   if (componentBounding.top <= 900 && !this.isShowSwipperSettle) {
-    //     console.log('show testimonials swiper')
-    //     this.isShowSwipperSettle = true
-    //     this.$nextTick(() => {
-    //       setTimeout(() => {
-    //         this.showSwipper = true
-    //       }, 300)
-    //       this.$forceUpdate()
-    //     })
-    //   }
-    // }
-    // showSwiper()
-    // window.addEventListener('scroll', () => {
-    //   setTimeout(() => {
-    //     showSwiper()
-    //   }, 100)
-    // })
+    const componentWrapper = document.querySelector(`#${this.anchorName}`)
+    const initSwiper = () => {
+      this.calculateGap()
+
+      const viewportHeight =
+        window.innerHeight || document.documentElement.clientHeight
+
+      const componentBounding = componentWrapper.getBoundingClientRect()
+
+      console.log({ top: componentBounding.top })
+      if (componentBounding.top <= 400) {
+        console.log('show testimonials swiper')
+        this.$refs.testimonialsSwiper.swiper.init()
+      }
+    }
+
+    initSwiper()
+
+    window.addEventListener('scroll', () => {
+      setTimeout(() => {
+        initSwiper()
+      }, 100)
+    })
   }
 }
 </script>
@@ -288,6 +315,8 @@ export default {
           &.persons-swiper {
             margin-top: 15px;
             transition: opacity 0.25s;
+            pointer-events: none;
+            outline: 0;
 
             span {
               display: block;
