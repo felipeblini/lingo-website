@@ -272,7 +272,6 @@ export default {
           button.partners-navigator {
             background-color: transparent;
             background-repeat: no-repeat;
-            background-size: cover;
             width: 33px;
             height: 30px;
             outline: none;

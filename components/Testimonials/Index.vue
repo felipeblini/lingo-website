@@ -41,7 +41,7 @@
             </div>
 
             <div
-              class="swiper persons-swiper"
+              class="swiper persons-swiper pt-3"
               v-swiper:personsSwiper="personsSwiperOptions"
               ref="personsSwiper"
             >
@@ -159,7 +159,7 @@ export default {
       if (slideActive && wrapper) {
         const gap = (wrapper.clientHeight - slideActive.clientHeight) * -1
 
-        this.$refs.personsSwiper.style.top = `${gap + 59}px`
+        this.$refs.personsSwiper.style.top = `${gap + 79}px`
         this.$refs.personsSwiper.style.position = 'relative'
       }
     },
@@ -352,16 +352,18 @@ export default {
 
             span {
               display: block;
-              line-height: 14pt;
 
               &.name {
                 text-transform: uppercase;
                 font-weight: bold;
                 color: #000;
+                line-height: 14pt;
               }
+
               &.role {
                 font-weight: bold;
                 margin-top: 5px;
+                line-height: 13pt;
               }
             }
           }
@@ -390,7 +392,6 @@ export default {
         button.testimonial-navigator {
           background-color: transparent;
           background-repeat: no-repeat;
-          background-size: cover;
           width: 30px;
           height: 30px;
           outline: none;
