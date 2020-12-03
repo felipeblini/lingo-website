@@ -28,7 +28,6 @@
               @touchEnd="onTouchEnd"
             >
               <div class="swiper-wrapper">
-                <!-- <div class="swiper-slide"></div> -->
                 <div
                   class="swiper-slide testimonial-slide"
                   v-for="(testimonial, index) in listTexts"
@@ -45,11 +44,8 @@
               class="swiper persons-swiper"
               v-swiper:personsSwiper="personsSwiperOptions"
               ref="personsSwiper"
-              @slide-next-transition-start="onPersonNextStart"
-              @slide-next-transition-end="onPersonNextEnd"
             >
               <div class="swiper-wrapper">
-                <!-- <div class="swiper-slide"></div> -->
                 <div
                   class="swiper-slide person-slide"
                   v-for="(testimonial, index) in listPersons"
@@ -81,7 +77,6 @@
               right
             </button>
           </div>
-          <button @click="initSwiper">Initi Swiper</button>
         </div>
       </div>
     </div>
@@ -128,6 +123,7 @@ export default {
       },
       listTexts: [],
       listPersons: [],
+      isSwiperInitialized: false,
       touched: false
     }
   },
@@ -143,22 +139,8 @@ export default {
   watch: {
     testimonialsList: {
       handler: function(list) {
-        this.listTexts = [
-          {
-            acf: {
-              'depoimento_pt-BR': 'empty'
-            }
-          },
-          ...list
-        ]
-        this.listPersons = [
-          {
-            title: {
-              rendered: 'empty'
-            }
-          },
-          ...list
-        ]
+        this.listTexts = [{}, ...list]
+        this.listPersons = [{}, ...list]
 
         this.$emit('ready')
       },
@@ -186,16 +168,15 @@ export default {
       this.$refs.testimonialsSwiper.swiper.init()
       this.$refs.personsSwiper.swiper.init()
       this.navigateText('next')
+      this.isSwiperInitialized = true
     },
 
     onTextNextStart() {
-      console.log('slide next start')
       this.$refs.personsSwiper.style.opacity = 0
       this.$refs.personsSwiper.style.visibility = 'hidden'
     },
 
     onTextNextEnd() {
-      console.log('slide next end')
       this.calculateGap()
       this.$refs.personsSwiper.style.visibility = 'visible'
 
@@ -216,14 +197,6 @@ export default {
           this.listPersons = this.listPersons.slice(1)
         }
       }, 2500)
-    },
-
-    onPersonNextStart() {
-      console.log('slide next person start')
-    },
-
-    onPersonNextEnd() {
-      console.log('slide next person end')
     },
 
     onTextPrevStart() {
@@ -265,29 +238,20 @@ export default {
     },
 
     navigatePerson(direction, index) {
-      console.log('navigatePerson', { direction, index })
       if (index) this.$refs.personsSwiper.swiper.slideTo(index, 0)
       else if (direction === 'next') this.$refs.personsSwiper.swiper.slideNext()
       else if (direction === 'prev') this.$refs.personsSwiper.swiper.slidePrev()
     }
   },
   mounted() {
-    const componentWrapper = document.querySelector(`#${this.anchorName}`)
     const initSwiper = () => {
-      this.calculateGap()
+      const swiperWraper = document.querySelector('.swiper-wrapper')
 
-      const viewportHeight =
-        window.innerHeight || document.documentElement.clientHeight
-
-      const componentBounding = componentWrapper.getBoundingClientRect()
-
-      // console.log({ top: componentBounding.top })
-      if (componentBounding.top <= 400) {
-        setTimeout(() => {
-          this.calculateGap()
-          // console.log('show testimonials swiper')
-          // this.$refs.testimonialsSwiper.swiper.init()
-        }, 3000)
+      if (
+        swiperWraper.getBoundingClientRect().top <=
+        window.innerHeight - 100
+      ) {
+        if (!this.isSwiperInitialized) this.initSwiper()
       }
     }
 
