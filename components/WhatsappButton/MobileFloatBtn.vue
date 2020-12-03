@@ -1,5 +1,6 @@
 <template>
   <div
+    v-show="!this.$store.state.isLoading"
     class="float-wp-btn-container"
     ref="wp-button"
     v-click-outside="hideNumbers"
