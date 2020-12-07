@@ -192,8 +192,6 @@ export default {
     },
     onNavBarTogglerClick(evt) {
       this.collapsed = !this.collapsed
-
-      console.log(this.collapsed)
       this.$store.commit('setLoading', this.collapsed)
     }
   }
