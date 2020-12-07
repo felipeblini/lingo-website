@@ -350,6 +350,10 @@ export default {
             pointer-events: none;
             outline: 0;
 
+            .swiper-slide {
+              min-height: 50px;
+            }
+
             span {
               display: block;
 
