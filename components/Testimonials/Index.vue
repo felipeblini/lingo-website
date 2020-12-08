@@ -387,7 +387,8 @@ export default {
             outline: 0;
 
             .swiper-slide.person-slide {
-              min-height: 50px;
+              min-height: 60px;
+              padding-bottom: 5px;
 
               &.swiper-slide-active {
                 // border: solid 3px blue;
