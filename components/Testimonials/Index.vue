@@ -15,7 +15,7 @@
         <div
           class="col-12 col-sm-10 offset-sm-1 col-xl-8 offset-xl-2 testimonials-line"
         >
-          <div class="testimonials-wrapper">
+          <div class="swipers-wrapper">
             <div
               class="swiper testimonials-swiper"
               ref="testimonialsSwiper"
@@ -23,14 +23,14 @@
               @slide-next-transition-start="onTextNextStart"
               @slide-next-transition-end="onTextNextEnd"
               @slide-prev-transition-start="onTextPrevStart"
-              @slide-prev-transition-end="onPersonPrevEnd"
-              @touchStart="onTouchStart"
+              @slide-prev-transition-end="onTextPrevEnd"
+              @touchMove="onTouchMove"
               @touchEnd="onTouchEnd"
             >
               <div class="swiper-wrapper">
                 <div
                   class="swiper-slide testimonial-slide"
-                  v-for="(testimonial, index) in listTexts"
+                  v-for="(testimonial, index) in listOfTestimonials"
                   :key="index"
                 >
                   <span v-if="testimonial.acf">
@@ -42,20 +42,21 @@
 
             <div
               class="swiper persons-swiper pt-3"
-              v-swiper:personsSwiper="personsSwiperOptions"
               ref="personsSwiper"
+              v-swiper:personsSwiper="personsSwiperOptions"
+              @slide-next-transition-end="onPersonNextEnd"
             >
               <div class="swiper-wrapper">
                 <div
                   class="swiper-slide person-slide"
-                  v-for="(testimonial, index) in listPersons"
+                  v-for="(person, index) in listOfPersons"
                   :key="index"
                 >
-                  <span class="name" v-if="testimonial.title">
-                    {{ testimonial.title.rendered }}
+                  <span class="name" v-if="person.title">
+                    {{ person.title.rendered }}
                   </span>
-                  <span class="role" v-if="testimonial.acf">
-                    {{ testimonial.acf.empresa_e_cargo }}
+                  <span class="role" v-if="person.acf">
+                    {{ person.acf.empresa_e_cargo }}
                   </span>
                 </div>
               </div>
@@ -115,15 +116,16 @@ export default {
         }
       },
       personsSwiperOptions: {
-        init: false,
+        init: true,
         slidesPerView: 1,
         centeredSlides: true,
         spaceBetween: 20,
         loop: true
       },
-      listTexts: [],
-      listPersons: [],
+      listOfTestimonials: [],
+      listOfPersons: [],
       isSwiperInitialized: false,
+      isJustInitialized: false,
       touched: false
     }
   },
@@ -139,8 +141,13 @@ export default {
   watch: {
     testimonialsList: {
       handler: function(list) {
-        this.listTexts = [{}, ...list]
-        this.listPersons = [{}, ...list]
+        this.listOfTestimonials = [{}]
+        this.listOfPersons = [{}]
+
+        list.forEach((item) => {
+          this.listOfTestimonials.push(item)
+          this.listOfPersons.push(item)
+        })
 
         this.$emit('ready')
       },
@@ -152,23 +159,27 @@ export default {
     }
   },
   methods: {
-    calculateGap() {
-      const slideActive = document.querySelector('.swiper-slide-active')
-      const wrapper = document.querySelector('.testimonials-wrapper')
+    calculatePersonSwiperTopPositon() {
+      const testimonialsSwiper = this.$refs.testimonialsSwiper
+      const testimonialSlideActive = document.querySelector(
+        '.swiper-slide.testimonial-slide.swiper-slide-active'
+      )
+      const personsSwiper = this.$refs.personsSwiper
 
-      if (slideActive && wrapper) {
-        const gap = (wrapper.clientHeight - slideActive.clientHeight) * -1
+      if (testimonialSlideActive && testimonialSlideActive && personsSwiper) {
+        const gap =
+          testimonialsSwiper.clientHeight - testimonialSlideActive.clientHeight
 
-        this.$refs.personsSwiper.style.top = `${gap + 79}px`
-        this.$refs.personsSwiper.style.position = 'relative'
+        personsSwiper.style.transform = `translateY(-${gap}px)`
       }
     },
 
     initSwiper() {
       this.$refs.testimonialsSwiper.swiper.init()
-      this.$refs.personsSwiper.swiper.init()
+
       this.navigateText('next')
       this.isSwiperInitialized = true
+      this.isJustInitialized = true
     },
 
     onTextNextStart() {
@@ -177,35 +188,38 @@ export default {
     },
 
     onTextNextEnd() {
-      this.calculateGap()
+      this.calculatePersonSwiperTopPositon()
       this.$refs.personsSwiper.style.visibility = 'visible'
 
       setTimeout(() => {
-        const swiperIndex = this.$refs.testimonialsSwiper.swiper.activeIndex
-
         if (this.touched) {
-          this.navigatePerson('', swiperIndex)
+          const toIndex = this.$refs.testimonialsSwiper.swiper.activeIndex
+
+          this.navigatePerson('', toIndex)
           this.thouched = false
-        } else this.navigatePerson('next')
+        } else if (!this.isJustInitialized) {
+          this.navigatePerson('next')
+        }
+
+        this.isJustInitialized = false
 
         this.$refs.personsSwiper.style.opacity = 1
-      }, 500)
+      }, 400)
 
       setTimeout(() => {
-        if (this.listTexts.length > this.testimonialsList.length) {
-          this.listTexts = this.listTexts.slice(1)
-          this.listPersons = this.listPersons.slice(1)
+        if (this.listOfTestimonials.length > this.testimonialsList.length) {
+          this.listOfTestimonials = this.listOfTestimonials.slice(1)
         }
-      }, 2500)
+      }, 1500)
     },
 
     onTextPrevStart() {
       this.$refs.personsSwiper.style.opacity = 0
       this.$refs.personsSwiper.style.visibility = 'hidden'
-      this.calculateGap()
+      this.calculatePersonSwiperTopPositon()
     },
 
-    onPersonPrevEnd() {
+    onTextPrevEnd() {
       const swiperIndex = this.$refs.testimonialsSwiper.swiper.activeIndex
 
       if (this.touched) {
@@ -222,8 +236,17 @@ export default {
       }, 100)
     },
 
-    onTouchStart() {
-      this.$refs.personsSwiper.style.opacity = 0
+    onPersonNextEnd() {
+      setTimeout(() => {
+        console.log('onPersonNextEnd sto')
+        if (this.listOfPersons.length > this.testimonialsList.length) {
+          this.listOfPersons = this.listOfPersons.slice(1)
+        }
+      }, 1500)
+    },
+
+    onTouchMove() {
+      this.$refs.personsSwiper.style.opacity = 0.3
     },
 
     onTouchEnd() {
@@ -260,6 +283,10 @@ export default {
     window.addEventListener('scroll', () => {
       setTimeout(() => {
         initSwiper()
+
+        if (this.isSwiperInitialized) {
+          this.$refs.personsSwiper.style.opacity = 1
+        }
       }, 100)
     })
   }
@@ -330,7 +357,7 @@ export default {
       display: flex;
       flex-direction: column;
 
-      .testimonials-wrapper {
+      .swipers-wrapper {
         font-size: 14pt;
 
         @media (min-width: 1024px) {
@@ -340,34 +367,47 @@ export default {
         }
 
         .swiper {
+          .swiper-slide {
+            // border: solid 3px transparent;
+          }
+
           &.testimonials-swiper {
-            // border: solid 3px blue;
+            // border: solid 3px #666;
+
+            .swiper-slide.testimonial-slide {
+              &.swiper-slide-active {
+                // border: solid 3px red;
+              }
+            }
           }
 
           &.persons-swiper {
-            margin-top: 15px;
             transition: opacity 0.25s;
             pointer-events: none;
             outline: 0;
 
-            .swiper-slide {
+            .swiper-slide.person-slide {
               min-height: 50px;
-            }
 
-            span {
-              display: block;
-
-              &.name {
-                text-transform: uppercase;
-                font-weight: bold;
-                color: #000;
-                line-height: 14pt;
+              &.swiper-slide-active {
+                // border: solid 3px blue;
               }
 
-              &.role {
-                font-weight: bold;
-                margin-top: 5px;
-                line-height: 13pt;
+              span {
+                display: block;
+
+                &.name {
+                  text-transform: uppercase;
+                  font-weight: bold;
+                  color: #000;
+                  line-height: 14pt;
+                }
+
+                &.role {
+                  font-weight: bold;
+                  margin-top: 5px;
+                  line-height: 13pt;
+                }
               }
             }
           }
