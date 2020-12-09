@@ -66,13 +66,14 @@
           <div class="navigation">
             <button
               class="testimonial-navigator tn-left"
+              :disabled="!isReadyToNavigate"
               @click="navigateText('prev')"
             >
               left
             </button>
             <button
               class="testimonial-navigator tn-right"
-              ref="tn-right"
+              :disabled="!isReadyToNavigate"
               @click="navigateText('next')"
             >
               right
@@ -126,6 +127,7 @@ export default {
       listOfPersons: [],
       isSwiperInitialized: false,
       isJustInitialized: false,
+      isReadyToNavigate: false,
       touched: false
     }
   },
@@ -210,7 +212,7 @@ export default {
         if (this.listOfTestimonials.length > this.testimonialsList.length) {
           this.listOfTestimonials = this.listOfTestimonials.slice(1)
         }
-      }, 1500)
+      }, 500)
     },
 
     onTextPrevStart() {
@@ -241,6 +243,7 @@ export default {
         console.log('onPersonNextEnd sto')
         if (this.listOfPersons.length > this.testimonialsList.length) {
           this.listOfPersons = this.listOfPersons.slice(1)
+          this.isReadyToNavigate = true
         }
       }, 1500)
     },

@@ -173,6 +173,8 @@ export default {
 
   methods: {
     goToAnchor(menu, offset) {
+      this.$store.commit('setLoading', false)
+
       const scrollTo = this.$store.state.menu[menu]
         ? this.$store.state.menu[menu][this.$store.state.language]
             .toLowerCase()
