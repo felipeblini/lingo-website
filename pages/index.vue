@@ -73,13 +73,12 @@ import LingoFooter from '~/components/Footer/Index.vue'
 export default {
   head() {
     return {
-      title: `${this.ssrDefaultTitle} | Lingo - Interpretação, tradução simultânea, transcrição, revisão e media training`,
+      title: this.ssrDefaultTitle,
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content:
-            'Lingo Interpretação, tradução simultânea, transcrição, revisão e media training'
+          content: this.ssrDefaultDescription
         }
       ]
     }
@@ -172,13 +171,29 @@ export default {
 
     const ssrHeroTitle = responses[0].data[0].title.rendered
 
+    const pageTitle =
+      query.lang && query.lang === 'en-US'
+        ? 'Lingo - Translation, simultaneous and consecutive interpreting, proofreading, transcription, media training'
+        : 'Lingo - Tradução, interpretação simultânea e consecutiva, revisão, transcrição, media training'
+
+    const pageDescription =
+      query.lang && query.lang === 'en-US'
+        ? 'Translation, simultaneous and consecutive interpreting, proofreading, transcription, media training'
+        : 'Tradução, interpretação simultânea e consecutiva, revisão, transcrição, media training'
+
     const ssrDefaultTitle =
       ssrDefaultService && ssrDefaultService.title.rendered
-        ? ssrDefaultService.title.rendered
-        : ssrHeroTitle
+        ? ssrDefaultService.title.rendered + ' | ' + pageTitle
+        : pageTitle
+
+    const ssrDefaultDescription =
+      ssrDefaultService && ssrDefaultService.title.rendered
+        ? ssrDefaultService.title.rendered + ' | ' + pageTitle
+        : pageDescription
 
     return {
       ssrDefaultTitle,
+      ssrDefaultDescription,
 
       ssrHeroContent: {
         title: ssrHeroTitle,

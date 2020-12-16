@@ -354,7 +354,7 @@ export default {
   data() {
     return {
       title: {
-        'pt-BR': 'Nosso Trabalho',
+        'pt-BR': 'Nossos Serviços',
         'en-US': 'Our Services'
       },
       text: {
