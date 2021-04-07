@@ -2,7 +2,7 @@
   <div class="hero-cmp" ref="hero-container">
     <div class="hero-text container">
       <div>
-        <h1 v-html="title[$store.state.language]" />
+        <h1>VAMOS DE LINGO!</h1>
         <p v-html="text[$store.state.language]" />
       </div>
     </div>

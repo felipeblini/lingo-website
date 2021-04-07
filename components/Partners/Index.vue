@@ -27,7 +27,9 @@
                       :key="index"
                       :href="partner.url"
                       :title="partner.name"
-                      :style="{ backgroundImage: `url(${partner.logoUrl})` }"
+                      :style="{
+                        backgroundImage: `url(${require(`@/components/Partners/img/${partner.logoUrl}.jpg`)})`
+                      }"
                     >
                       {{ partner.name }}
                     </a>
@@ -101,38 +103,41 @@ export default {
   },
 
   async mounted() {
-    const logos = await this.$axios.get('posts?categories=6')
-    const list = logos.data.map((logo) => ({
-      ordem: logo.acf.ordem,
-      name: logo.title.rendered,
-      logoUrl: logo.acf.logotipo_url
-    }))
+    // const logos = await this.$axios.get('posts?categories=6')
+    // const list = logos.data.map((logo) => ({
+    //   ordem: logo.acf.ordem,
+    //   name: logo.title.rendered,
+    //   logoUrl: logo.acf.logotipo_url
+    // }))
 
-    this.list = list.sort((a, b) => a.ordem - b.ordem)
+    // this.list = list.sort((a, b) => a.ordem - b.ordem)
+
+    this.list = [
+      {
+        name: '',
+        url: '#',
+        logoUrl: 'logo1@1X'
+      },
+      {
+        name: '',
+        url: '#',
+        logoUrl: 'logo2@1X'
+      },
+      {
+        name: '',
+        url: '#',
+        logoUrl: 'logo3@1X'
+      },
+      {
+        name: '',
+        url: '#',
+        logoUrl: 'logo4@1X'
+      }
+    ]
 
     this.$emit('ready')
 
     setTimeout(() => {
-      // if (window.innerWidth > 768 && this.list.length <= 3) {
-      //   this.partnerSwiperOptions.slidesPerView = this.list.length
-      //   this.partnerSwiperOptions.loop = false
-      //   this.partnerSwiperOptions.spaceBetween = 5
-
-      //   setTimeout(() => {
-      //     const list = document.querySelectorAll('.partners-list')[0]
-
-      //     list.classList.add('d-flex')
-      //     list.classList.add('justify-content-center')
-
-      //     const swiperWrapper = document.querySelectorAll(
-      //       '.partners-swiper-wrapper'
-      //     )[0]
-
-      //     swiperWrapper.classList.add('d-flex')
-      //     swiperWrapper.classList.add('justify-content-center')
-      //   }, 500)
-      // }
-
       this.showSwiper = true
     }, 500)
   },
