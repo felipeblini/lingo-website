@@ -13,7 +13,13 @@
 
       <div class="row">
         <div
-          class="col-12 col-sm-10 offset-sm-1 col-xl-8 offset-xl-2 testimonials-line"
+          class="
+            col-12 col-sm-10
+            offset-sm-1
+            col-xl-8
+            offset-xl-2
+            testimonials-line
+          "
         >
           <div class="swipers-wrapper">
             <div
@@ -91,18 +97,18 @@ export default {
     maxWidth: {
       type: Number,
       default: 480,
-      description: 'wrapper maxwidth in points'
+      description: 'wrapper maxwidth in points',
     },
     testimonialsList: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
       title: {
         'pt-BR': 'Depoimentos',
-        'en-US': 'Testimonials'
+        'en-US': 'Testimonials',
       },
       testimonialsSwiperOptions: {
         init: false,
@@ -113,22 +119,22 @@ export default {
         loop: true,
         autoplay: {
           delay: 15000,
-          disableOnInteraction: false
-        }
+          disableOnInteraction: false,
+        },
       },
       personsSwiperOptions: {
         init: true,
         slidesPerView: 1,
         centeredSlides: true,
         spaceBetween: 20,
-        loop: true
+        loop: true,
       },
       listOfTestimonials: [],
       listOfPersons: [],
       isSwiperInitialized: false,
       isJustInitialized: false,
       isReadyToNavigate: false,
-      touched: false
+      touched: false,
     }
   },
 
@@ -137,12 +143,12 @@ export default {
       return `${this.$store.state.menu.testimonials[this.$store.state.language]
         .toLowerCase()
         .replace(' ', '-')}`
-    }
+    },
   },
 
   watch: {
     testimonialsList: {
-      handler: function(list) {
+      handler: function (list) {
         this.listOfTestimonials = [{}]
         this.listOfPersons = [{}]
 
@@ -153,12 +159,12 @@ export default {
 
         this.$emit('ready')
       },
-      immediate: true
+      immediate: true,
     },
 
     '$store.state.language'(value) {
       this.$emit('ready')
-    }
+    },
   },
   methods: {
     calculatePersonSwiperTopPositon() {
@@ -240,7 +246,6 @@ export default {
 
     onPersonNextEnd() {
       setTimeout(() => {
-        console.log('onPersonNextEnd sto')
         if (this.listOfPersons.length > this.testimonialsList.length) {
           this.listOfPersons = this.listOfPersons.slice(1)
           this.isReadyToNavigate = true
@@ -267,7 +272,7 @@ export default {
       if (index) this.$refs.personsSwiper.swiper.slideTo(index, 0)
       else if (direction === 'next') this.$refs.personsSwiper.swiper.slideNext()
       else if (direction === 'prev') this.$refs.personsSwiper.swiper.slidePrev()
-    }
+    },
   },
   mounted() {
     const initSwiper = () => {
@@ -292,7 +297,7 @@ export default {
         }
       }, 100)
     })
-  }
+  },
 }
 </script>
 
