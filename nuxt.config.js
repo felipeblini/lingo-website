@@ -72,6 +72,7 @@ export default {
     '@nuxtjs/style-resources',
     'nuxt-user-agent',
     '@nuxtjs/robots',
+    '@nuxtjs/pwa',
   ],
 
   styleResources: {
