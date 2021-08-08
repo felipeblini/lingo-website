@@ -28,7 +28,7 @@
                       :href="partner.url"
                       :title="partner.name"
                       :style="{
-                        backgroundImage: `url(${require(`@/components/Partners/img/${partner.logoUrl}.jpg`)})`
+                        backgroundImage: `url(${require(`@/components/Partners/img/${partner.logoUrl}.jpg`)})`,
                       }"
                     >
                       {{ partner.name }}
@@ -54,11 +54,17 @@
 
 <script>
 export default {
+  props: {
+    partnersList: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
       title: {
         'pt-BR': 'Parceiros',
-        'en-US': 'Partners'
+        'en-US': 'Partners',
       },
       list: [],
       showSwiper: false,
@@ -68,23 +74,23 @@ export default {
         loop: true,
         autoplay: {
           delay: 2000,
-          disableOnInteraction: false
+          disableOnInteraction: false,
         },
         breakpoints: {
           400: {
             slidesPerView: 2,
-            spaceBetween: 15
+            spaceBetween: 15,
           },
           768: {
             slidesPerView: 3,
-            spaceBetween: 25
-          }
+            spaceBetween: 25,
+          },
         },
         autoplay: {
           delay: 2500,
-          disableOnInteraction: true
-        }
-      }
+          disableOnInteraction: true,
+        },
+      },
     }
   },
 
@@ -93,50 +99,31 @@ export default {
       return `${this.$store.state.menu.partners[this.$store.state.language]
         .toLowerCase()
         .replace(' ', '-')}`
-    }
+    },
   },
 
   watch: {
+    partnersList: {
+      handler: function (data) {
+        // const list = data.map((logo) => ({
+        //   ordem: logo.acf.ordem,
+        //   name: logo.title.rendered,
+        //   logoUrl: logo.acf.logotipo_url,
+        // }))
+
+        // this.list = list.sort((a, b) => a.ordem - b.ordem)
+
+        this.$emit('ready')
+      },
+      immediate: true,
+    },
+
     '$store.state.language'(value) {
       this.$emit('ready')
-    }
+    },
   },
 
-  async mounted() {
-    // const logos = await this.$axios.get('posts?categories=6')
-    // const list = logos.data.map((logo) => ({
-    //   ordem: logo.acf.ordem,
-    //   name: logo.title.rendered,
-    //   logoUrl: logo.acf.logotipo_url
-    // }))
-
-    // this.list = list.sort((a, b) => a.ordem - b.ordem)
-
-    this.list = [
-      {
-        name: '',
-        url: '#',
-        logoUrl: 'logo1@1X'
-      },
-      {
-        name: '',
-        url: '#',
-        logoUrl: 'logo2@1X'
-      },
-      {
-        name: '',
-        url: '#',
-        logoUrl: 'logo3@1X'
-      },
-      {
-        name: '',
-        url: '#',
-        logoUrl: 'logo4@1X'
-      }
-    ]
-
-    this.$emit('ready')
-
+  mounted() {
     setTimeout(() => {
       this.showSwiper = true
     }, 500)
@@ -148,8 +135,8 @@ export default {
     },
     slidePrev() {
       this.partnersSwiper.slidePrev()
-    }
-  }
+    },
+  },
 }
 </script>
 

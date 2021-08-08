@@ -1,7 +1,7 @@
 {
   "name": "lingo-website",
   "version": "1.0.0",
-  "description": "My tiptop Nuxt.js project",
+  "description": "",
   "author": "Felipe blini",
   "private": true,
   "scripts": {
@@ -39,6 +39,7 @@
   "devDependencies": {
     "@nuxtjs/eslint-config": "^0.0.1",
     "@nuxtjs/eslint-module": "^0.0.1",
+    "@nuxtjs/pwa": "3.3.5",
     "@nuxtjs/robots": "2.4.2",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.15.1",

@@ -3,7 +3,7 @@
     <WhatsappButtonMobile
       class="d-xl-none"
       :class="{
-        'd-none': $store.state.isModalOpen
+        'd-none': $store.state.isModalOpen,
       }"
     />
     <div class="footer-background" v-if="showBkgImage"></div>
@@ -92,7 +92,13 @@ import WhatsappButtonMobile from '@/components/WhatsappButton/MobileFloatBtn.vue
 export default {
   components: {
     WhatsappPopover,
-    WhatsappButtonMobile
+    WhatsappButtonMobile,
+  },
+  props: {
+    contactData: {
+      type: Object,
+      default: () => {},
+    },
   },
   data() {
     return {
@@ -101,30 +107,30 @@ export default {
         instagram: '',
         facebook: '',
         youtube: '',
-        linkedin: ''
+        linkedin: '',
       },
       instagramTitle: {
         'pt-BR': 'Siga-nos no Instagram',
-        'en-US': 'Follow us on Instagram'
+        'en-US': 'Follow us on Instagram',
       },
       facebookTitle: {
         'pt-BR': 'Acompanhe-nos pelo Facebook',
-        'en-US': 'Follow us on Facebook'
+        'en-US': 'Follow us on Facebook',
       },
       youtubeTitle: {
         'pt-BR': 'Acompanhe nossos conteúdos no Youtube',
-        'en-US': 'Subscribe on Youtube'
+        'en-US': 'Subscribe on Youtube',
       },
       linkedinTitle: {
         'pt-BR': 'Saiba mais sobre a gente no LinkedIn',
-        'en-US': 'Know more about us on LinkedIn'
+        'en-US': 'Know more about us on LinkedIn',
       },
       whatsappTitle: {
         'pt-BR': 'Fale conosco pelo WhatsApp',
-        'en-US': 'Contact us through WhatsApp'
+        'en-US': 'Contact us through WhatsApp',
       },
       disableWhatsApppTooltip: false,
-      showBkgImage: false
+      showBkgImage: false,
     }
   },
 
@@ -133,34 +139,38 @@ export default {
       return `${this.$store.state.menu.contact[this.$store.state.language]
         .toLowerCase()
         .replace(' ', '-')}`
-    }
+    },
   },
 
   watch: {
+    contactData: {
+      handler: function (data) {
+        this.address = data.content.rendered.trim()
+
+        this.socialLinks.instagram = data.acf.instagram_url
+        this.socialLinks.facebook = data.acf.facebook_url
+        this.socialLinks.youtube = data.acf.youtube_url
+        this.socialLinks.linkedin = data.acf.linkedin_url
+
+        for (const property in this.socialLinks) {
+          if (!this.socialLinks[property].includes('://')) {
+            const value = Array.from(this.socialLinks[property])
+            value.unshift('https://')
+            this.socialLinks[property] = value.join('')
+          }
+        }
+
+        this.$emit('ready')
+      },
+      immediate: true,
+    },
+
     '$store.state.language'(value) {
       this.$emit('ready')
-    }
+    },
   },
 
-  async mounted() {
-    const response = await this.$axios.get(`posts?slug=contato`)
-    this.address = response.data[0].content.rendered.trim()
-
-    this.socialLinks.instagram = response.data[0].acf.instagram_url
-    this.socialLinks.facebook = response.data[0].acf.facebook_url
-    this.socialLinks.youtube = response.data[0].acf.youtube_url
-    this.socialLinks.linkedin = response.data[0].acf.linkedin_url
-
-    for (const property in this.socialLinks) {
-      if (!this.socialLinks[property].includes('://')) {
-        const value = Array.from(this.socialLinks[property])
-        value.unshift('https://')
-        this.socialLinks[property] = value.join('')
-      }
-    }
-
-    this.$emit('ready')
-
+  mounted() {
     const showBkgImage = () => {
       const bottomDistanceFromTop =
         document.documentElement.scrollTop + window.innerHeight
@@ -184,7 +194,7 @@ export default {
         showBkgImage()
       }, 100)
     })
-  }
+  },
 }
 </script>
 

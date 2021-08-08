@@ -11,7 +11,7 @@
       "
       :class="{
         br: initialLang === 'pt-BR' || initialLang === '',
-        en: initialLang === 'en-US'
+        en: initialLang === 'en-US',
       }"
       @click="toggle($event)"
     >
@@ -28,8 +28,8 @@ export default {
     initialLang: {
       type: String,
       default: '',
-      description: 'When lang is passed in by query'
-    }
+      description: 'When lang is passed in by query',
+    },
   },
   methods: {
     toggle(evt) {
@@ -58,14 +58,12 @@ export default {
 
         this.$emit('toggled', 'en-US')
       }
-
-      console.log(this.$route)
-    }
+    },
   },
 
   watch: {
     '$store.state.language': {
-      handler: function(value) {
+      handler: function (value) {
         const switcher = this.$refs['switchlang-wrapper']
 
         if (value === 'pt-BR') {
@@ -75,9 +73,9 @@ export default {
           switcher.classList.remove('br')
           switcher.classList.add('en')
         }
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>
 
