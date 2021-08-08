@@ -47,7 +47,7 @@
     </section>
 
     <section>
-      <OurPartners @ready="childrenReady++" />
+      <OurPartners :partnersList="ssrPartnersList" @ready="childrenReady++" />
     </section>
 
     <section>
@@ -55,7 +55,7 @@
     </section>
 
     <footer>
-      <LingoFooter @ready="childrenReady++" />
+      <LingoFooter :contactData="ssrContactData" @ready="childrenReady++" />
     </footer>
   </div>
 </template>
@@ -78,9 +78,9 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: this.ssrDefaultDescription
-        }
-      ]
+          content: this.ssrDefaultDescription,
+        },
+      ],
     }
   },
   components: {
@@ -91,14 +91,14 @@ export default {
     CustomersTestimonials,
     OurPartners,
     MapaMundi,
-    LingoFooter
+    LingoFooter,
   },
   middleware: 'check-browser-support',
 
   data: () => ({
     heroHeight: 0,
     childrenReady: 0,
-    miniBioMgCalculated: false
+    miniBioMgCalculated: false,
   }),
 
   watch: {
@@ -109,16 +109,17 @@ export default {
       this.$ga.page({
         page: '/',
         title: `Home Page (${newValue})`,
-        location: window.location.href
+        location: window.location.href,
       })
     },
+
     childrenReady(ready) {
       if (ready === this.$children.filter((el) => el.$listeners.ready).length) {
         this.$nextTick(() => {
           this.$nuxt.$loading.finish()
         })
       }
-    }
+    },
   },
 
   async asyncData({ query, $axios, store }) {
@@ -154,6 +155,12 @@ export default {
 
     // 5. testimonials list
     promises.push($axios.get('posts?categories=5'))
+
+    // 6. partners list
+    promises.push($axios.get('posts?categories=6'))
+
+    // 7. contact content
+    promises.push($axios.get('posts?slug=contato'))
 
     const responses = await Promise.all(promises)
 
@@ -197,7 +204,7 @@ export default {
 
       ssrHeroContent: {
         title: ssrHeroTitle,
-        text: responses[0].data[0].content.rendered
+        text: responses[0].data[0].content.rendered,
       },
 
       ssrMinibioTextTitle: responses[1].data[0].title.rendered,
@@ -209,13 +216,15 @@ export default {
 
       ssrOurServiceTextContent: {
         text: responses[3].data[0].content.rendered,
-        quotation: responses[3].data[0].acf.quotation
+        quotation: responses[3].data[0].acf.quotation,
       },
 
       ssrServicesList,
       ssrDefaultService,
 
-      ssrTestimonialsList: responses[5].data
+      ssrTestimonialsList: responses[5].data,
+      ssrPartnersList: responses[6].data,
+      ssrContactData: responses[7].data[0],
     }
   },
 
@@ -233,7 +242,7 @@ export default {
 
     this.$ga.page({
       page: '/',
-      title: `Home Page (${this.$store.state.language})`
+      title: `Home Page (${this.$store.state.language})`,
     })
   },
 
@@ -256,8 +265,8 @@ export default {
       }
 
       return str
-    }
-  }
+    },
+  },
 }
 </script>
 

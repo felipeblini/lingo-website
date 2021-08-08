@@ -71,7 +71,10 @@ export default {
     ],
     '@nuxtjs/style-resources',
     'nuxt-user-agent',
-    '@nuxtjs/robots',
+    '@nuxtjs/robots'
+  ],
+
+  buildModules: [
     '@nuxtjs/pwa',
   ],
 
