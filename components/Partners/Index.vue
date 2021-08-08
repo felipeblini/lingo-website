@@ -112,6 +112,7 @@ export default {
         // }))
 
         // this.list = list.sort((a, b) => a.ordem - b.ordem)
+        this.list = data
 
         this.$emit('ready')
       },
