@@ -21,11 +21,9 @@
               :class="{ showBkgImage: showServicesBkgImage }"
             >
               <a
-                :href="
-                  `/?lang=${$store.state.language}&c=${
-                    services.service1[$store.state.language].slug
-                  }`
-                "
+                :href="`/?lang=${$store.state.language}&c=${
+                  services.service1[$store.state.language].slug
+                }`"
                 :title="services.service1[$store.state.language].title"
                 class="service-info"
                 @click="showModal(1, $event)"
@@ -52,11 +50,9 @@
                 :class="{ showBkgImage: showServicesBkgImage }"
               >
                 <a
-                  :href="
-                    `/?lang=${$store.state.language}&c=${
-                      services.service1[$store.state.language].slug
-                    }`
-                  "
+                  :href="`/?lang=${$store.state.language}&c=${
+                    services.service1[$store.state.language].slug
+                  }`"
                   :title="services.service1[$store.state.language].title"
                   class="service-info"
                   @click="showModal(1, $event)"
@@ -80,11 +76,9 @@
                 :class="{ showBkgImage: showServicesBkgImage }"
               >
                 <a
-                  :href="
-                    `/?lang=${$store.state.language}&c=${
-                      services.service2[$store.state.language].slug
-                    }`
-                  "
+                  :href="`/?lang=${$store.state.language}&c=${
+                    services.service2[$store.state.language].slug
+                  }`"
                   :title="services.service2[$store.state.language].title"
                   class="service-info"
                   @click="showModal(2, $event)"
@@ -108,11 +102,9 @@
                 :class="{ showBkgImage: showServicesBkgImage }"
               >
                 <a
-                  :href="
-                    `/?lang=${$store.state.language}&c=${
-                      services.service3[$store.state.language].slug
-                    }`
-                  "
+                  :href="`/?lang=${$store.state.language}&c=${
+                    services.service3[$store.state.language].slug
+                  }`"
                   :title="services.service3[$store.state.language].title"
                   class="service-info"
                   @click="showModal(3, $event)"
@@ -136,11 +128,9 @@
                 :class="{ showBkgImage: showServicesBkgImage }"
               >
                 <a
-                  :href="
-                    `/?lang=${$store.state.language}&c=${
-                      services.service4[$store.state.language].slug
-                    }`
-                  "
+                  :href="`/?lang=${$store.state.language}&c=${
+                    services.service4[$store.state.language].slug
+                  }`"
                   :title="services.service4[$store.state.language].title"
                   class="service-info"
                   @click="showModal(4, $event)"
@@ -164,11 +154,9 @@
                 :class="{ showBkgImage: showServicesBkgImage }"
               >
                 <a
-                  :href="
-                    `/?lang=${$store.state.language}&c=${
-                      services.service5[$store.state.language].slug
-                    }`
-                  "
+                  :href="`/?lang=${$store.state.language}&c=${
+                    services.service5[$store.state.language].slug
+                  }`"
                   :title="services.service5[$store.state.language].title"
                   class="service-info"
                   @click="showModal(5, $event)"
@@ -197,11 +185,9 @@
               :class="{ showBkgImage: showServicesBkgImage }"
             >
               <a
-                :href="
-                  `/?lang=${$store.state.language}&c=${
-                    services.service4[$store.state.language].slug
-                  }`
-                "
+                :href="`/?lang=${$store.state.language}&c=${
+                  services.service4[$store.state.language].slug
+                }`"
                 :title="services.service4[$store.state.language].title"
                 class="service-info"
                 @click="showModal(4, $event)"
@@ -265,11 +251,9 @@
               :class="{ showBkgImage: showServicesBkgImage }"
             >
               <a
-                :href="
-                  `/?lang=${$store.state.language}&c=${
-                    services.service5[$store.state.language].slug
-                  }`
-                "
+                :href="`/?lang=${$store.state.language}&c=${
+                  services.service5[$store.state.language].slug
+                }`"
                 :title="services.service5[$store.state.language].title"
                 class="service-info"
                 @click="showModal(5, $event)"
@@ -337,104 +321,106 @@ export default {
     serverSideTextContent: {
       type: Object,
       default: () => ({ text: '', quotation: '' }),
-      description: 'Initial text content comming from server side rendering'
+      description: 'Initial text content comming from server side rendering',
     },
     serverSideListOfServices: {
       type: Array,
       default: () => [],
-      description: 'Initial list of services comming from server side rendering'
+      description:
+        'Initial list of services comming from server side rendering',
     },
     defaultService: {
       type: Object,
       default: () => {},
-      description: 'Initial service comming from server selected by querystring'
-    }
+      description:
+        'Initial service comming from server selected by querystring',
+    },
   },
 
   data() {
     return {
       title: {
         'pt-BR': 'Nossos Serviços',
-        'en-US': 'Our Services'
+        'en-US': 'Our Services',
       },
       text: {
         'pt-BR': '',
-        'en-US': ''
+        'en-US': '',
       },
       quotation: {
         'pt-BR': '',
-        'en-US': ''
+        'en-US': '',
       },
       services: {
         service1: {
           'pt-BR': {
             id: '',
             title: '',
-            slug: ''
+            slug: '',
           },
           'en-US': {
             id: '',
             title: '',
-            slug: ''
-          }
+            slug: '',
+          },
         },
         service2: {
           'pt-BR': {
             id: '',
             title: '',
-            slug: ''
+            slug: '',
           },
           'en-US': {
             id: '',
             title: '',
-            slug: ''
-          }
+            slug: '',
+          },
         },
         service3: {
           'pt-BR': {
             id: '',
             title: '',
-            slug: ''
+            slug: '',
           },
           'en-US': {
             id: '',
             title: '',
-            slug: ''
-          }
+            slug: '',
+          },
         },
         service4: {
           'pt-BR': {
             id: '',
             title: '',
-            slug: ''
+            slug: '',
           },
           'en-US': {
             id: '',
             title: '',
-            slug: ''
-          }
+            slug: '',
+          },
         },
         service5: {
           'pt-BR': {
             id: '',
             title: '',
-            slug: ''
+            slug: '',
           },
           'en-US': {
             id: '',
             title: '',
-            slug: ''
-          }
-        }
+            slug: '',
+          },
+        },
       },
       clickText: {
         'pt-BR': 'Clique nos boxes para saber mais sobre cada um dos serviços',
-        'en-US': 'Click on the boxes to learn more about each service'
+        'en-US': 'Click on the boxes to learn more about each service',
       },
       arrowPosition: '',
       serviceDescription: '',
       isFetchingDescription: false,
-      showServicesBkgImage: false
+      showServicesBkgImage: false,
     }
   },
 
@@ -455,7 +441,7 @@ export default {
       }
 
       return 600
-    }
+    },
   },
 
   watch: {
@@ -464,31 +450,31 @@ export default {
     },
 
     serverSideTextContent: {
-      handler: function(content) {
+      handler: function (content) {
         this.text[this.$store.state.language] = content.text
         this.quotation[this.$store.state.language] = content.quotation
 
         this.serviceDescription = '<h1>Lingo</h1>' + content.text
       },
-      immediate: true
+      immediate: true,
     },
 
     serverSideListOfServices: {
-      handler: function(list) {
+      handler: function (list) {
         list.forEach((service, i) => {
           try {
             this.services[`service${i + 1}`][this.$store.state.language] = {
               title: service.title.rendered,
               id: service.id,
-              slug: service.slug
+              slug: service.slug,
             }
           } catch (e) {}
         })
         this.$forceUpdate()
         this.$emit('ready')
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
 
   mounted() {
@@ -636,7 +622,7 @@ export default {
             this.services[`service${i + 1}`][lang] = {
               title: service.title.rendered,
               id: service.id,
-              slug: service.slug
+              slug: service.slug,
             }
           } catch (e) {
             console.log({ e })
@@ -645,8 +631,8 @@ export default {
 
         this.$emit('ready')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
