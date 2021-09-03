@@ -198,8 +198,6 @@ export default {
         ? ssrDefaultService.title.rendered + ' | ' + pageTitle
         : pageDescription
 
-    console.log({ssrHeroTitle});
-
     return {
       ssrDefaultTitle,
       ssrDefaultDescription,
