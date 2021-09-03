@@ -162,6 +162,7 @@ export default {
   },
 
   mounted() {
+    console.log({serverSideContent: this.serverSideContent});
     const container = this.$refs['hero-container']
 
     const emitHeroHeight = () => {
